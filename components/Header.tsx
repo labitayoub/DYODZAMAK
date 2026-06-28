@@ -1,100 +1,120 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, MessageCircle, Search, X } from "lucide-react";
-import { navItems, whatsappNumber } from "@/data/site";
+import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
+import { navItems, whatsappNumber } from "@/data/site";
 
 export default function Header() {
   const { lang, t, toggleLang, isRtl } = useLanguage();
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 px-3 pt-3 md:px-6">
-      <div className="glass-panel mx-auto max-w-7xl rounded-full px-4 py-3 shadow-[0_18px_60px_rgba(17,17,17,.08)] md:px-5">
+    <header className="sticky top-0 z-50 px-4 pt-4 md:px-6">
+      <div className="section-surface shell-container rounded-[28px] px-4 py-4 md:px-6">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="shrink-0 leading-none">
-            <span className="block text-xl font-black tracking-tight text-coal md:text-2xl">DYODZAMAK</span>
-            <span className="hidden text-[10px] font-extrabold uppercase tracking-[.26em] text-bronze sm:block">Premium metal</span>
+          <Link href="/" className="flex shrink-0 items-center gap-3">
+            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-[rgba(17,17,17,0.08)] bg-white shadow-[0_10px_24px_rgba(17,17,17,0.08)]">
+              <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="48px" className="object-contain p-1.5" />
+            </div>
+            <div>
+              <span className="block text-[1.1rem] font-semibold tracking-[-0.05em] text-[#111111] md:text-[1.4rem]">DYODZAMAK</span>
+              <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.26em] text-[rgba(17,17,17,0.52)]">Metal atelier</span>
+            </div>
           </Link>
 
-          <nav className="hidden items-center justify-center gap-1 lg:flex">
-            <Link href="/catalogue" className="rounded-full px-4 py-2 text-sm font-extrabold text-coal/72 transition hover:bg-white hover:text-coal">
+          <nav className="hidden items-center gap-6 lg:flex">
+            <Link href="/catalogue" className="premium-link text-sm font-medium text-[rgba(17,17,17,0.7)]">
               {t.nav.catalog}
             </Link>
             {navItems.slice(0, 6).map((item) => (
-              <Link key={item.href} href={item.href} className="rounded-full px-4 py-2 text-sm font-extrabold text-coal/72 transition hover:bg-white hover:text-coal">
+              <Link key={item.href} href={item.href} className="premium-link text-sm font-medium text-[rgba(17,17,17,0.7)]">
                 {t.nav[item.key]}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden min-w-0 flex-1 justify-center md:flex lg:max-w-xs">
-            <Link href="/catalogue" className="flex h-11 w-full items-center gap-3 rounded-full bg-white px-4 text-sm font-bold text-coal/48 shadow-[inset_0_0_0_1px_rgba(17,17,17,.05)] transition hover:text-coal">
-              <Search size={18} className="text-bronze" />
-              <span className="truncate">{t.search}</span>
+          <div className="hidden items-center gap-3 md:flex">
+            <button
+              type="button"
+              onClick={toggleLang}
+              className="rounded-full border border-[rgba(17,17,17,0.1)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-[rgba(17,17,17,0.76)] transition hover:border-[rgba(17,17,17,0.2)] hover:bg-white"
+            >
+              {lang === "fr" ? "AR" : "FR"}
+            </button>
+            <Link href="/devis" className="button-primary">
+              {t.quote}
             </Link>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2">
-            <button onClick={toggleLang} className="hidden h-11 min-w-11 rounded-full bg-white px-4 text-sm font-black text-coal shadow-[inset_0_0_0_1px_rgba(17,17,17,.05)] md:block">
-              {t.language}
-            </button>
-            <a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden h-11 items-center gap-2 rounded-full bg-coal px-5 text-sm font-black text-ivory shadow-[0_14px_34px_rgba(17,17,17,.18)] md:inline-flex"
-            >
-              <MessageCircle size={18} /> {t.whatsapp}
-            </a>
-            <button className="grid h-11 w-11 place-items-center rounded-full bg-white text-coal shadow-[inset_0_0_0_1px_rgba(17,17,17,.06)] lg:hidden" onClick={() => setOpen(true)} aria-label="Menu">
-              <Menu size={22} />
-            </button>
-          </div>
+          <button
+            type="button"
+            className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(17,17,17,0.1)] bg-white/70 text-[#111111] lg:hidden"
+            onClick={() => setOpen((value) => !value)}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-50 bg-coal/30 p-3 backdrop-blur-sm lg:hidden" onClick={() => setOpen(false)}>
-          <aside
-            className={`h-full w-[88vw] max-w-sm rounded-[28px] bg-[#FAF7F2] p-5 shadow-[0_28px_90px_rgba(17,17,17,.24)] ${isRtl ? "mr-auto" : "ml-auto"}`}
+        <div className="fixed inset-0 z-50 bg-black/30 px-4 py-4 backdrop-blur-sm lg:hidden" onClick={() => setOpen(false)}>
+          <div
+            className={`section-surface ml-auto flex h-full w-full max-w-sm flex-col rounded-[28px] p-6 ${isRtl ? "mr-auto ml-0" : ""}`}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="mb-7 flex items-center justify-between">
-              <div>
-                <span className="text-2xl font-black tracking-tight">DYODZAMAK</span>
-                <p className="text-xs font-bold uppercase tracking-[.22em] text-bronze">Premium metal</p>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-[rgba(17,17,17,0.08)] bg-white shadow-[0_10px_24px_rgba(17,17,17,0.08)]">
+                  <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="56px" className="object-contain p-1.5" />
+                </div>
+                <div>
+                  <span className="block text-2xl font-semibold tracking-[-0.05em] text-[#111111]">DYODZAMAK</span>
+                  <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.24em] text-[rgba(17,17,17,0.52)]">Custom metal pieces</span>
+                </div>
               </div>
-              <button onClick={() => setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full bg-white" aria-label="Close menu">
-                <X size={20} />
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(17,17,17,0.08)] bg-white"
+                aria-label="Close menu"
+              >
+                <X size={18} />
               </button>
             </div>
-            <Link onClick={() => setOpen(false)} href="/catalogue" className="mb-4 flex min-h-[52px] items-center gap-3 rounded-full bg-white px-4 py-4 text-sm font-bold text-coal/55">
-              <Search size={18} className="text-bronze" /> {t.search}
-            </Link>
-            <div className="grid gap-2">
-              <MobileLink href="/" onClick={() => setOpen(false)} label={t.nav.home} />
-              <MobileLink href="/catalogue" onClick={() => setOpen(false)} label={t.nav.catalog} />
+
+            <div className="mt-10 grid gap-5">
+              <Link onClick={() => setOpen(false)} href="/" className="text-2xl font-medium tracking-[-0.04em] text-[#111111]">
+                {t.nav.home}
+              </Link>
+              <Link onClick={() => setOpen(false)} href="/catalogue" className="text-2xl font-medium tracking-[-0.04em] text-[#111111]">
+                {t.nav.catalog}
+              </Link>
               {navItems.map((item) => (
-                <MobileLink key={item.href} href={item.href} onClick={() => setOpen(false)} label={t.nav[item.key]} />
+                <Link key={item.href} onClick={() => setOpen(false)} href={item.href} className="text-2xl font-medium tracking-[-0.04em] text-[#111111]">
+                  {t.nav[item.key]}
+                </Link>
               ))}
-              <button onClick={toggleLang} className="mt-2 rounded-full bg-white px-5 py-4 text-start text-sm font-black text-bronze">
+            </div>
+
+            <div className="mt-auto grid gap-3 pt-8">
+              <button
+                type="button"
+                onClick={toggleLang}
+                className="button-secondary w-full"
+              >
                 {lang === "fr" ? "العربية" : "Français"}
               </button>
+              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="button-whatsapp w-full">
+                WhatsApp
+              </a>
             </div>
-          </aside>
+          </div>
         </div>
       ) : null}
     </header>
-  );
-}
-
-function MobileLink({ href, label, onClick }: { href: string; label: string; onClick: () => void }) {
-  return (
-    <Link onClick={onClick} href={href} className="rounded-full px-5 py-4 text-lg font-black text-coal transition hover:bg-white">
-      {label}
-    </Link>
   );
 }

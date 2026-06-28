@@ -6,18 +6,24 @@ export default function SectionTitle({
   eyebrow,
   title,
   text,
+  align = "left",
   dark = false
 }: {
   eyebrow?: string;
   title: string;
   text?: string;
+  align?: "left" | "center";
   dark?: boolean;
 }) {
+  const alignment = align === "center" ? "mx-auto text-center" : "";
+  const tone = dark ? "text-[#f7f3ed]" : "text-[#111111]";
+  const copyTone = dark ? "text-[rgba(247,243,237,0.7)]" : "text-[rgba(17,17,17,0.62)]";
+
   return (
-    <FadeIn className="mx-auto mb-10 max-w-3xl text-center">
-      {eyebrow && <span className="mb-3 inline-flex text-sm font-black uppercase text-bronze">{eyebrow}</span>}
-      <h2 className={`text-3xl font-black leading-tight md:text-5xl ${dark ? "text-ivory" : "text-coal"}`}>{title}</h2>
-      {text && <p className={`mt-4 text-lg leading-8 ${dark ? "text-ivory/65" : "text-coal/62"}`}>{text}</p>}
+    <FadeIn className={`max-w-4xl ${alignment}`}>
+      {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+      <h2 className={`mt-5 text-4xl font-medium leading-[0.94] tracking-[-0.05em] md:text-6xl ${tone}`}>{title}</h2>
+      {text ? <p className={`mt-5 max-w-2xl text-base leading-8 md:text-lg ${copyTone}`}>{text}</p> : null}
     </FadeIn>
   );
 }

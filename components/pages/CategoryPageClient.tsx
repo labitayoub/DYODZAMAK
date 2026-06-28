@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle, MessageCircle } from "lucide-react";
+import Link from "next/link";
 import CatalogClient from "@/components/CatalogClient";
 import ProductGrid from "@/components/ProductGrid";
 import SectionTitle from "@/components/SectionTitle";
+import { PrimaryButton, WhatsAppButton } from "@/components/Buttons";
 import { CategorySlug, categories, productWhatsAppMessage, products } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -18,54 +18,72 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
 
   return (
     <>
-      <section className="market-bg px-4 py-12 md:px-6 md:py-16">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1fr_.82fr]">
-          <div>
-            <span className="inline-flex rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-bronze">{t.price}</span>
-            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[.96] tracking-[-.04em] md:text-7xl">{copy.title}</h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-coal/64">{copy.summary}</p>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {copy.subcategories.map((item) => (
-                <span key={item} className="rounded-full bg-white px-4 py-2 text-sm font-black text-coal/68">
-                  {item}
-                </span>
-              ))}
+      <section className="px-4 pb-10 pt-8 md:px-6 md:pb-16 md:pt-10">
+        <div className="section-frame">
+          <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="section-surface rounded-[34px] p-6 md:p-8 lg:p-10">
+              <span className="eyebrow">{t.price}</span>
+              <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[0.92] tracking-[-0.06em] text-[#111111] md:text-7xl">
+                {copy.title}
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">{copy.summary}</p>
+
+              <div className="mt-8 flex flex-wrap gap-2">
+                {copy.subcategories.map((item) => (
+                  <span key={item} className="rounded-full border border-[rgba(17,17,17,0.08)] px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-[rgba(17,17,17,0.56)]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <PrimaryButton href="/devis">{t.quote}</PrimaryButton>
+                <a href={productWhatsAppMessage(firstProduct, lang)} target="_blank" rel="noreferrer" className="button-whatsapp">
+                  {t.whatsapp}
+                </a>
+              </div>
             </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/devis" className="btn-dark px-6 py-4 text-center text-sm font-black">{t.quote}</Link>
-              <a href={productWhatsAppMessage(firstProduct, lang)} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25d366] px-6 py-4 text-sm font-black text-coal">
-                <MessageCircle size={18} /> {t.whatsapp}
-              </a>
+
+            <div className="relative min-h-[420px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[620px]">
+              <Image src={category.image} alt={copy.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-black/5 to-transparent" />
             </div>
-          </div>
-          <div className="product-stage relative grid min-h-[360px] place-items-center overflow-hidden rounded-[36px] shadow-[0_30px_90px_rgba(17,17,17,.10)] md:min-h-[500px]">
-            <Image src={category.image} alt={copy.title} fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/18 via-transparent to-transparent" />
           </div>
         </div>
       </section>
 
-      <section className="px-4 py-16 md:px-6 md:py-20">
-        <div className="mx-auto max-w-7xl">
-          <SectionTitle title={lang === "fr" ? "Modeles populaires" : "النماذج المطلوبة"} text={copy.summary} />
-          <ProductGrid products={categoryProducts} />
-        </div>
-      </section>
-
-      <section className="soft-band px-4 py-16 md:px-6 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.7fr_1.3fr]">
-          <div>
-            <span className="text-xs font-black uppercase tracking-[.22em] text-bronze">{copy.title}</span>
-            <h2 className="mt-4 text-4xl font-black tracking-[-.03em] md:text-5xl">{lang === "fr" ? "Usages frequents" : "استعمالات شائعة"}</h2>
-            <p className="mt-4 leading-8 text-coal/64">{copy.summary}</p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+      <section className="px-4 py-12 md:px-6 md:py-20">
+        <div className="section-frame grid gap-8 lg:grid-cols-[0.68fr_1.32fr]">
+          <SectionTitle
+            eyebrow="Use cases"
+            title="Built for ceremonies, teams, institutions, and branded moments."
+            text={copy.summary}
+          />
+          <div className="grid gap-3 md:grid-cols-2">
             {copy.useCases.map((item) => (
-              <div key={item} className="premium-card flex items-center gap-4 p-6">
-                <CheckCircle className="text-bronze" />
-                <span className="font-black">{item}</span>
+              <div key={item} className="section-surface rounded-[24px] px-5 py-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">Application</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{item}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 md:px-6 md:py-20">
+        <div className="section-frame">
+          <SectionTitle
+            eyebrow="Selection"
+            title={lang === "fr" ? "Modeles populaires" : "النماذج المطلوبة"}
+            text="A focused set of representative pieces to establish the tone of the collection before exploring the full filtered catalogue."
+          />
+          <div className="mt-10">
+            <ProductGrid products={categoryProducts.slice(0, 4)} compact />
+          </div>
+          <div className="mt-8 flex justify-end">
+            <Link href="/catalogue" className="button-secondary">
+              {t.nav.catalog}
+            </Link>
           </div>
         </div>
       </section>

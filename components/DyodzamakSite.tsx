@@ -14,7 +14,6 @@ import {
   MapPin,
   Medal,
   Menu,
-  MessageCircle,
   Phone,
   Send,
   ShieldCheck,
@@ -22,6 +21,7 @@ import {
   Trophy,
   X
 } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { content, emailDisplay, Lang, phoneDisplay, whatsappNumber } from "@/data/content";
 
 const iconMap = [Medal, Trophy, Crown, BadgeCheck, Gem, Sparkles];
@@ -104,7 +104,7 @@ export default function DyodzamakSite() {
             {t.language}
           </button>
           <a className="whatsappSmall" href={whatsappBase} target="_blank" rel="noreferrer" aria-label={t.whatsapp}>
-            <MessageCircle size={18} />
+            <WhatsAppIcon size={18} />
           </a>
           <button className="menuButton" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Menu">
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -127,7 +127,7 @@ export default function DyodzamakSite() {
                 {t.quote}
               </a>
               <a className="button ghost" href={whatsappBase} target="_blank" rel="noreferrer">
-                <MessageCircle size={18} />
+                <WhatsAppIcon size={18} />
                 {t.whatsapp}
               </a>
             </div>
@@ -265,7 +265,7 @@ export default function DyodzamakSite() {
             <textarea required placeholder={t.form.placeholderDetails} value={form.details} onChange={(e) => setField("details", e.target.value)} />
             <textarea placeholder={t.form.placeholderMessage} value={form.message} onChange={(e) => setField("message", e.target.value)} />
             <button className="button primary" type="submit">
-              <MessageCircle size={18} />
+              <WhatsAppIcon size={18} />
               {t.form.button}
             </button>
           </form>
@@ -280,7 +280,7 @@ export default function DyodzamakSite() {
             <p>{t.contact.subtitle}</p>
           </div>
           <div className="contactCards reveal">
-            <a href={whatsappBase} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp</a>
+            <a href={whatsappBase} target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp</a>
             <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`}><Phone /> {phoneDisplay}</a>
             <a href={`mailto:${emailDisplay}`}><Mail /> {emailDisplay}</a>
             <span><MapPin /> {t.contact.city}</span>
@@ -298,7 +298,7 @@ export default function DyodzamakSite() {
       </footer>
 
       <a className="stickyWhatsapp" href={whatsappBase} target="_blank" rel="noreferrer" aria-label={t.whatsapp}>
-        <MessageCircle size={24} />
+        <WhatsAppIcon size={24} />
       </a>
     </main>
   );
