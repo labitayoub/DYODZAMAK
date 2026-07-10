@@ -3,7 +3,7 @@ import { CatalogPageClient } from "@/components/pages/SimplePageClients";
 
 export const metadata: Metadata = {
   title: "Catalogue",
-  description: "Catalogue DYODZAMAK: médailles, trophées, trophées 3D, plaques, pins, badges et créations métalliques. Prix sur devis."
+  description: "Catalogue DYODZAMAK: medailles, trophees, trophees 3D, plaques, pins, badges et creations metalliques. Prix sur devis."
 };
 
 export default function CataloguePage() {

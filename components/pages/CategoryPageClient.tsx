@@ -5,7 +5,7 @@ import Link from "next/link";
 import CatalogClient from "@/components/CatalogClient";
 import ProductGrid from "@/components/ProductGrid";
 import SectionTitle from "@/components/SectionTitle";
-import { PrimaryButton, WhatsAppButton } from "@/components/Buttons";
+import { PrimaryButton } from "@/components/Buttons";
 import { CategorySlug, categories, productWhatsAppMessage, products } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -55,8 +55,8 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame grid gap-8 lg:grid-cols-[0.68fr_1.32fr]">
           <SectionTitle
-            eyebrow="Use cases"
-            title="Built for ceremonies, teams, institutions, and branded moments."
+            eyebrow="Applications"
+            title="Des usages concrets pour les entreprises, institutions, equipes et evenements."
             text={copy.summary}
           />
           <div className="grid gap-3 md:grid-cols-2">
@@ -75,10 +75,10 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
           <SectionTitle
             eyebrow="Selection"
             title={lang === "fr" ? "Modeles populaires" : "النماذج المطلوبة"}
-            text="A focused set of representative pieces to establish the tone of the collection before exploring the full filtered catalogue."
+            text="Une selection de references pour visualiser rapidement le niveau de finition, le style et le type de personnalisation disponibles."
           />
           <div className="mt-10">
-            <ProductGrid products={categoryProducts.slice(0, 4)} compact />
+            <ProductGrid products={categoryProducts.slice(0, 6)} compact />
           </div>
           <div className="mt-8 flex justify-end">
             <Link href="/catalogue" className="button-secondary">

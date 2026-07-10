@@ -40,6 +40,7 @@ export const ui = {
     nav: {
       home: "Accueil",
       catalog: "Catalogue",
+      products: "Produits",
       medals: "Medailles",
       trophies: "Trophees",
       trophies3d: "Trophees 3D",
@@ -95,15 +96,15 @@ export const ui = {
       trust: "Pourquoi les clients demandent un devis",
       finalTitle: "Votre modele peut etre prepare aujourd'hui"
     },
-    trust: ["Maquette avant production", "Finitions bronze, or, argent et noir", "Livraison partout au Maroc", "Commande via WhatsApp"],
+    trust: ["Maquette avant production", "Finitions bronze, doree, argentee et noir metal", "Livraison partout au Maroc", "Commande via WhatsApp"],
     steps: ["Choisir un produit", "Envoyer logo, texte et quantite", "Recevoir le devis", "Valider la maquette", "Production et livraison"],
     pages: {
-      catalog: ["Catalogue DYODZAMAK", "Parcourez les modeles avec une experience claire: filtres, finitions, usages et devis rapide."],
-      customization: ["Personnalisation", "Logos, textes, dates, formes, quantites et finitions: chaque piece est preparee selon votre besoin."],
-      gallery: ["Realisations", "Inspirations de medailles, trophees, plaques, pins, porte-cles et produits metalliques."],
-      quote: ["Demande de devis", "Remplissez les details essentiels et envoyez une demande WhatsApp pre-remplie."],
-      about: ["A propos de DYODZAMAK", "Un atelier catalogue specialise dans les recompenses et produits metalliques personnalises au Maroc."],
-      contact: ["Contact", "WhatsApp reste le canal le plus rapide pour une demande de prix, une maquette ou un suivi."]
+      catalog: ["Catalogue DYODZAMAK", "Parcourez les modeles avec une presentation plus claire, des filtres utiles et un acces rapide au devis."],
+      customization: ["Personnalisation", "Logos, textes, dates, formes, quantites et finitions: chaque piece est preparee selon votre besoin reel."],
+      gallery: ["Realisations", "Decouvrez une selection de medailles, trophees, plaques, pins et porte-cles metalliques personnalises."],
+      quote: ["Demande de devis", "Renseignez les details essentiels pour recevoir une reponse plus rapide et mieux cadree."],
+      about: ["A propos de DYODZAMAK", "Un atelier specialise dans les recompenses, plaques et creations metalliques personnalisees au Maroc."],
+      contact: ["Contact", "WhatsApp reste le canal le plus rapide pour demander un prix, envoyer un logo ou suivre un projet."]
     },
     form: {
       name: "Nom complet",
@@ -124,6 +125,7 @@ export const ui = {
     nav: {
       home: "الرئيسية",
       catalog: "الكتالوج",
+      products: "المنتجات",
       medals: "ميداليات",
       trophies: "كؤوس",
       trophies3d: "كؤوس 3D",
@@ -240,10 +242,10 @@ export const categories: Record<
     icon: "trophy",
     image: img.trophy,
     fr: {
-      title: "Trophees classiques",
-      summary: "Trophees pour remises de prix, challenges sportifs, entreprises et institutions.",
-      subcategories: ["Classic", "Corporate", "Sport", "Bois et metal"],
-      useCases: ["Awards", "Competitions", "Challenges", "Reconnaissance"]
+      title: "Trophees metalliques sur mesure",
+      summary: "Trophees metalliques personnalises pour remises de prix, competitions, entreprises et institutions.",
+      subcategories: ["Classique", "Entreprise", "Sport", "Premium"],
+      useCases: ["Remises de prix", "Competitions", "Challenges", "Reconnaissance"]
     },
     ar: {
       title: "كؤوس كلاسيكية",
@@ -258,8 +260,8 @@ export const categories: Record<
     icon: "box",
     image: img.trophy2,
     fr: {
-      title: "Trophees 3D",
-      summary: "Pieces sur mesure avec logo en volume, formes speciales et rendu premium.",
+      title: "Trophees 3D personnalises",
+      summary: "Pieces sur mesure avec logo en volume, formes speciales et rendu premium pour marques et evenements.",
       subcategories: ["Logo 3D", "Forme speciale", "Entreprise", "Evenement"],
       useCases: ["Lancement", "Gala", "Marque", "Distinction"]
     },
@@ -294,10 +296,10 @@ export const categories: Record<
     icon: "badge",
     image: img.pinCancer,
     fr: {
-      title: "Pins & badges",
-      summary: "Pins metalliques, badges de marque, logos et accessoires personnalisables.",
+      title: "Pins & badges metalliques",
+      summary: "Pins metalliques et badges personnalises pour marques, associations, administrations et evenements.",
       subcategories: ["Pins", "Badges", "Logo metal", "Evenement"],
-      useCases: ["Branding", "Association", "Uniforme", "Salon"]
+      useCases: ["Marque", "Association", "Uniforme", "Salon"]
     },
     ar: {
       title: "دبابيس وشارات",
@@ -312,8 +314,8 @@ export const categories: Record<
     icon: "key",
     image: img.keyCar,
     fr: {
-      title: "Porte-cles personnalises",
-      summary: "Porte-cles metalliques, logos de marque, formes speciales et accessoires premium pour entreprises, clubs et evenements.",
+      title: "Porte-cles metalliques personnalises",
+      summary: "Porte-cles metalliques personnalises pour entreprises, marques, clubs et evenements promotionnels.",
       subcategories: ["Logo metal", "Automobile", "Souvenir", "Corporate"],
       useCases: ["Cadeaux clients", "Concessions", "Clubs", "Evenements"]
     },
@@ -380,7 +382,7 @@ export const products: Product[] = [
     customizable: true,
     is3d: false,
     featured: true,
-    fr: { name: "Trophee corporate metal et socle", specs: ["Plaque gravee", "Socle stable", "Hauteur au choix"], description: "Trophee sobre pour awards, challenges internes et partenaires." },
+    fr: { name: "Trophee corporate metal et socle", specs: ["Plaque gravee", "Socle stable", "Hauteur au choix"], description: "Trophee metallique professionnel pour remises de prix, challenges internes et partenaires." },
     ar: { name: "كأس شركات معدن وقاعدة", specs: ["لوحة منقوشة", "قاعدة ثابتة", "ارتفاع حسب الطلب"], description: "كأس أنيق للجوائز والتحديات الداخلية والشركاء." }
   },
   {
@@ -392,7 +394,7 @@ export const products: Product[] = [
     usage: ["sport", "association", "school"],
     customizable: true,
     is3d: false,
-    fr: { name: "Coupe sportive classique", specs: ["Coupe metal", "Socle noir", "Etiquette gravee"], description: "Reference efficace pour clubs, championnats et tournois." },
+    fr: { name: "Coupe sportive classique", specs: ["Coupe metal", "Socle noir", "Etiquette gravee"], description: "Reference fiable pour clubs, championnats, tournois et ceremonies sportives." },
     ar: { name: "كأس رياضي كلاسيكي", specs: ["كأس معدني", "قاعدة سوداء", "بطاقة منقوشة"], description: "اختيار عملي للأندية والبطولات والدوريات." }
   },
   {
@@ -457,7 +459,7 @@ export const products: Product[] = [
     customizable: true,
     is3d: false,
     newest: true,
-    fr: { name: "Pin emaille sensibilisation", specs: ["Forme speciale", "Email colore", "Attache securisee"], description: "Pin premium pour campagnes, associations et evenements." },
+    fr: { name: "Pin emaille de sensibilisation", specs: ["Forme speciale", "Email colore", "Attache securisee"], description: "Pin metallique premium pour campagnes, associations, institutions et evenements." },
     ar: { name: "دبوس توعوي بالمينا", specs: ["شكل خاص", "ألوان مينا", "تثبيت آمن"], description: "دبوس راق للحملات والجمعيات والمناسبات." }
   },
   {
@@ -469,7 +471,7 @@ export const products: Product[] = [
     usage: ["event", "school", "association"],
     customizable: true,
     is3d: false,
-    fr: { name: "Pin carte du Maroc emaille", specs: ["Forme Maroc", "Drapeau emaille", "Finition doree"], description: "Badge identitaire pour evenements, associations et cadeaux officiels." },
+    fr: { name: "Pin carte du Maroc emaille", specs: ["Forme Maroc", "Drapeau emaille", "Finition doree"], description: "Pin identitaire pour evenements, associations, cadeaux officiels et communication de marque." },
     ar: { name: "دبوس خريطة المغرب", specs: ["شكل المغرب", "علم بالمينا", "تشطيب ذهبي"], description: "شارة هوية للمناسبات والجمعيات والهدايا الرسمية." }
   },
   {
@@ -483,7 +485,7 @@ export const products: Product[] = [
     is3d: false,
     featured: true,
     newest: true,
-    fr: { name: "Porte-cles logo automobile", specs: ["Logo metal", "Anneau premium", "Finition brillante"], description: "Porte-cles elegant pour concessions, marques automobiles et cadeaux clients." },
+    fr: { name: "Porte-cles logo automobile", specs: ["Logo metal", "Anneau premium", "Finition brillante"], description: "Porte-cles metallique elegant pour concessions, marques automobiles et cadeaux clients." },
     ar: { name: "حامل مفاتيح شعار سيارات", specs: ["شعار معدني", "حلقة راقية", "تشطيب لامع"], description: "حامل مفاتيح أنيق لوكالات السيارات والعلامات والهدايا." }
   },
   {
@@ -496,7 +498,7 @@ export const products: Product[] = [
     customizable: true,
     is3d: false,
     premium: true,
-    fr: { name: "Porte-cles metal personnalise", specs: ["Forme au choix", "Logo grave", "Packaging possible"], description: "Accessoire premium pour cadeaux d'entreprise, clubs et campagnes de marque." },
+    fr: { name: "Porte-cles metal personnalise", specs: ["Forme au choix", "Logo grave", "Packaging possible"], description: "Accessoire metallique premium pour cadeaux d'entreprise, clubs et campagnes de marque." },
     ar: { name: "حامل مفاتيح معدني مخصص", specs: ["شكل حسب الطلب", "شعار منقوش", "تغليف اختياري"], description: "إكسسوار راق لهدايا الشركات والنوادي والحملات." }
   },
   {

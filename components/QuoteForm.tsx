@@ -2,8 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { WhatsAppIcon } from "@/components/icons/BrandIcons";
-import { categories, categoryRoutes, whatsappNumber } from "@/data/site";
+import { whatsappNumber } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
+import { productCategories } from "@/data/product-categories";
 
 export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   const { lang, t } = useLanguage();
@@ -55,9 +56,9 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
 
       <select className="field" required value={form.product} onChange={(e) => field("product", e.target.value)}>
         <option value="">{t.form.product}</option>
-        {categoryRoutes.map((slug) => (
-          <option key={slug} value={categories[slug][lang].title}>
-            {categories[slug][lang].title}
+        {productCategories.map((category) => (
+          <option key={category.slug} value={category.navLabel[lang]}>
+            {category.navLabel[lang]}
           </option>
         ))}
       </select>

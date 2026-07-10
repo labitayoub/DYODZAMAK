@@ -1,21 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
-import { categories, categoryRoutes, emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
+import { emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
+import { productCategories } from "@/data/product-categories";
 
 export default function Footer() {
   const { lang, t } = useLanguage();
 
   return (
     <footer className="px-4 pb-6 pt-16 md:px-6 md:pb-8 md:pt-24">
-      <div className="section-dark section-frame overflow-hidden rounded-[40px] border border-white/10 px-6 py-10 md:px-10 md:py-14">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_.8fr_.8fr]">
+      <div className="section-dark section-frame overflow-hidden rounded-[42px] border border-white/10 px-6 py-10 md:px-10 md:py-14">
+        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr_0.9fr]">
           <div>
             <span className="eyebrow">DYODZAMAK</span>
             <h2 className="mt-6 max-w-xl text-4xl font-medium tracking-[-0.05em] text-[#f7f3ed] md:text-6xl">
-              Premium metal pieces designed for institutions, brands, and events.
+              Des pieces de reconnaissance concues pour marquer durablement l&apos;esprit.
             </h2>
             <p className="mt-5 max-w-lg text-base leading-8 text-[rgba(247,243,237,0.68)]">{t.footer}</p>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -27,22 +28,20 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{t.nav.catalog}</p>
-              <div className="mt-5 grid gap-3">
-                {categoryRoutes.map((slug) => (
-                  <Link key={slug} href={categories[slug].href} className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
-                    {categories[slug][lang].title}
-                  </Link>
-                ))}
-              </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{t.nav.products ?? "Produits"}</p>
+            <div className="mt-5 grid gap-3">
+              {productCategories.map((category) => (
+                <Link key={category.slug} href={category.href} className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
+                  {category.navLabel[lang]}
+                </Link>
+              ))}
             </div>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">Studio</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">Navigation</p>
               <div className="mt-5 grid gap-3">
                 <Link href="/a-propos" className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
                   {t.nav.about}
@@ -63,7 +62,7 @@ export default function Footer() {
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{t.nav.contact}</p>
               <div className="mt-5 grid gap-4 text-sm font-medium text-[rgba(247,243,237,0.78)]">
                 <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="flex items-center gap-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><Phone size={16} /></span>
+                  <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><MessageCircle size={16} /></span>
                   WhatsApp
                 </a>
                 <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="flex items-center gap-3">

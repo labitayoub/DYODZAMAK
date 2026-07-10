@@ -3,7 +3,7 @@ import HomeClient from "@/components/pages/HomeClient";
 
 export const metadata: Metadata = {
   title: "Accueil",
-  description: "DYODZAMAK crée des médailles, trophées et créations métalliques personnalisées au Maroc. Prix sur devis."
+  description: "DYODZAMAK cree des medailles, trophees et creations metalliques personnalisees au Maroc. Prix sur devis."
 };
 
 export default function Home() {

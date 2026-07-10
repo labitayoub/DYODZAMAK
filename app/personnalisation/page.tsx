@@ -3,7 +3,7 @@ import { CustomizationPageClient } from "@/components/pages/SimplePageClients";
 
 export const metadata: Metadata = {
   title: "Personnalisation",
-  description: "Options de personnalisation DYODZAMAK: logo, nom, texte, date, événement, forme, taille, quantité et finitions métal."
+  description: "Options de personnalisation DYODZAMAK: logo, nom, texte, date, evenement, forme, taille, quantite et finitions metal."
 };
 
 export default function PersonnalisationPage() {

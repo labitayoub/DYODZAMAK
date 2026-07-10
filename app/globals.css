@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f4efe7;
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-strong: rgba(255, 255, 255, 0.92);
-  --surface-dark: #111111;
-  --line: rgba(17, 17, 17, 0.08);
-  --line-strong: rgba(17, 17, 17, 0.14);
-  --text: #121212;
-  --muted: rgba(18, 18, 18, 0.62);
-  --muted-strong: rgba(18, 18, 18, 0.78);
-  --accent: #a66b2c;
-  --accent-soft: rgba(166, 107, 44, 0.1);
-  --gold: #c99e63;
-  --shadow-soft: 0 20px 60px rgba(15, 15, 15, 0.06);
-  --shadow-medium: 0 28px 90px rgba(15, 15, 15, 0.12);
+  --bg: #efe7dc;
+  --surface: rgba(255, 252, 247, 0.76);
+  --surface-strong: rgba(255, 253, 249, 0.94);
+  --surface-dark: #171513;
+  --line: rgba(33, 26, 21, 0.08);
+  --line-strong: rgba(33, 26, 21, 0.16);
+  --text: #171513;
+  --muted: rgba(23, 21, 19, 0.62);
+  --muted-strong: rgba(23, 21, 19, 0.82);
+  --accent: #9f6a34;
+  --accent-soft: rgba(159, 106, 52, 0.1);
+  --gold: #c9a16e;
+  --shadow-soft: 0 24px 70px rgba(20, 14, 10, 0.06);
+  --shadow-medium: 0 36px 100px rgba(20, 14, 10, 0.12);
   --radius-sm: 18px;
   --radius-md: 28px;
   --radius-lg: 40px;
@@ -34,12 +34,13 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at top left, rgba(201, 158, 99, 0.12), transparent 30rem),
-    linear-gradient(180deg, #f7f2eb 0%, #f4efe7 32%, #f8f5ef 100%);
+    radial-gradient(circle at top left, rgba(201, 161, 110, 0.14), transparent 28rem),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.55), transparent 34rem),
+    linear-gradient(180deg, #f7f1e8 0%, #efe7dc 40%, #f6f1e8 100%);
   color: var(--text);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Display", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 body,
@@ -47,7 +48,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Display", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 button,
@@ -73,11 +74,11 @@ a {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.36;
+  opacity: 0.24;
   background-image:
-    linear-gradient(rgba(17, 17, 17, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 17, 0.025) 1px, transparent 1px);
-  background-size: 100% 96px, 96px 100%;
+    linear-gradient(rgba(17, 17, 17, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.02) 1px, transparent 1px);
+  background-size: 100% 112px, 112px 100%;
   mask-image: linear-gradient(180deg, transparent, black 10%, black 90%, transparent);
 }
 
@@ -98,9 +99,9 @@ a {
   align-items: center;
   gap: 0.65rem;
   color: var(--muted-strong);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -113,9 +114,11 @@ a {
 
 .section-surface {
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.58));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(252, 248, 243, 0.74)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent 55%);
   box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(22px);
 }
 
 .section-dark {
@@ -148,8 +151,9 @@ a {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
+    radial-gradient(circle at top right, rgba(201, 161, 110, 0.24), transparent 22rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%),
-    linear-gradient(180deg, rgba(12, 12, 12, 0.82), rgba(12, 12, 12, 0.96));
+    linear-gradient(180deg, rgba(18, 16, 14, 0.84), rgba(18, 16, 14, 0.97));
   box-shadow: var(--shadow-medium);
   color: #f7f3ed;
 }
@@ -191,11 +195,11 @@ a {
 
 .field {
   width: 100%;
-  min-height: 56px;
+  min-height: 58px;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.84);
-  padding: 15px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 16px 18px;
   color: var(--text);
   font-size: 0.96rem;
   font-weight: 500;
@@ -216,18 +220,18 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
-  min-height: 52px;
-  padding: 0 1.25rem;
+  min-height: 54px;
+  padding: 0 1.35rem;
   border-radius: 999px;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 700;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .button-primary {
-  background: var(--surface-dark);
+  background: linear-gradient(180deg, #201d1a, #141210);
   color: #f6f2eb;
-  box-shadow: 0 16px 40px rgba(17, 17, 17, 0.16);
+  box-shadow: 0 18px 44px rgba(17, 17, 17, 0.18);
 }
 
 .button-primary:hover,
@@ -238,7 +242,7 @@ a {
 
 .button-secondary {
   border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.78);
   color: var(--text);
 }
 
@@ -252,15 +256,32 @@ a {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(251, 247, 241, 0.78)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 50%);
   box-shadow: var(--shadow-soft);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(166, 107, 44, 0.2);
-  box-shadow: 0 34px 70px rgba(17, 17, 17, 0.12);
+  transform: translateY(-8px);
+  border-color: rgba(159, 106, 52, 0.24);
+  box-shadow: 0 40px 80px rgba(17, 17, 17, 0.12);
+}
+
+.glass-nav {
+  border: 1px solid rgba(33, 26, 21, 0.08);
+  background: rgba(255, 252, 247, 0.74);
+  box-shadow: 0 18px 44px rgba(22, 16, 12, 0.08);
+  backdrop-filter: blur(24px);
+}
+
+.soft-panel {
+  border: 1px solid rgba(33, 26, 21, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(201, 161, 110, 0.12), transparent 18rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(250, 245, 239, 0.76));
+  box-shadow: var(--shadow-soft);
 }
 
 .line-clamp-2 {

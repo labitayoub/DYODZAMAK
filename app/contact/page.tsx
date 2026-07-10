@@ -3,7 +3,7 @@ import { ContactPageClient } from "@/components/pages/SimplePageClients";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contactez DYODZAMAK par WhatsApp, téléphone ou email pour demander un devis de médailles, trophées, plaques, pins ou badges."
+  description: "Contactez DYODZAMAK par WhatsApp, telephone ou email pour demander un devis de medailles, trophees, plaques, pins ou badges."
 };
 
 export default function ContactPage() {

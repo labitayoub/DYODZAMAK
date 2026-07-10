@@ -47,7 +47,7 @@ export default function ProductCard({ product, compact = false }: { product: Pro
           </div>
 
           <p className="mt-4 line-clamp-3 text-sm leading-7 text-[rgba(17,17,17,0.64)]">
-            {compact ? copy.specs.join(" · ") : copy.description}
+            {compact ? copy.specs.join(" - ") : copy.description}
           </p>
 
           <div className="mt-5 flex flex-wrap gap-2">

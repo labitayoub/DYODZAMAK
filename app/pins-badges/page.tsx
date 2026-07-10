@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import CategoryPageClient from "@/components/pages/CategoryPageClient";
 
 export const metadata: Metadata = {
-  title: "Pins et badges métalliques",
-  description: "Pins métalliques, badges personnalisés, logos en métal et finitions bronze, dorée ou argentée. Prix sur devis."
+  title: "Pins et badges metalliques",
+  description: "Pins metalliques, badges personnalises, logos en metal et finitions bronze, doree ou argentee. Prix sur devis."
 };
 
 export default function PinsBadgesPage() {
