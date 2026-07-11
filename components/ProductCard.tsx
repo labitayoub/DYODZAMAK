@@ -73,28 +73,28 @@ export default function ProductCard({ product, compact = false }: { product: Pro
         <div className="flex flex-1 flex-col px-2 pb-3 pt-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{t.price}</p>
-              <h3 className="mt-2 line-clamp-2 text-[1.24rem] font-medium leading-[1.02] tracking-[-0.04em] text-[#111111] md:text-[1.38rem]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/70">{t.price}</p>
+              <h3 className="mt-2 line-clamp-2 text-[1.24rem] font-medium leading-[1.02] tracking-[-0.04em] text-[#f7f3ed] md:text-[1.38rem]">
                 {copy.name}
               </h3>
             </div>
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[rgba(17,17,17,0.08)] bg-white/72 text-[#111111] transition duration-300 group-hover:border-[rgba(17,17,17,0.18)] group-hover:bg-[#111111] group-hover:text-[#f7f3ed]"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition duration-300 group-hover:border-white/30 group-hover:bg-white group-hover:text-[#07111a]"
               aria-label={t.quickView}
             >
               <ArrowUpRight size={17} />
             </button>
           </div>
 
-          <p className="mt-4 line-clamp-3 text-sm leading-7 text-[rgba(17,17,17,0.64)]">
+          <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/70">
             {compact ? copy.specs.join(" - ") : copy.description}
           </p>
 
           <div className="mt-5 flex flex-wrap gap-2">
             {product.finishes.slice(0, 3).map((finish) => (
-              <span key={finish} className="rounded-full border border-[rgba(17,17,17,0.08)] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[rgba(17,17,17,0.56)]">
+              <span key={finish} className="rounded-full border border-white/10 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-white/60 bg-white/5">
                 {t.finishes[finish]}
               </span>
             ))}
@@ -114,8 +114,8 @@ export default function ProductCard({ product, compact = false }: { product: Pro
           >
             <div className="flex items-center justify-between gap-4 pb-4">
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{product.badge}</span>
-                <h2 className="mt-2 text-3xl font-medium tracking-[-0.05em] text-[#111111] md:text-5xl">{copy.name}</h2>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/70">{product.badge}</span>
+                <h2 className="mt-2 text-3xl font-medium tracking-[-0.05em] text-white md:text-5xl">{copy.name}</h2>
               </div>
               <button
                 ref={modalCloseRef}
@@ -134,12 +134,12 @@ export default function ProductCard({ product, compact = false }: { product: Pro
               </div>
 
               <div className="flex flex-col justify-center py-2">
-                <p className="text-sm font-medium uppercase tracking-[0.2em] text-[rgba(17,17,17,0.45)]">{t.price}</p>
-                <p className="mt-4 text-base leading-8 text-[rgba(17,17,17,0.66)]">{copy.description}</p>
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#e5bd77]/70">{t.price}</p>
+                <p className="mt-4 text-base leading-8 text-white/70">{copy.description}</p>
 
                 <div className="mt-8 grid gap-3">
                   {copy.specs.map((spec) => (
-                    <div key={spec} className="rounded-[18px] border border-[rgba(17,17,17,0.08)] bg-white/72 px-4 py-4 text-sm font-medium text-[rgba(17,17,17,0.76)]">
+                    <div key={spec} className="rounded-[18px] border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/80">
                       {spec}
                     </div>
                   ))}
@@ -147,7 +147,7 @@ export default function ProductCard({ product, compact = false }: { product: Pro
 
                 <div className="mt-8 flex flex-wrap gap-2">
                   {product.finishes.map((finish) => (
-                    <span key={finish} className="rounded-full bg-[rgba(166,107,44,0.08)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(17,17,17,0.72)]">
+                    <span key={finish} className="rounded-full bg-[#e5bd77]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#e5bd77]">
                       {t.finishes[finish]}
                     </span>
                   ))}

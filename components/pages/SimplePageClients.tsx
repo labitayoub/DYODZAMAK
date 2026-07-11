@@ -82,7 +82,7 @@ const simpleCopy = {
   }
 } as const;
 
-function PageIntro({ title, text }: { title: string; text: string }) {
+function PageIntro({ title, text, videoSrc }: { title: string; text: string; videoSrc?: string }) {
   const { lang } = useLanguage();
   const heroProduct = products[0];
 
@@ -92,15 +92,28 @@ function PageIntro({ title, text }: { title: string; text: string }) {
         <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="section-surface rounded-[34px] p-6 md:p-8 lg:p-10">
             <span className="eyebrow">DYODZAMAK</span>
-            <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-7xl">
+            <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-white md:text-7xl">
               {title}
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">{text}</p>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 md:text-lg">{text}</p>
           </div>
 
-          <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[520px] bg-[#fcfbf9]/60 p-8">
-            <Image src={heroProduct.image} alt={heroProduct[lang].name} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain p-4" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-black/6 to-transparent" />
+          <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)] md:min-h-[520px] bg-black/10">
+            {videoSrc ? (
+              <video
+                src={videoSrc}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : (
+              <>
+                <Image src={heroProduct.image} alt={heroProduct[lang].name} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain p-4" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-black/6 to-transparent" />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -113,7 +126,7 @@ export function CatalogPageClient() {
 
   return (
     <>
-      <PageIntro title={t.pages.catalog[0]} text={t.pages.catalog[1]} />
+      <PageIntro title={t.pages.catalog[0]} text={t.pages.catalog[1]} videoSrc="/images/categorie.mp4" />
       <CatalogClient />
     </>
   );
@@ -137,7 +150,7 @@ export function CustomizationPageClient() {
           <div className="grid gap-3 md:grid-cols-2">
             {copy.customizationOptions.map((item) => (
               <div key={item} className="section-surface rounded-[24px] px-5 py-6">
-                <p className="text-xl font-medium tracking-[-0.04em] text-[#111111]">{item}</p>
+                <p className="text-xl font-medium tracking-[-0.04em] text-white">{item}</p>
               </div>
             ))}
           </div>
@@ -203,7 +216,7 @@ export function QuotePageClient() {
             <SectionTitle eyebrow={copy.quoteEyebrow} title={copy.quoteTitle} text={t.pages.quote[1]} />
             <div className="mt-8 grid gap-3">
               {t.trust.map((item) => (
-                <div key={item} className="rounded-[20px] border border-[rgba(17,17,17,0.08)] bg-white/68 px-4 py-4 text-sm font-medium text-[rgba(17,17,17,0.72)]">
+                <div key={item} className="rounded-[20px] border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/70">
                   {item}
                 </div>
               ))}
@@ -231,8 +244,8 @@ export function AboutPageClient() {
           <div className="grid gap-3 md:grid-cols-2">
             {statements.map((item) => (
               <div key={item} className="section-surface rounded-[24px] px-5 py-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">Repere</p>
-                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{item}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">Repere</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{item}</p>
               </div>
             ))}
           </div>
@@ -242,7 +255,7 @@ export function AboutPageClient() {
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
               <span className="eyebrow">{copy.aboutSuite}</span>
-              <h2 className="mt-5 max-w-3xl text-4xl font-medium tracking-[-0.05em] text-[#111111] md:text-5xl">
+              <h2 className="mt-5 max-w-3xl text-4xl font-medium tracking-[-0.05em] text-white md:text-5xl">
                 {copy.aboutNext}
               </h2>
             </div>
@@ -268,20 +281,20 @@ export function ContactPageClient() {
         <div className="section-frame grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="grid gap-3">
             <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactWhatsApp}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{copy.contactWhatsApp}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactWhatsApp}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactWhatsApp}</p>
             </a>
             <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactPhone}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{phoneDisplay}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactPhone}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{phoneDisplay}</p>
             </a>
             <a href={`mailto:${emailDisplay}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactEmail}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{emailDisplay}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactEmail}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{emailDisplay}</p>
             </a>
             <div className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactLocation}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{copy.contactCity}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactLocation}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactCity}</p>
             </div>
           </div>
 

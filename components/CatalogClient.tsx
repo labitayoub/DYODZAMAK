@@ -46,8 +46,8 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
         <div className="grid gap-8 lg:grid-cols-[0.32fr_0.68fr]">
           <aside className="section-surface hidden h-fit rounded-[30px] p-6 lg:block">
             <span className="eyebrow">{t.filters}</span>
-            <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-[#111111]">{filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}</h2>
-            <p className="mt-3 text-sm leading-7 text-[rgba(17,17,17,0.62)]">
+            <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-white">{filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}</h2>
+            <p className="mt-3 text-sm leading-7 text-white/60">
               {visible.length} {t.results}
             </p>
 
@@ -102,7 +102,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
                 <span className="eyebrow">{t.nav.catalog}</span>
-                <h2 className="mt-5 text-4xl font-medium tracking-[-0.02em] text-[#111111] md:text-5xl">
+                <h2 className="mt-5 text-4xl font-medium tracking-[-0.02em] text-white md:text-5xl">
                   {filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}
                 </h2>
               </div>
@@ -174,7 +174,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{title}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">{title}</p>
       <div className="mt-3 flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -187,8 +187,8 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       onClick={onClick}
       className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
         active
-          ? "border-[#111111] bg-[#111111] text-[#f7f3ed]"
-          : "border-[rgba(17,17,17,0.08)] bg-white/70 text-[rgba(17,17,17,0.68)] hover:border-[rgba(17,17,17,0.18)] hover:bg-white"
+          ? "border-[#e5bd77] bg-[#e5bd77] text-[#07111a]"
+          : "border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:bg-white/10"
       }`}
     >
       {children}

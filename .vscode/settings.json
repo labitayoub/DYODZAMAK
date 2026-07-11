@@ -1,0 +1,13 @@
+{
+  "css.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  "css.lint.vendorPrefix": "ignore",
+  "tailwindCSS.includeLanguages": {
+    "css": "tailwindcss",
+    "scss": "tailwindcss",
+    "less": "tailwindcss"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
+}

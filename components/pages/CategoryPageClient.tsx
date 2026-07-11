@@ -49,14 +49,14 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
           <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="section-surface rounded-[34px] p-6 md:p-8 lg:p-10">
               <span className="eyebrow">{t.price}</span>
-              <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-7xl">
+              <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-white md:text-7xl">
                 {categoryCopy.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">{categoryCopy.summary}</p>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 md:text-lg">{categoryCopy.summary}</p>
 
               <div className="mt-8 flex flex-wrap gap-2">
                 {categoryCopy.subcategories.map((item) => (
-                  <span key={item} className="rounded-full border border-[rgba(17,17,17,0.08)] px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-[rgba(17,17,17,0.56)]">
+                  <span key={item} className="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/60 bg-white/5">
                     {item}
                   </span>
                 ))}
@@ -88,8 +88,8 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
           <div className="grid gap-3 md:grid-cols-2">
             {categoryCopy.useCases.map((item) => (
               <div key={item} className="section-surface rounded-[24px] px-5 py-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{applicationLabel}</p>
-                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{item}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/70">{applicationLabel}</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{item}</p>
               </div>
             ))}
           </div>
