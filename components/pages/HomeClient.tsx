@@ -296,36 +296,16 @@ export default function HomeClient() {
         <div className="awards-container craft-grid">
           <FadeIn className="craft-copy">
             <span className="gold-kicker"><Palette size={15} /> {current.craftEyebrow}</span>
-            <h2>{current.craftTitle}</h2>
+            <h2 className="craft-title-smaller">{current.craftTitle}</h2>
             <p style={{ marginBottom: "1.5rem" }}>{current.craftText}</p>
 
-            <div className="craft-tabs-list">
-              {(Object.keys(craftTabContent[lang]) as Array<keyof typeof craftTabContent[typeof lang]>).map((key) => {
-                const isActive = activeTab === key;
-                return (
-                  <button
-                    key={key}
-                    className={`craft-tab-btn ${isActive ? "active" : ""}`}
-                    onClick={() => setActiveTab(key)}
-                  >
-                    <span>{craftTabContent[lang][key].label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="craft-tab-panel">
-              <h3>{craftTabContent[lang][activeTab].title}</h3>
-              <p>{craftTabContent[lang][activeTab].desc}</p>
-            </div>
-
-            <Link href="/personnalisation" className="outline-button" style={{ marginTop: "1.5rem" }}>
+            <Link href="/personnalisation" className="outline-button">
               {current.craftLink} <ArrowLeft size={18} />
             </Link>
           </FadeIn>
 
           <div className="craft-visual-column">
-            <div className={`configurator-lens configurator-lens--${activeTab}`}>
+            <div className={`configurator-lens configurator-lens--${activeTooltip || "design"}`}>
               {/* Premium Vector Award Blueprint */}
               <svg viewBox="0 0 320 420" className="trophy-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -348,21 +328,21 @@ export default function HomeClient() {
                 <ellipse cx="160" cy="390" rx="90" ry="12" fill="rgba(0,0,0,0.6)" filter="url(#glow)" />
 
                 {/* 1. Design & Maquette overall wireframe blueprint */}
-                <g className={`svg-part svg-part--design ${activeTab === "design" ? "active" : ""}`}>
+                <g className={`svg-part svg-part--design ${activeTooltip === null ? "active" : ""}`}>
                   <path d="M 80,60 L 240,60 L 260,240 L 160,310 L 60,240 Z" fill="none" stroke="#e5bd77" strokeWidth="1" strokeDasharray="4,4" opacity="0.4" />
                   <line x1="80" y1="60" x2="160" y2="310" stroke="#e5bd77" strokeWidth="0.5" opacity="0.2" />
                   <line x1="240" y1="60" x2="160" y2="310" stroke="#e5bd77" strokeWidth="0.5" opacity="0.2" />
                 </g>
 
                 {/* 2. Metal/Finitions (Plates & main trophy form) */}
-                <g className={`svg-part svg-part--metal ${activeTab === "metal" ? "active" : ""}`}>
+                <g className={`svg-part svg-part--metal ${activeTooltip === "metal" ? "active" : ""}`}>
                   <path d="M 80,60 L 240,60 L 260,240 L 160,310 L 60,240 Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
                   <path d="M 110,80 L 210,80 L 225,215 L 160,265 L 95,215 Z" fill="url(#goldGrad)" />
                   <path d="M 110,80 L 140,80 L 110,215 Z" fill="rgba(255,255,255,0.25)" />
                 </g>
 
                 {/* 3. Gravure/Laser (Engraving details) */}
-                <g className={`svg-part svg-part--engrave ${activeTab === "engrave" ? "active" : ""}`}>
+                <g className={`svg-part svg-part--engrave ${activeTooltip === "engrave" ? "active" : ""}`}>
                   <path d="M 130,120 L 190,120 L 200,200 L 160,230 L 120,200 Z" fill="rgba(7,17,26,0.8)" stroke="#fff" strokeWidth="1" opacity="0.8" />
                   <path d="M 160,135 L 170,155 L 190,155 L 175,168 L 180,188 L 160,175 L 140,188 L 145,168 L 130,155 L 150,155 Z" fill="none" stroke="#e5bd77" strokeWidth="1.5" />
                   <line x1="140" y1="205" x2="180" y2="205" stroke="#fff" strokeWidth="1.5" opacity="0.9" />
@@ -370,7 +350,7 @@ export default function HomeClient() {
                 </g>
 
                 {/* 4. Base & Socle */}
-                <g className={`svg-part svg-part--base ${activeTab === "base" ? "active" : ""}`}>
+                <g className={`svg-part svg-part--base ${activeTooltip === "base" ? "active" : ""}`}>
                   <path d="M 140,310 L 180,310 L 185,330 L 135,330 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
                   <path d="M 80,330 L 240,330 L 255,380 L 65,380 Z" fill="#0e1720" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
                   <rect x="105" y="348" width="110" height="20" rx="1.5" fill="url(#goldGrad)" />
@@ -380,19 +360,34 @@ export default function HomeClient() {
                 {/* Hotspots */}
                 <g className="configurator-hotspots">
                   {/* Top/Metal Hotspot */}
-                  <circle cx="160" cy="140" r="14" className="hotspot-trigger" onClick={() => setActiveTab("metal")} />
+                  <circle cx="160" cy="140" r="14" className="hotspot-trigger" onClick={() => setActiveTooltip("metal")} />
                   <circle cx="160" cy="140" r="5" className="hotspot-dot" />
 
                   {/* Middle/Engraving Hotspot */}
-                  <circle cx="160" cy="210" r="14" className="hotspot-trigger" onClick={() => setActiveTab("engrave")} />
+                  <circle cx="160" cy="210" r="14" className="hotspot-trigger" onClick={() => setActiveTooltip("engrave")} />
                   <circle cx="160" cy="210" r="5" className="hotspot-dot" />
 
                   {/* Bottom/Base Hotspot */}
-                  <circle cx="160" cy="358" r="14" className="hotspot-trigger" onClick={() => setActiveTab("base")} />
+                  <circle cx="160" cy="358" r="14" className="hotspot-trigger" onClick={() => setActiveTooltip("base")} />
                   <circle cx="160" cy="358" r="5" className="hotspot-dot" />
                 </g>
               </svg>
             </div>
+
+            {/* Explanatory overlay tooltip with close (X) button */}
+            {activeTooltip && (
+              <div className="hotspot-tooltip">
+                <button
+                  className="hotspot-tooltip-close"
+                  onClick={() => setActiveTooltip(null)}
+                  aria-label="Fermer"
+                >
+                  <X size={16} />
+                </button>
+                <h3>{craftTabContent[lang][activeTooltip].title}</h3>
+                <p>{craftTabContent[lang][activeTooltip].desc}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

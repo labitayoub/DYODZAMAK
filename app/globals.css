@@ -293,66 +293,84 @@ a {
 .craft-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; }
 .outline-button { color: #f5d187; border: 1px solid rgba(232, 194, 120, .48); }
 
-/* ── Interactive Configurator & Tabs ── */
-.craft-tabs-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 0.6rem;
-  margin-bottom: 1.8rem;
+/* ── Interactive Configurator & Tooltips ── */
+.craft-title-smaller {
+  margin: 0.85rem 0 1rem;
+  color: #fcf8f0;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem) !important;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
 }
 
-.craft-tab-btn {
+.hotspot-tooltip {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  background: rgba(7, 17, 26, 0.95);
+  border: 1px solid rgba(229, 189, 119, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 2.8rem 1.25rem 1.25rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 20;
+  animation: tooltipFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+[dir="rtl"] .hotspot-tooltip {
+  padding: 1.25rem 1.25rem 1.25rem 2.8rem;
+}
+
+.hotspot-tooltip-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0.5rem 1rem;
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  margin-bottom: -0.7rem;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.craft-tab-btn:hover {
-  color: rgba(255, 255, 255, 0.85);
+[dir="rtl"] .hotspot-tooltip-close {
+  right: auto;
+  left: 0.75rem;
 }
 
-.craft-tab-btn.active {
-  color: #e5bd77;
-  border-bottom-color: #e5bd77;
-}
-
-.craft-tab-panel {
-  min-height: 120px;
-  animation: tabFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
-}
-
-.craft-tab-panel h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
+.hotspot-tooltip-close:hover {
+  background: rgba(255, 255, 255, 0.1);
   color: #fffdf8;
-  margin: 0 0 0.5rem;
+  transform: rotate(90deg);
 }
 
-.craft-tab-panel p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.7;
+.hotspot-tooltip h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e5bd77;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.hotspot-tooltip p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
   margin: 0;
 }
 
-@keyframes tabFadeIn {
+@keyframes tooltipFadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
