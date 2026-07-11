@@ -1,4 +1,4 @@
-export type Lang = "fr" | "ar";
+export type Lang = "fr" | "ar" | "en";
 export type CategorySlug = "medailles" | "trophees" | "trophees-3d" | "plaques" | "pins-badges" | "porte-cles";
 export type Finish = "bronze" | "gold" | "silver" | "black";
 export type Usage = "sport" | "corporate" | "event" | "school" | "association";
@@ -204,6 +204,91 @@ export const ui = {
       button: "إرسال عبر واتساب"
     },
     footer: "كتالوج مغربي للميداليات والكؤوس واللوحات والدبابيس والشارات وحاملات المفاتيح والمنتجات المعدنية المخصصة."
+  },
+  en: {
+    announcement: "Delivery across Morocco | Custom products | Fast quote on WhatsApp",
+    nav: {
+      home: "Home",
+      catalog: "Catalog",
+      products: "Products",
+      medals: "Medals",
+      trophies: "Trophies",
+      trophies3d: "3D Trophies",
+      plaques: "Plaques",
+      pins: "Pins & Badges",
+      keychains: "Keychains",
+      work: "Projects",
+      quote: "Quote request",
+      about: "About",
+      contact: "Contact",
+      customization: "Customization"
+    },
+    search: "Search for medals, trophies, plaques, pins, keychains...",
+    language: "EN",
+    price: "Quote-based pricing",
+    quote: "Request a quote",
+    whatsapp: "WhatsApp",
+    quickView: "View details",
+    sameModel: "Request the same model",
+    filters: "Filters",
+    sort: "Sort",
+    results: "results",
+    all: "All",
+    custom: "Customizable",
+    classic: "Classic",
+    model3d: "3D",
+    finishes: {
+      bronze: "Bronze",
+      gold: "Gold",
+      silver: "Silver",
+      black: "Black metal"
+    },
+    usages: {
+      sport: "Sport",
+      corporate: "Corporate",
+      event: "Event",
+      school: "School",
+      association: "Association"
+    },
+    home: {
+      title: "DYODZAMAK",
+      subtitle: "Premium catalog of custom medals, trophies, plaques, pins and keychains",
+      intro: "Tailor-made metal products for companies, clubs, schools, associations and events in Morocco.",
+      bannerTitle: "Custom products, premium finishes, quote-based pricing",
+      bannerText: "Choose a model, send your logo and get a quick quote on WhatsApp.",
+      featured: "Popular categories",
+      best: "Top requests",
+      new: "New models",
+      premium: "Premium pieces",
+      medals: "Medal selection",
+      pins: "Pins, badges and keychains",
+      how: "How to order",
+      trust: "Why clients request a quote",
+      finalTitle: "Your model can be prepared today"
+    },
+    trust: ["Mockup before production", "Bronze, gold, silver and black metal finishes", "Delivery across Morocco", "Order via WhatsApp"],
+    steps: ["Choose a product", "Send logo, text and quantity", "Receive the quote", "Approve the mockup", "Production and delivery"],
+    pages: {
+      catalog: ["DYODZAMAK Catalog", "Browse the models with clearer presentation, useful filters and fast access to quoting."],
+      customization: ["Customization", "Logos, text, dates, shapes, quantities and finishes: every piece is prepared for your real needs."],
+      gallery: ["Projects", "Discover a selection of customized metal medals, trophies, plaques, pins and keychains."],
+      quote: ["Quote request", "Enter the essential details to receive a faster and better-scoped response."],
+      about: ["About DYODZAMAK", "A workshop specialized in awards, plaques and customized metal creations in Morocco."],
+      contact: ["Contact", "WhatsApp remains the fastest channel to request a price, send a logo or follow a project."]
+    },
+    form: {
+      name: "Full name",
+      phone: "Phone",
+      city: "City",
+      product: "Product type",
+      quantity: "Quantity",
+      finish: "Finish",
+      engraving: "Engraving text",
+      upload: "Logo or mockup (placeholder)",
+      message: "Message",
+      button: "Send on WhatsApp"
+    },
+    footer: "Moroccan catalog of custom medals, trophies, plaques, pins, badges, keychains and metal creations."
   }
 } as const;
 
@@ -234,6 +319,12 @@ export const categories: Record<
       summary: "ميداليات رياضية ومؤسساتية ومناسباتية مع شريط ونقش وتشطيب حسب الطلب.",
       subcategories: ["رياضة", "مؤسسة", "مناسبة", "راقي"],
       useCases: ["سباقات", "بطولات", "تخرج", "حفلات"]
+    },
+    en: {
+      title: "Custom medals",
+      summary: "Sports, institutional and event medals with ribbon, engraving and a finish of your choice.",
+      subcategories: ["Sport", "Institution", "Event", "Premium"],
+      useCases: ["Races", "Tournaments", "Graduations", "Ceremonies"]
     }
   },
   trophees: {
@@ -252,6 +343,12 @@ export const categories: Record<
       summary: "كؤوس لحفلات الجوائز والمسابقات الرياضية والشركات والمؤسسات.",
       subcategories: ["كلاسيكي", "شركات", "رياضة", "خشب ومعدن"],
       useCases: ["جوائز", "مسابقات", "تحديات", "تكريم"]
+    },
+    en: {
+      title: "Custom metal trophies",
+      summary: "Personalized metal trophies for award ceremonies, competitions, businesses and institutions.",
+      subcategories: ["Classic", "Corporate", "Sport", "Premium"],
+      useCases: ["Award ceremonies", "Competitions", "Challenges", "Recognition"]
     }
   },
   "trophees-3d": {
@@ -270,6 +367,12 @@ export const categories: Record<
       summary: "قطع حسب الطلب مع شعار بارز وأشكال خاصة ولمسة راقية.",
       subcategories: ["شعار 3D", "شكل خاص", "شركات", "مناسبة"],
       useCases: ["إطلاق", "حفل", "علامة", "تميز"]
+    },
+    en: {
+      title: "Custom 3D trophies",
+      summary: "Tailor-made pieces with raised logos, special shapes and a premium look for brands and events.",
+      subcategories: ["3D logo", "Special shape", "Corporate", "Event"],
+      useCases: ["Launch", "Gala", "Brand", "Distinction"]
     }
   },
   plaques: {
@@ -288,6 +391,12 @@ export const categories: Record<
       summary: "لوحات شكر وافتتاح وتقدير مع نقش واضح وتشطيب احترافي.",
       subcategories: ["منقوشة", "مؤسسة", "شكر", "افتتاح"],
       useCases: ["تكريم", "هبة", "شراكة", "حفل"]
+    },
+    en: {
+      title: "Honor plaques",
+      summary: "Plaques for thanks, inauguration, tribute and recognition with clean engraving.",
+      subcategories: ["Engraved", "Institution", "Thank you", "Inauguration"],
+      useCases: ["Tribute", "Gift", "Partnership", "Ceremony"]
     }
   },
   "pins-badges": {
@@ -306,6 +415,12 @@ export const categories: Record<
       summary: "دبابيس وشارات معدنية وشعارات قابلة للتخصيص.",
       subcategories: ["دبابيس", "شارات", "شعار معدني", "مناسبة"],
       useCases: ["هوية", "جمعية", "زي رسمي", "معرض"]
+    },
+    en: {
+      title: "Pins & metal badges",
+      summary: "Custom metal pins and badges for brands, associations, organizations and events.",
+      subcategories: ["Pins", "Badges", "Metal logo", "Event"],
+      useCases: ["Brand", "Association", "Uniform", "Trade fair"]
     }
   },
   "porte-cles": {
@@ -324,6 +439,12 @@ export const categories: Record<
       summary: "حاملات مفاتيح معدنية وشعارات مخصصة وأشكال خاصة للشركات والنوادي والمناسبات.",
       subcategories: ["شعار معدني", "سيارات", "تذكار", "شركات"],
       useCases: ["هدايا العملاء", "وكالات السيارات", "نوادي", "مناسبات"]
+    },
+    en: {
+      title: "Custom metal keychains",
+      summary: "Custom metal keychains for companies, brands, clubs and promotional events.",
+      subcategories: ["Metal logo", "Automotive", "Souvenir", "Corporate"],
+      useCases: ["Client gifts", "Dealerships", "Clubs", "Events"]
     }
   }
 };
@@ -342,6 +463,7 @@ export type Product = {
   premium?: boolean;
   fr: { name: string; specs: string[]; description: string };
   ar: { name: string; specs: string[]; description: string };
+  en: { name: string; specs: string[]; description: string };
 };
 
 export const products: Product[] = [
@@ -358,6 +480,7 @@ export const products: Product[] = [
     premium: true,
     fr: { name: "Medaille institutionnelle Rabat 2025", specs: ["Logo et texte", "Finition doree", "Support presentoir"], description: "Medaille ceremonielle premium pour institutions, federations et evenements officiels." },
     ar: { name: "ميدالية مؤسساتية الرباط 2025", specs: ["شعار ونص", "تشطيب ذهبي", "حامل عرض"], description: "ميدالية راقية للمؤسسات والاتحادات والمناسبات الرسمية." }
+    ,en: { name: "Rabat 2025 institutional medal", specs: ["Logo and text", "Gold finish", "Display stand"], description: "Premium ceremonial medal for institutions, federations and official events." }
   },
   {
     id: "medal-heritage-box",
@@ -371,6 +494,7 @@ export const products: Product[] = [
     premium: true,
     fr: { name: "Medaille Heritage avec coffret", specs: ["Relief logo", "Coffret premium", "Finition antique"], description: "Rendu prestigieux pour associations, federations et remises de prix." },
     ar: { name: "ميدالية Heritage مع علبة", specs: ["شعار بارز", "علبة راقية", "تشطيب عتيق"], description: "لمسة راقية للجمعيات والاتحادات وحفلات الجوائز." }
+    ,en: { name: "Heritage medal with box", specs: ["Raised logo", "Premium box", "Antique finish"], description: "A prestigious result for associations, federations and award ceremonies." }
   },
   {
     id: "trophy-corporate",
@@ -384,6 +508,7 @@ export const products: Product[] = [
     featured: true,
     fr: { name: "Trophee corporate metal et socle", specs: ["Plaque gravee", "Socle stable", "Hauteur au choix"], description: "Trophee metallique professionnel pour remises de prix, challenges internes et partenaires." },
     ar: { name: "كأس شركات معدن وقاعدة", specs: ["لوحة منقوشة", "قاعدة ثابتة", "ارتفاع حسب الطلب"], description: "كأس أنيق للجوائز والتحديات الداخلية والشركاء." }
+    ,en: { name: "Corporate metal trophy with base", specs: ["Engraved plate", "Stable base", "Custom height"], description: "Professional metal trophy for awards, internal challenges and partners." }
   },
   {
     id: "trophy-sport-cup",
@@ -396,6 +521,7 @@ export const products: Product[] = [
     is3d: false,
     fr: { name: "Coupe sportive classique", specs: ["Coupe metal", "Socle noir", "Etiquette gravee"], description: "Reference fiable pour clubs, championnats, tournois et ceremonies sportives." },
     ar: { name: "كأس رياضي كلاسيكي", specs: ["كأس معدني", "قاعدة سوداء", "بطاقة منقوشة"], description: "اختيار عملي للأندية والبطولات والدوريات." }
+    ,en: { name: "Classic sports cup", specs: ["Metal cup", "Black base", "Engraved label"], description: "A reliable choice for clubs, championships, tournaments and sports ceremonies." }
   },
   {
     id: "3d-logo-award",
@@ -410,6 +536,7 @@ export const products: Product[] = [
     premium: true,
     fr: { name: "Trophee logo 3D signature", specs: ["Logo en volume", "Forme speciale", "Maquette avant production"], description: "Piece distinctive pour marques, galas et lancements de projets." },
     ar: { name: "كأس شعار 3D", specs: ["شعار بارز", "شكل خاص", "تصميم قبل الإنتاج"], description: "قطعة مميزة للعلامات والحفلات وإطلاق المشاريع." }
+    ,en: { name: "Signature 3D logo trophy", specs: ["3D logo", "Special shape", "Mockup before production"], description: "A distinctive piece for brands, galas and project launches." }
   },
   {
     id: "3d-event-tower",
@@ -423,6 +550,7 @@ export const products: Product[] = [
     newest: true,
     fr: { name: "Trophee 3D Event Signature", specs: ["Structure speciale", "Texte grave", "Finition bicolore"], description: "Design moderne pour evenements premium et concours." },
     ar: { name: "كأس 3D للمناسبات", specs: ["هيكل خاص", "نص منقوش", "تشطيب بلونين"], description: "تصميم حديث للمناسبات الراقية والمسابقات." }
+    ,en: { name: "3D event signature trophy", specs: ["Special structure", "Engraved text", "Two-tone finish"], description: "Modern design for premium events and competitions." }
   },
   {
     id: "plaque-honneur",
@@ -436,6 +564,7 @@ export const products: Product[] = [
     featured: true,
     fr: { name: "Plaque honorifique gravee", specs: ["Texte long", "Logo", "Boite presentoir"], description: "Plaque professionnelle pour hommage, remerciement et ceremonies." },
     ar: { name: "لوحة تكريمية منقوشة", specs: ["نص طويل", "شعار", "علبة عرض"], description: "لوحة احترافية للتكريم والشكر والحفلات." }
+    ,en: { name: "Engraved honor plaque", specs: ["Long text", "Logo", "Display box"], description: "Professional plaque for tribute, thanks and ceremonies." }
   },
   {
     id: "plaque-opening",
@@ -448,6 +577,7 @@ export const products: Product[] = [
     is3d: false,
     fr: { name: "Plaque inauguration premium", specs: ["Metal noir", "Gravure claire", "Fixation possible"], description: "Pour ouvertures, partenariats et projets institutionnels." },
     ar: { name: "لوحة افتتاح راقية", specs: ["معدن أسود", "نقش واضح", "إمكانية التثبيت"], description: "للافتتاحات والشراكات والمشاريع المؤسساتية." }
+    ,en: { name: "Premium inauguration plaque", specs: ["Black metal", "Clear engraving", "Mounting available"], description: "For openings, partnerships and institutional projects." }
   },
   {
     id: "pin-breast-cancer",
@@ -461,6 +591,7 @@ export const products: Product[] = [
     newest: true,
     fr: { name: "Pin emaille de sensibilisation", specs: ["Forme speciale", "Email colore", "Attache securisee"], description: "Pin metallique premium pour campagnes, associations, institutions et evenements." },
     ar: { name: "دبوس توعوي بالمينا", specs: ["شكل خاص", "ألوان مينا", "تثبيت آمن"], description: "دبوس راق للحملات والجمعيات والمناسبات." }
+    ,en: { name: "Awareness enamel pin", specs: ["Special shape", "Colored enamel", "Secure clasp"], description: "Premium metal pin for campaigns, associations, institutions and events." }
   },
   {
     id: "pin-maroc-map",
@@ -473,6 +604,7 @@ export const products: Product[] = [
     is3d: false,
     fr: { name: "Pin carte du Maroc emaille", specs: ["Forme Maroc", "Drapeau emaille", "Finition doree"], description: "Pin identitaire pour evenements, associations, cadeaux officiels et communication de marque." },
     ar: { name: "دبوس خريطة المغرب", specs: ["شكل المغرب", "علم بالمينا", "تشطيب ذهبي"], description: "شارة هوية للمناسبات والجمعيات والهدايا الرسمية." }
+    ,en: { name: "Morocco map enamel pin", specs: ["Morocco shape", "Enamel flag", "Gold finish"], description: "An identity pin for events, associations, official gifts and brand communication." }
   },
   {
     id: "keychain-auto-logo",
@@ -487,6 +619,7 @@ export const products: Product[] = [
     newest: true,
     fr: { name: "Porte-cles logo automobile", specs: ["Logo metal", "Anneau premium", "Finition brillante"], description: "Porte-cles metallique elegant pour concessions, marques automobiles et cadeaux clients." },
     ar: { name: "حامل مفاتيح شعار سيارات", specs: ["شعار معدني", "حلقة راقية", "تشطيب لامع"], description: "حامل مفاتيح أنيق لوكالات السيارات والعلامات والهدايا." }
+    ,en: { name: "Automotive logo keychain", specs: ["Metal logo", "Premium ring", "Gloss finish"], description: "An elegant metal keychain for dealerships, car brands and client gifts." }
   },
   {
     id: "keychain-metal-custom",
@@ -500,6 +633,7 @@ export const products: Product[] = [
     premium: true,
     fr: { name: "Porte-cles metal personnalise", specs: ["Forme au choix", "Logo grave", "Packaging possible"], description: "Accessoire metallique premium pour cadeaux d'entreprise, clubs et campagnes de marque." },
     ar: { name: "حامل مفاتيح معدني مخصص", specs: ["شكل حسب الطلب", "شعار منقوش", "تغليف اختياري"], description: "إكسسوار راق لهدايا الشركات والنوادي والحملات." }
+    ,en: { name: "Custom metal keychain", specs: ["Shape of choice", "Engraved logo", "Optional packaging"], description: "A premium metal accessory for corporate gifts, clubs and brand campaigns." }
   },
   {
     id: "keychain-brand-series",
@@ -512,6 +646,7 @@ export const products: Product[] = [
     is3d: false,
     fr: { name: "Serie porte-cles evenement", specs: ["Serie personnalisee", "Nom evenement", "Finition au choix"], description: "Porte-cles durable pour participants, staff et souvenirs d'evenement." },
     ar: { name: "سلسلة حاملات مفاتيح للمناسبات", specs: ["سلسلة مخصصة", "اسم المناسبة", "تشطيب حسب الطلب"], description: "حامل مفاتيح متين للمشاركين والطاقم وتذكارات المناسبات." }
+    ,en: { name: "Event keychain series", specs: ["Custom series", "Event name", "Finish of choice"], description: "Durable keychains for participants, staff and event souvenirs." }
   }
 ];
 
@@ -525,6 +660,8 @@ export function productWhatsAppMessage(productName: string, lang: Lang) {
   const text =
     lang === "fr"
       ? `Bonjour DYODZAMAK, je souhaite un devis pour: ${productName}. Merci de me contacter.`
-      : `مرحبا DYODZAMAK، أريد عرض سعر لهذا المنتج: ${productName}. المرجو التواصل معي.`;
+      : lang === "ar"
+        ? `مرحبا DYODZAMAK، أريد عرض سعر لهذا المنتج: ${productName}. المرجو التواصل معي.`
+        : `Hello DYODZAMAK, I would like a quote for this product: ${productName}. Please contact me.`;
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 }

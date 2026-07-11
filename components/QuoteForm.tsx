@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { whatsappNumber } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
-import { productCategories } from "@/data/product-categories";
+import { getProductCategoryLabel, productCategories } from "@/data/product-categories";
 
 export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   const { lang, t } = useLanguage();
@@ -26,8 +26,9 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const f = t.form;
+    const intro = lang === "fr" ? "DYODZAMAK - Demande de devis" : lang === "ar" ? "DYODZAMAK - طلب عرض سعر" : "DYODZAMAK - Quote request";
     const message = [
-      "DYODZAMAK - Demande de devis",
+      intro,
       `${f.name}: ${form.name}`,
       `${f.phone}: ${form.phone}`,
       `${f.city}: ${form.city}`,
@@ -57,8 +58,8 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       <select className="field" required value={form.product} onChange={(e) => field("product", e.target.value)}>
         <option value="">{t.form.product}</option>
         {productCategories.map((category) => (
-          <option key={category.slug} value={category.navLabel[lang]}>
-            {category.navLabel[lang]}
+          <option key={category.slug} value={getProductCategoryLabel(category.slug, lang)}>
+            {getProductCategoryLabel(category.slug, lang)}
           </option>
         ))}
       </select>

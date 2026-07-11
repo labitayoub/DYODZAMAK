@@ -16,8 +16,15 @@ type FilterState = {
 const finishes: Finish[] = ["bronze", "gold", "silver", "black"];
 const usages: Usage[] = ["sport", "corporate", "event", "school", "association"];
 
+const catalogCopy = {
+  fr: { finish: "Finition", usage: "Usage", type: "Type", ok: "OK" },
+  ar: { finish: "التشطيب", usage: "الاستعمال", type: "النوع", ok: "حسنا" },
+  en: { finish: "Finish", usage: "Usage", type: "Type", ok: "OK" }
+} as const;
+
 export default function CatalogClient({ initialCategory = "all" }: { initialCategory?: "all" | CategorySlug }) {
   const { lang, t } = useLanguage();
+  const copy = catalogCopy[lang];
   const [filters, setFilters] = useState<FilterState>({ category: initialCategory, finish: "all", usage: "all", type: "all" });
   const [drawer, setDrawer] = useState(false);
 
@@ -56,7 +63,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 ))}
               </FilterGroup>
 
-              <FilterGroup title={lang === "fr" ? "Finition" : "التشطيب"}>
+              <FilterGroup title={copy.finish}>
                 <FilterChip active={filters.finish === "all"} onClick={() => setFilters({ ...filters, finish: "all" })}>
                   {t.all}
                 </FilterChip>
@@ -67,7 +74,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 ))}
               </FilterGroup>
 
-              <FilterGroup title={lang === "fr" ? "Usage" : "الاستعمال"}>
+              <FilterGroup title={copy.usage}>
                 <FilterChip active={filters.usage === "all"} onClick={() => setFilters({ ...filters, usage: "all" })}>
                   {t.all}
                 </FilterChip>
@@ -78,7 +85,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 ))}
               </FilterGroup>
 
-              <FilterGroup title={lang === "fr" ? "Type" : "النوع"}>
+              <FilterGroup title={copy.type}>
                 <FilterChip active={filters.type === "all"} onClick={() => setFilters({ ...filters, type: "all" })}>
                   {t.all}
                 </FilterChip>
@@ -119,7 +126,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 <h3 className="mt-4 text-3xl font-medium tracking-[-0.05em] text-[#111111]">{t.nav.catalog}</h3>
               </div>
               <button type="button" className="button-secondary" onClick={() => setDrawer(false)}>
-                OK
+                {copy.ok}
               </button>
             </div>
 
@@ -135,7 +142,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 ))}
               </FilterGroup>
 
-              <FilterGroup title={lang === "fr" ? "Finition" : "التشطيب"}>
+              <FilterGroup title={copy.finish}>
                 <FilterChip active={filters.finish === "all"} onClick={() => setFilters({ ...filters, finish: "all" })}>
                   {t.all}
                 </FilterChip>
@@ -146,7 +153,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
                 ))}
               </FilterGroup>
 
-              <FilterGroup title={lang === "fr" ? "Usage" : "الاستعمال"}>
+              <FilterGroup title={copy.usage}>
                 <FilterChip active={filters.usage === "all"} onClick={() => setFilters({ ...filters, usage: "all" })}>
                   {t.all}
                 </FilterChip>

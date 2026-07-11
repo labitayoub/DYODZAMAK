@@ -4,10 +4,32 @@ import Link from "next/link";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
-import { productCategories } from "@/data/product-categories";
+import { getProductCategoryLabel, productCategories } from "@/data/product-categories";
+
+const footerCopy = {
+  fr: {
+    title: "Des pieces de reconnaissance concues pour marquer durablement l'esprit.",
+    products: "Produits",
+    navigation: "Navigation",
+    location: "Maroc"
+  },
+  ar: {
+    title: "قطع تكريم مصممة لتبقى في الذاكرة.",
+    products: "المنتجات",
+    navigation: "التنقل",
+    location: "المغرب"
+  },
+  en: {
+    title: "Recognition pieces designed to leave a lasting impression.",
+    products: "Products",
+    navigation: "Navigation",
+    location: "Morocco"
+  }
+} as const;
 
 export default function Footer() {
   const { lang, t } = useLanguage();
+  const copy = footerCopy[lang];
 
   return (
     <footer className="px-4 pb-6 pt-16 md:px-6 md:pb-8 md:pt-24">
@@ -16,7 +38,7 @@ export default function Footer() {
           <div>
             <span className="eyebrow">DYODZAMAK</span>
             <h2 className="mt-6 max-w-xl text-4xl font-medium tracking-[-0.05em] text-[#f7f3ed] md:text-6xl">
-              Des pieces de reconnaissance concues pour marquer durablement l&apos;esprit.
+              {copy.title}
             </h2>
             <p className="mt-5 max-w-lg text-base leading-8 text-[rgba(247,243,237,0.68)]">{t.footer}</p>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -29,11 +51,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{t.nav.products ?? "Produits"}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{copy.products}</p>
             <div className="mt-5 grid gap-3">
               {productCategories.map((category) => (
                 <Link key={category.slug} href={category.href} className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
-                  {category.navLabel[lang]}
+                  {getProductCategoryLabel(category.slug, lang)}
                 </Link>
               ))}
             </div>
@@ -41,7 +63,7 @@ export default function Footer() {
 
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">Navigation</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{copy.navigation}</p>
               <div className="mt-5 grid gap-3">
                 <Link href="/a-propos" className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
                   {t.nav.about}
@@ -75,7 +97,7 @@ export default function Footer() {
                 </a>
                 <span className="flex items-center gap-3">
                   <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><MapPin size={16} /></span>
-                  Maroc
+                  {copy.location}
                 </span>
               </div>
             </div>

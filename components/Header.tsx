@@ -5,12 +5,25 @@ import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
-import { navItems, whatsappNumber } from "@/data/site";
-import { productCategories } from "@/data/product-categories";
+import { Lang, navItems, whatsappNumber } from "@/data/site";
+import { getProductCategoryLabel, productCategories } from "@/data/product-categories";
+
+const languageOptions: Array<{ code: Lang; label: string }> = [
+  { code: "fr", label: "FR" },
+  { code: "ar", label: "AR" },
+  { code: "en", label: "EN" }
+];
+
+const shellCopy = {
+  fr: { atelier: "Atelier de reconnaissance sur mesure", categories: "Catégories", openMenu: "Ouvrir le menu", closeMenu: "Fermer le menu", metal: "Atelier métal" },
+  ar: { atelier: "ورشة تكريم حسب الطلب", categories: "الفئات", openMenu: "فتح القائمة", closeMenu: "إغلاق القائمة", metal: "ورشة معدنية" },
+  en: { atelier: "Custom recognition atelier", categories: "Categories", openMenu: "Open menu", closeMenu: "Close menu", metal: "Metal atelier" }
+} as const;
 
 export default function Header() {
-  const { lang, t, toggleLang, isRtl } = useLanguage();
+  const { lang, t, setLang, isRtl } = useLanguage();
   const [open, setOpen] = useState(false);
+  const copy = shellCopy[lang];
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6">
@@ -22,7 +35,7 @@ export default function Header() {
             </div>
             <div>
               <span className="block text-[1.02rem] font-semibold tracking-[-0.05em] text-white md:text-[1.2rem]">DYODZAMAK</span>
-              <span className="mt-1 block text-[0.62rem] uppercase tracking-[0.28em] text-white/50">Custom recognition atelier</span>
+              <span className="mt-1 block text-[0.62rem] uppercase tracking-[0.28em] text-white/50">{copy.atelier}</span>
             </div>
           </Link>
 
@@ -43,7 +56,7 @@ export default function Header() {
               <div className="pointer-events-none absolute left-0 top-full z-50 pt-4 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                 <div className="header-panel min-w-[620px] rounded-[30px] p-4 shadow-[0_28px_90px_rgba(0,0,0,0.32)]">
                   <div className="mb-3 px-2">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#e5bd77]/70">Categories</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#e5bd77]/70">{copy.categories}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {productCategories.map((category) => (
@@ -52,7 +65,7 @@ export default function Header() {
                         href={category.href}
                         className="rounded-[20px] border border-transparent px-4 py-4 text-sm font-medium text-white/76 transition hover:border-[#e5bd77]/20 hover:bg-white/8 hover:text-[#f3d08b]"
                       >
-                        {category.navLabel[lang]}
+                        {getProductCategoryLabel(category.slug, lang)}
                       </Link>
                     ))}
                   </div>
@@ -72,13 +85,20 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
-            <button
-              type="button"
-              onClick={toggleLang}
-              className="rounded-full border border-white/15 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/80 transition hover:border-white/30 hover:bg-white/10"
-            >
-              {lang === "fr" ? "AR" : "FR"}
-            </button>
+            <div className="flex items-center gap-2 rounded-full border border-white/15 p-1">
+              {languageOptions.map((option) => (
+                <button
+                  key={option.code}
+                  type="button"
+                  onClick={() => setLang(option.code)}
+                  className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
+                    lang === option.code ? "bg-white text-[#111111]" : "text-white/78 hover:bg-white/10"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
             <Link href="/devis" className="button-primary">
               {t.quote}
             </Link>
@@ -88,7 +108,7 @@ export default function Header() {
             type="button"
             className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white lg:hidden"
             onClick={() => setOpen((value) => !value)}
-            aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? copy.closeMenu : copy.openMenu}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -108,14 +128,14 @@ export default function Header() {
                 </div>
                 <div>
                   <span className="block text-2xl font-semibold tracking-[-0.05em] text-white">DYODZAMAK</span>
-                  <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.24em] text-white/50">Metal atelier</span>
+                  <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.24em] text-white/50">{copy.metal}</span>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white"
-                aria-label="Close menu"
+                aria-label={copy.closeMenu}
               >
                 <X size={18} />
               </button>
@@ -138,7 +158,7 @@ export default function Header() {
                     href={category.href}
                     className="text-lg font-medium tracking-[-0.03em] text-white/85"
                   >
-                    {category.navLabel[lang]}
+                    {getProductCategoryLabel(category.slug, lang)}
                   </Link>
                 ))}
               </div>
@@ -155,9 +175,18 @@ export default function Header() {
             </div>
 
             <div className="mt-auto grid gap-3 pt-8">
-              <button type="button" onClick={toggleLang} className="button-secondary w-full">
-                {lang === "fr" ? "العربية" : "Francais"}
-              </button>
+              <div className="grid grid-cols-3 gap-2">
+                {languageOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    onClick={() => setLang(option.code)}
+                    className={`button-secondary w-full ${lang === option.code ? "bg-white text-[#111111]" : ""}`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
               <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="button-whatsapp w-full">
                 WhatsApp
               </a>

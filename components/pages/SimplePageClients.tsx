@@ -10,6 +10,78 @@ import { PrimaryButton, WhatsAppButton } from "@/components/Buttons";
 import { categoryRoutes, emailDisplay, phoneDisplay, products, whatsappNumber } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
 
+const simpleCopy = {
+  fr: {
+    customizationTitle: "Personnalisation",
+    customizationOptions: ["Logo en relief ou grave", "Texte, date et nom d'evenement", "Choix de finitions metalliques", "Forme speciale ou decoupe sur mesure", "Ruban, attache ou support adaptes", "Boite cadeau et presentation premium", "Serie numerotee ou edition limitee", "Maquette avant production"],
+    customizationEyebrow: "Personnalisation",
+    customizationSectionTitle: "Chaque detail de personnalisation est la pour renforcer la valeur percue du produit.",
+    collectionsEyebrow: "Collections",
+    collectionsTitle: "Une gamme large, mais presentee avec coherence et exigence.",
+    quoteEyebrow: "Devis",
+    quoteTitle: "La demande doit etre simple, rassurante et directement exploitable.",
+    aboutStatements: ["Catalogue multi-categories", "Production sur devis", "Accompagnement maquette", "Livraison partout au Maroc"],
+    aboutEyebrow: "Atelier",
+    aboutTitle: "DYODZAMAK se positionne comme un atelier de fabrication personnalisee, pas comme un simple catalogue.",
+    aboutNext: "Passez de l'inspiration a une demande claire, rapide et bien cadree.",
+    aboutSuite: "Suite",
+    contactTitle: "Contact",
+    contactText: "WhatsApp reste le canal le plus rapide pour demander un devis, envoyer un logo ou preciser votre besoin.",
+    contactLabel: "Localisation",
+    contactCity: "Maroc",
+    contactWhatsApp: "WhatsApp",
+    contactPhone: "Telephone",
+    contactEmail: "Email",
+    contactLocation: "Localisation"
+  },
+  ar: {
+    customizationTitle: "التخصيص",
+    customizationOptions: ["شعار بارز أو منقوش", "نص وتاريخ واسم المناسبة", "اختيار التشطيبات المعدنية", "شكل خاص أو قص حسب الطلب", "شريط أو تثبيت أو حامل مناسب", "علبة هدية وعرض راق", "سلسلة مرقمة أو إصدار محدود", "معاينة التصميم قبل الإنتاج"],
+    customizationEyebrow: "التخصيص",
+    customizationSectionTitle: "كل تفصيل في التخصيص موجود ليعزز القيمة المتصورة للمنتج.",
+    collectionsEyebrow: "المجموعات",
+    collectionsTitle: "مجموعة واسعة، لكنها معروضة بتناسق واحترافية.",
+    quoteEyebrow: "عرض السعر",
+    quoteTitle: "يجب أن يكون الطلب بسيطاً، مطمئناً وقابلاً للاستعمال مباشرة.",
+    aboutStatements: ["كتالوج متعدد الفئات", "إنتاج حسب الطلب", "مواكبة التصميم", "توصيل في جميع أنحاء المغرب"],
+    aboutEyebrow: "ورشة",
+    aboutTitle: "DYODZAMAK ليست مجرد كتالوج، بل ورشة تصنيع مخصصة.",
+    aboutNext: "انتقل من الإلهام إلى طلب واضح وسريع ومضبوط.",
+    aboutSuite: "متابعة",
+    contactTitle: "اتصال",
+    contactText: "واتساب يبقى القناة الأسرع لطلب عرض السعر أو إرسال الشعار أو توضيح الحاجة.",
+    contactLabel: "الموقع",
+    contactCity: "المغرب",
+    contactWhatsApp: "واتساب",
+    contactPhone: "الهاتف",
+    contactEmail: "البريد الإلكتروني",
+    contactLocation: "الموقع"
+  },
+  en: {
+    customizationTitle: "Customization",
+    customizationOptions: ["Raised or engraved logo", "Text, date and event name", "Choice of metal finishes", "Special shape or custom cut", "Ribbon, clasp or suitable stand", "Gift box and premium presentation", "Numbered series or limited edition", "Mockup before production"],
+    customizationEyebrow: "Customization",
+    customizationSectionTitle: "Every customization detail is there to increase the perceived value of the product.",
+    collectionsEyebrow: "Collections",
+    collectionsTitle: "A wide range, presented with consistency and high standards.",
+    quoteEyebrow: "Quote",
+    quoteTitle: "The request should be simple, reassuring and immediately usable.",
+    aboutStatements: ["Multi-category catalog", "Quote-based production", "Mockup support", "Delivery across Morocco"],
+    aboutEyebrow: "Workshop",
+    aboutTitle: "DYODZAMAK is a custom manufacturing workshop, not just a catalog.",
+    aboutNext: "Move from inspiration to a clear, fast and well-scoped request.",
+    aboutSuite: "Next step",
+    contactTitle: "Contact",
+    contactText: "WhatsApp remains the fastest channel to request a quote, send a logo or clarify your needs.",
+    contactLabel: "Location",
+    contactCity: "Morocco",
+    contactWhatsApp: "WhatsApp",
+    contactPhone: "Phone",
+    contactEmail: "Email",
+    contactLocation: "Location"
+  }
+} as const;
+
 function PageIntro({ title, text }: { title: string; text: string }) {
   const { lang } = useLanguage();
   const heroProduct = products[0];
@@ -49,28 +121,7 @@ export function CatalogPageClient() {
 
 export function CustomizationPageClient() {
   const { lang, t } = useLanguage();
-  const options =
-    lang === "fr"
-      ? [
-          "Logo en relief ou grave",
-          "Texte, date et nom d'evenement",
-          "Choix de finitions metalliques",
-          "Forme speciale ou decoupe sur mesure",
-          "Ruban, attache ou support adaptes",
-          "Boite cadeau et presentation premium",
-          "Serie numerotee ou edition limitee",
-          "Maquette avant production"
-        ]
-      : [
-          "شعار بارز أو منقوش",
-          "نص وتاريخ واسم المناسبة",
-          "اختيار التشطيبات المعدنية",
-          "شكل خاص أو قص حسب الطلب",
-          "شريط أو تثبيت أو حامل مناسب",
-          "علبة هدية وعرض راق",
-          "سلسلة مرقمة أو إصدار محدود",
-          "معاينة التصميم قبل الإنتاج"
-        ];
+  const copy = simpleCopy[lang];
 
   return (
     <>
@@ -79,12 +130,12 @@ export function CustomizationPageClient() {
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <SectionTitle
-            eyebrow="Personnalisation"
-            title="Chaque detail de personnalisation est la pour renforcer la valeur percue du produit."
+            eyebrow={copy.customizationEyebrow}
+            title={copy.customizationSectionTitle}
             text={t.pages.customization[1]}
           />
           <div className="grid gap-3 md:grid-cols-2">
-            {options.map((item) => (
+            {copy.customizationOptions.map((item) => (
               <div key={item} className="section-surface rounded-[24px] px-5 py-6">
                 <p className="text-xl font-medium tracking-[-0.04em] text-[#111111]">{item}</p>
               </div>
@@ -110,6 +161,8 @@ export function CustomizationPageClient() {
 
 export function RealisationsPageClient() {
   const { t } = useLanguage();
+  const { lang } = useLanguage();
+  const copy = simpleCopy[lang];
 
   return (
     <>
@@ -117,7 +170,7 @@ export function RealisationsPageClient() {
 
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame">
-          <SectionTitle eyebrow="Collections" title="Une gamme large, mais presentee avec coherence et exigence." text={t.pages.gallery[1]} />
+          <SectionTitle eyebrow={copy.collectionsEyebrow} title={copy.collectionsTitle} text={t.pages.gallery[1]} />
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {categoryRoutes.slice(0, 4).map((slug) => (
               <CategoryCard key={slug} slug={slug} />
@@ -137,6 +190,8 @@ export function RealisationsPageClient() {
 
 export function QuotePageClient() {
   const { t } = useLanguage();
+  const { lang } = useLanguage();
+  const copy = simpleCopy[lang];
 
   return (
     <>
@@ -145,7 +200,7 @@ export function QuotePageClient() {
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame grid gap-8 lg:grid-cols-[0.74fr_1.26fr]">
           <div className="section-surface rounded-[32px] p-6 md:p-8">
-            <SectionTitle eyebrow="Devis" title="La demande doit etre simple, rassurante et directement exploitable." text={t.pages.quote[1]} />
+            <SectionTitle eyebrow={copy.quoteEyebrow} title={copy.quoteTitle} text={t.pages.quote[1]} />
             <div className="mt-8 grid gap-3">
               {t.trust.map((item) => (
                 <div key={item} className="rounded-[20px] border border-[rgba(17,17,17,0.08)] bg-white/68 px-4 py-4 text-sm font-medium text-[rgba(17,17,17,0.72)]">
@@ -163,15 +218,8 @@ export function QuotePageClient() {
 
 export function AboutPageClient() {
   const { lang, t } = useLanguage();
-  const statements =
-    lang === "fr"
-      ? ["Catalogue multi-categories", "Production sur devis", "Accompagnement maquette", "Livraison partout au Maroc"]
-      : [
-          "كتالوج متعدد الفئات",
-          "إنتاج حسب الطلب",
-          "مواكبة التصميم",
-          "توصيل في جميع أنحاء المغرب"
-        ];
+  const copy = simpleCopy[lang];
+  const statements = copy.aboutStatements;
 
   return (
     <>
@@ -179,7 +227,7 @@ export function AboutPageClient() {
 
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <SectionTitle eyebrow="Atelier" title="DYODZAMAK se positionne comme un atelier de fabrication personnalisee, pas comme un simple catalogue." text={t.footer} />
+          <SectionTitle eyebrow={copy.aboutEyebrow} title={copy.aboutTitle} text={t.footer} />
           <div className="grid gap-3 md:grid-cols-2">
             {statements.map((item) => (
               <div key={item} className="section-surface rounded-[24px] px-5 py-6">
@@ -193,9 +241,9 @@ export function AboutPageClient() {
         <div className="section-surface mt-8 rounded-[38px] px-6 py-8 md:px-8 md:py-10">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <span className="eyebrow">Suite</span>
+              <span className="eyebrow">{copy.aboutSuite}</span>
               <h2 className="mt-5 max-w-3xl text-4xl font-medium tracking-[-0.05em] text-[#111111] md:text-5xl">
-                Passez de l&apos;inspiration a une demande claire, rapide et bien cadree.
+                {copy.aboutNext}
               </h2>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -210,28 +258,30 @@ export function AboutPageClient() {
 }
 
 export function ContactPageClient() {
+  const { lang, t } = useLanguage();
+  const copy = simpleCopy[lang];
   return (
     <>
-      <PageIntro title="Contact" text="WhatsApp reste le canal le plus rapide pour demander un devis, envoyer un logo ou preciser votre besoin." />
+      <PageIntro title={copy.contactTitle} text={copy.contactText} />
 
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="grid gap-3">
             <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">WhatsApp</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">WhatsApp</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactWhatsApp}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{copy.contactWhatsApp}</p>
             </a>
             <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">Telephone</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactPhone}</p>
               <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{phoneDisplay}</p>
             </a>
             <a href={`mailto:${emailDisplay}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">Email</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactEmail}</p>
               <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{emailDisplay}</p>
             </a>
             <div className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">Localisation</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">Maroc</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{copy.contactLocation}</p>
+              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-[#111111]">{copy.contactCity}</p>
             </div>
           </div>
 

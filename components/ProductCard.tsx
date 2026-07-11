@@ -11,6 +11,7 @@ export default function ProductCard({ product, compact = false }: { product: Pro
   const { lang, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const copy = product[lang];
+  const closeLabel = lang === "fr" ? "Fermer" : lang === "ar" ? "إغلاق" : "Close";
 
   return (
     <>
@@ -75,7 +76,7 @@ export default function ProductCard({ product, compact = false }: { product: Pro
                 type="button"
                 className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(17,17,17,0.08)] bg-white"
                 onClick={() => setOpen(false)}
-                aria-label="Close"
+                aria-label={closeLabel}
               >
                 <X size={18} />
               </button>

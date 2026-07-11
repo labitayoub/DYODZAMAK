@@ -13,6 +13,7 @@ export type ProductCategorySlug =
 type LocalizedText = {
   fr: string;
   ar: string;
+  en: string;
 };
 
 type ProductPlaceholder = {
@@ -43,11 +44,28 @@ export type ProductCategory = {
 };
 
 function sameText(fr: string): LocalizedText {
-  return { fr, ar: fr };
+  return { fr, ar: fr, en: fr };
 }
 
 function sameList(items: string[]): LocalizedText[] {
   return items.map((item) => sameText(item));
+}
+
+const categoryLabels: Record<ProductCategorySlug, LocalizedText> = {
+  medailles: { fr: "Medailles", ar: "ميداليات", en: "Medals" },
+  trophees: { fr: "Trophees", ar: "كؤوس", en: "Trophies" },
+  pins: { fr: "Pins", ar: "دبابيس", en: "Pins" },
+  badges: { fr: "Badges", ar: "شارات", en: "Badges" },
+  "portes-cles": { fr: "Portes cles", ar: "حاملات مفاتيح", en: "Keychains" },
+  macarons: { fr: "Macarons", ar: "ماكرون", en: "Car badges" },
+  boutons: { fr: "Boutons", ar: "أزرار", en: "Buttons" },
+  boucles: { fr: "Boucles", ar: "أقراط", en: "Loops" },
+  "t-shirt": { fr: "T-shirt", ar: "تيشيرت", en: "T-shirt" },
+  resine: { fr: "Resine", ar: "ريزن", en: "Resin" }
+};
+
+export function getProductCategoryLabel(slug: ProductCategorySlug, lang: keyof LocalizedText) {
+  return categoryLabels[slug][lang];
 }
 
 type CategorySeed = {

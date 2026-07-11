@@ -7,9 +7,10 @@ export default function ProductCard({
   categoryName
 }: {
   item: ProductCategory["placeholders"][number];
-  lang: "fr" | "ar";
+  lang: "fr" | "ar" | "en";
   categoryName: string;
 }) {
+  const label = lang === "fr" ? "Produit" : lang === "ar" ? "المنتج" : "Product";
   return (
     <article className="product-card flex h-full flex-col rounded-[30px] p-3">
       <div className="relative overflow-hidden rounded-[24px]">
@@ -25,7 +26,7 @@ export default function ProductCard({
         </div>
         <div className="absolute inset-0 flex flex-col justify-between p-5">
           <span className="w-fit rounded-full border border-white/20 bg-black/30 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/88 backdrop-blur-sm">
-            Produit
+            {label}
           </span>
           <div className="rounded-[20px] border border-white/25 bg-white/82 p-4 backdrop-blur-sm">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[rgba(17,17,17,0.42)]">{categoryName}</p>
