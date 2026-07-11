@@ -398,11 +398,6 @@ export default function HomeClient() {
           {current.steps.map(([number, title, text]) => <FadeIn key={number} className="process-item"><b>{number}</b><h3>{title}</h3><p>{text}</p></FadeIn>)}
         </div>
       </section>
-
-      <section className="awards-container final-cta">
-        <div><span className="gold-kicker"><Sparkles size={15} /> {current.finalEyebrow}</span><h2>{current.finalTitle}</h2><p>{current.finalText}</p></div>
-        <Link href="/devis" className="gold-button">{current.finalCta} <ArrowLeft size={18} /></Link>
-      </section>
     </div>
   );
 }
