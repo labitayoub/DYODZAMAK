@@ -44,30 +44,54 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form onSubmit={submit} className={`section-surface rounded-[32px] p-5 md:p-8 ${compact ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}`}>
+    <form onSubmit={submit} className={`section-surface rounded-[32px] p-5 md:p-8 ${compact ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}`} noValidate>
       <div className={compact ? "" : "md:col-span-2"}>
         <span className="eyebrow">{t.price}</span>
         <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-[#111111] md:text-4xl">{t.pages.quote[0]}</h2>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[rgba(17,17,17,0.62)]">{t.pages.quote[1]}</p>
       </div>
 
-      <input className="field" required placeholder={t.form.name} value={form.name} onChange={(e) => field("name", e.target.value)} />
-      <input className="field" required placeholder={t.form.phone} value={form.phone} onChange={(e) => field("phone", e.target.value)} />
-      <input className="field" required placeholder={t.form.city} value={form.city} onChange={(e) => field("city", e.target.value)} />
+      <div>
+        <label htmlFor="quote-name" className="field-label">{t.form.name}</label>
+        <input id="quote-name" className="field" required placeholder={t.form.name} value={form.name} onChange={(e) => field("name", e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="quote-phone" className="field-label">{t.form.phone}</label>
+        <input id="quote-phone" className="field" required placeholder={t.form.phone} value={form.phone} onChange={(e) => field("phone", e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="quote-city" className="field-label">{t.form.city}</label>
+        <input id="quote-city" className="field" required placeholder={t.form.city} value={form.city} onChange={(e) => field("city", e.target.value)} />
+      </div>
 
-      <select className="field" required value={form.product} onChange={(e) => field("product", e.target.value)}>
-        <option value="">{t.form.product}</option>
-        {productCategories.map((category) => (
-          <option key={category.slug} value={getProductCategoryLabel(category.slug, lang)}>
-            {getProductCategoryLabel(category.slug, lang)}
-          </option>
-        ))}
-      </select>
+      <div>
+        <label htmlFor="quote-product" className="field-label">{t.form.product}</label>
+        <select id="quote-product" className="field" required value={form.product} onChange={(e) => field("product", e.target.value)}>
+          <option value="">{t.form.product}</option>
+          {productCategories.map((category) => (
+            <option key={category.slug} value={getProductCategoryLabel(category.slug, lang)}>
+              {getProductCategoryLabel(category.slug, lang)}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <input className="field" required type="number" min="1" placeholder={t.form.quantity} value={form.quantity} onChange={(e) => field("quantity", e.target.value)} />
-      <input className="field" placeholder={t.form.finish} value={form.finish} onChange={(e) => field("finish", e.target.value)} />
-      <textarea className={`field min-h-28 ${compact ? "" : "md:col-span-2"}`} placeholder={t.form.engraving} value={form.engraving} onChange={(e) => field("engraving", e.target.value)} />
-      <textarea className={`field min-h-36 ${compact ? "" : "md:col-span-2"}`} required placeholder={t.form.message} value={form.description} onChange={(e) => field("description", e.target.value)} />
+      <div>
+        <label htmlFor="quote-quantity" className="field-label">{t.form.quantity}</label>
+        <input id="quote-quantity" className="field" required type="number" min="1" placeholder={t.form.quantity} value={form.quantity} onChange={(e) => field("quantity", e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="quote-finish" className="field-label">{t.form.finish}</label>
+        <input id="quote-finish" className="field" placeholder={t.form.finish} value={form.finish} onChange={(e) => field("finish", e.target.value)} />
+      </div>
+      <div className={compact ? "" : "md:col-span-2"}>
+        <label htmlFor="quote-engraving" className="field-label">{t.form.engraving}</label>
+        <textarea id="quote-engraving" className="field min-h-28" placeholder={t.form.engraving} value={form.engraving} onChange={(e) => field("engraving", e.target.value)} />
+      </div>
+      <div className={compact ? "" : "md:col-span-2"}>
+        <label htmlFor="quote-message" className="field-label">{t.form.message}</label>
+        <textarea id="quote-message" className="field min-h-36" required placeholder={t.form.message} value={form.description} onChange={(e) => field("description", e.target.value)} />
+      </div>
 
       <button type="submit" className={`button-whatsapp ${compact ? "" : "md:col-span-2"}`}>
         <WhatsAppIcon size={18} />

@@ -301,6 +301,7 @@ export const categories: Record<
     image: string;
     fr: { title: string; summary: string; subcategories: string[]; useCases: string[] };
     ar: { title: string; summary: string; subcategories: string[]; useCases: string[] };
+    en: { title: string; summary: string; subcategories: string[]; useCases: string[] };
   }
 > = {
   medailles: {

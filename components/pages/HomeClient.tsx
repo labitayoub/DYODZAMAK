@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ArrowLeft, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy } from "lucide-react";
 import { FadeIn, ScaleIn } from "@/components/Motion";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -11,9 +10,9 @@ const copy = {
   fr: {
     heroDir: "ltr",
     slides: [
-      { eyebrow: "Des details qui font la difference", title: "Des recompenses exceptionnelles pour des champions uniques.", text: "De la premiere idee a la piece finale, nous concevons des recompenses a la hauteur de l'exploit.", cta: "Commencer votre design", href: "/devis" },
-      { eyebrow: "Une identite qui merite d'apparaitre", title: "Transformez votre logo en une piece qui laisse une impression.", text: "Nous fabriquons des coupes, medailles et plaques avec des finitions metalliques adaptees a votre marque ou votre evenement.", cta: "Explorer la personnalisation", href: "/personnalisation" },
-      { eyebrow: "Pour les grands moments", title: "Chaque hommage commence par une piece inoubliable.", text: "Des creations precises pour les ecoles, clubs, entreprises, associations et evenements dans tout le Maroc.", cta: "Voir nos realisations", href: "/realisations" }
+      { eyebrow: "Des details qui font la difference", text: "De la premiere idee a la piece finale, nous concevons des recompenses a la hauteur de l'exploit.", cta: "Commencer votre design", href: "/devis" },
+      { eyebrow: "Une identite qui merite d'apparaitre", text: "Nous fabriquons des coupes, medailles et plaques avec des finitions metalliques adaptees a votre marque ou votre evenement.", cta: "Explorer la personnalisation", href: "/personnalisation" },
+      { eyebrow: "Pour les grands moments",text: "Des creations precises pour les ecoles, clubs, entreprises, associations et evenements dans tout le Maroc.", cta: "Voir nos realisations", href: "/realisations" }
     ],
     collections: [
       { title: "Trophees sportifs", text: "Coupes et medailles pour championnats et tournois", href: "/trophees", image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg", icon: Trophy, cta: "Decouvrir la collection" },
@@ -117,32 +116,19 @@ const copy = {
 
 export default function HomeClient() {
   const { lang } = useLanguage();
-  const [slide, setSlide] = useState(0);
   const current = copy[lang];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setSlide((currentSlide) => (currentSlide + 1) % current.slides.length), 6000);
-    return () => window.clearInterval(timer);
-  }, [current.slides.length]);
-
-  const activeSlide = current.slides[slide];
 
   return (
     <div dir={current.heroDir} className="awards-home">
       <section className="awards-hero">
-        <Image src="/images/hero-awards.png" alt="DYODZAMAK metal awards collection" fill priority sizes="100vw" className="awards-hero-image" />
-        <div className="awards-hero-shade" />
-        <div className="awards-container awards-hero-content">
-          <div key={slide} className="hero-copy">
-            <span className="gold-kicker"><Sparkles size={15} /> {activeSlide.eyebrow}</span>
-            <h1>{activeSlide.title}</h1>
-            <p>{activeSlide.text}</p>
-            <Link href={activeSlide.href} className="gold-button">{activeSlide.cta} <ArrowLeft size={18} /></Link>
-          </div>
-          <div className="hero-dots" aria-label="featured slides">
-            {current.slides.map((item, index) => <button key={item.title} onClick={() => setSlide(index)} className={index === slide ? "active" : ""} aria-label={`Slide ${index + 1}`} />)}
-          </div>
-        </div>
+        <video
+          src="/images/hero.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover z-[-2]"
+        />
       </section>
 
       <section className="awards-container collection-section">

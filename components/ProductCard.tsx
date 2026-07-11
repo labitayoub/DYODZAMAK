@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, X } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/BrandIcons";
@@ -12,11 +12,52 @@ export default function ProductCard({ product, compact = false }: { product: Pro
   const [open, setOpen] = useState(false);
   const copy = product[lang];
   const closeLabel = lang === "fr" ? "Fermer" : lang === "ar" ? "إغلاق" : "Close";
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const modalCloseRef = useRef<HTMLButtonElement>(null);
+
+  const closeModal = useCallback(() => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    modalCloseRef.current?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, closeModal]);
 
   return (
     <>
       <article className="product-card group flex h-full flex-col rounded-[30px] p-3">
-        <button type="button" onClick={() => setOpen(true)} className="relative aspect-[0.96] overflow-hidden rounded-[24px] text-left bg-[#fcfbf9]/60 p-4">
+        <button ref={triggerRef} type="button" onClick={() => setOpen(true)} className="relative aspect-[0.96] overflow-hidden rounded-[24px] text-left bg-[#fcfbf9]/60 p-4">
           <Image
             src={product.image}
             alt={copy.name}
@@ -62,8 +103,12 @@ export default function ProductCard({ product, compact = false }: { product: Pro
       </article>
 
       {open ? (
-        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/45 p-4 backdrop-blur-md" onClick={() => setOpen(false)}>
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/45 p-4 backdrop-blur-md" onClick={closeModal}>
           <div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={copy.name}
             className="section-surface max-h-[92vh] w-full max-w-6xl overflow-auto rounded-[34px] p-4 md:p-6"
             onClick={(event) => event.stopPropagation()}
           >
@@ -73,9 +118,10 @@ export default function ProductCard({ product, compact = false }: { product: Pro
                 <h2 className="mt-2 text-3xl font-medium tracking-[-0.05em] text-[#111111] md:text-5xl">{copy.name}</h2>
               </div>
               <button
+                ref={modalCloseRef}
                 type="button"
                 className="grid h-11 w-11 place-items-center rounded-full border border-[rgba(17,17,17,0.08)] bg-white"
-                onClick={() => setOpen(false)}
+                onClick={closeModal}
                 aria-label={closeLabel}
               >
                 <X size={18} />

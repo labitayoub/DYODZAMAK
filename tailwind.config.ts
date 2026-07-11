@@ -10,11 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         ink: "#111111",
-        coal: "#111111",
         bronze: "#B87532",
         gold: "#D8B56D",
         beige: "#EFE3D2",
         ivory: "#FAF7F2"
+      },
+      borderRadius: {
+        xs: "8px",
+        sm: "14px",
+        md: "24px",
+        lg: "34px",
+        xl: "42px"
       },
       boxShadow: {
         premium: "0 24px 80px rgba(0,0,0,.22)"

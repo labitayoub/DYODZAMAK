@@ -743,6 +743,7 @@ export const productCategories: ProductCategory[] = categorySeeds.map((category)
   applicationsDescription: sameText(
     "Des usages concrets, frequents et adaptes aux exigences des entreprises, institutions et organisateurs d'evenements."
   ),
+  applications: sameList(category.applications),
   sectionTitle: sameText("Exemples de produits"),
   sectionText: sameText(
     "Une selection de references placeholders pour projeter votre futur assortiment et vous aider a cadrer rapidement votre demande."

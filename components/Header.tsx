@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { Lang, navItems, whatsappNumber } from "@/data/site";
@@ -24,6 +24,47 @@ export default function Header() {
   const { lang, t, setLang, isRtl } = useLanguage();
   const [open, setOpen] = useState(false);
   const copy = shellCopy[lang];
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+    hamburgerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    closeButtonRef.current?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeMenu();
+        return;
+      }
+      if (e.key !== "Tab" || !drawerRef.current) return;
+
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, closeMenu]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6">
@@ -105,10 +146,13 @@ export default function Header() {
           </div>
 
           <button
+            ref={hamburgerRef}
             type="button"
             className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white lg:hidden"
             onClick={() => setOpen((value) => !value)}
               aria-label={open ? copy.closeMenu : copy.openMenu}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -116,8 +160,13 @@ export default function Header() {
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-50 bg-black/30 px-4 py-4 backdrop-blur-sm lg:hidden" onClick={() => setOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-black/30 px-4 py-4 backdrop-blur-sm lg:hidden" onClick={closeMenu}>
           <div
+            ref={drawerRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label={copy.categories}
             className={`header-panel ml-auto flex h-full w-full max-w-sm flex-col rounded-[30px] p-6 ${isRtl ? "mr-auto ml-0" : ""}`}
             onClick={(event) => event.stopPropagation()}
           >
@@ -132,8 +181,9 @@ export default function Header() {
                 </div>
               </div>
               <button
+                ref={closeButtonRef}
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
                 className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white"
                 aria-label={copy.closeMenu}
               >
@@ -142,10 +192,10 @@ export default function Header() {
             </div>
 
             <div className="mt-10 grid gap-5">
-              <Link onClick={() => setOpen(false)} href="/" className="text-2xl font-medium tracking-[-0.04em] text-white">
+              <Link onClick={closeMenu} href="/" className="text-2xl font-medium tracking-[-0.04em] text-white">
                 {t.nav.home}
               </Link>
-              <Link onClick={() => setOpen(false)} href="/catalogue" className="text-2xl font-medium tracking-[-0.04em] text-white">
+              <Link onClick={closeMenu} href="/catalogue" className="text-2xl font-medium tracking-[-0.04em] text-white">
                 {t.nav.catalog}
               </Link>
 
@@ -154,7 +204,7 @@ export default function Header() {
                 {productCategories.map((category) => (
                   <Link
                     key={category.slug}
-                    onClick={() => setOpen(false)}
+                    onClick={closeMenu}
                     href={category.href}
                     className="text-lg font-medium tracking-[-0.03em] text-white/85"
                   >
@@ -164,12 +214,12 @@ export default function Header() {
               </div>
 
               {navItems.slice(6).map((item) => (
-                <Link key={item.href} onClick={() => setOpen(false)} href={item.href} className="text-2xl font-medium tracking-[-0.04em] text-white">
+                <Link key={item.href} onClick={closeMenu} href={item.href} className="text-2xl font-medium tracking-[-0.04em] text-white">
                   {t.nav[item.key]}
                 </Link>
               ))}
 
-              <Link onClick={() => setOpen(false)} href="/contact" className="text-2xl font-medium tracking-[-0.04em] text-white">
+              <Link onClick={closeMenu} href="/contact" className="text-2xl font-medium tracking-[-0.04em] text-white">
                 {t.nav.contact}
               </Link>
             </div>
