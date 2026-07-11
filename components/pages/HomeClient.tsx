@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { FadeIn, ScaleIn } from "@/components/Motion";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -136,10 +136,81 @@ const copy = {
   }
 } as const;
 
+const craftTabContent = {
+  fr: {
+    design: {
+      label: "1. Conception 3D",
+      title: "Modélisation numérique avant fabrication",
+      desc: "Nous concevons une maquette numérique haute fidélité pour que vous puissiez prévisualiser chaque détail de votre trophée avant le lancement de la production."
+    },
+    metal: {
+      label: "2. Finitions Nobles",
+      title: "Placages or, argent, bronze ou mat",
+      desc: "Choisissez parmi nos traitements de surface haut de gamme : or poli miroir, argent satiné, bronze patiné ou noir mat profond pour refléter le prestige de votre marque."
+    },
+    engrave: {
+      label: "3. Marquage & Relief",
+      title: "Gravure laser de précision micro-millimétrique",
+      desc: "Intégrez vos logos complexes, textes nominatifs et blasons avec une netteté absolue grâce à nos lasers de gravure de dernière génération."
+    },
+    base: {
+      label: "4. Socle & Écrin",
+      title: "Bases massives et écrin sur mesure",
+      desc: "Stabilité et prestige assurés par des socles en marbre noir, bois précieux ou acrylique optique, présentés dans un coffret de luxe personnalisé."
+    }
+  },
+  ar: {
+    design: {
+      label: "1. التصميم ثلاثي الأبعاد",
+      title: "معاينة رقمية قبل بدء التصنيع",
+      desc: "نصمم لك نموذجاً رقمياً عالي الدقة لتتمكن من معاينة كل تفاصيل جائزتك قبل إرسالها لخط الإنتاج."
+    },
+    metal: {
+      label: "2. اللمسات النهائية",
+      title: "طلاء ذهبي، فضي، برونزي أو مطفأ",
+      desc: "اختر من بين تشطيباتنا الفاخرة: ذهبي لامع، فضي ناعم، برونزي كلاسيكي أو أسود مطفأ ليعكس قيمة علامتك التجارية."
+    },
+    engrave: {
+      label: "3. النقش والبروز",
+      title: "نقش ليزر فائق الدقة",
+      desc: "أضف شعاراتك، أسماء الفائزين ونصوصك التقديرية بدقة متناهية بفضل تقنيات النقش بالليزر الحديثة."
+    },
+    base: {
+      label: "4. القاعدة والعلبة",
+      title: "قواعد رخامية فاخرة وعلب تقديم مخصصة",
+      desc: "ثبات وأناقة مع قواعد من الرخام الأسود الطبيعي، الخشب النبيل، أو الأكريليك المصقول، مع علبة قطيفة مخصصة."
+    }
+  },
+  en: {
+    design: {
+      label: "1. 3D Conception",
+      title: "Digital mockup before fabrication",
+      desc: "We design a high-fidelity digital mockup so you can preview every single detail of your award before production starts."
+    },
+    metal: {
+      label: "2. Noble Finishes",
+      title: "Gold, silver, bronze or matte plating",
+      desc: "Choose from our high-end surface treatments: polished mirror gold, satin silver, patinated bronze, or deep matte black to reflect your brand's prestige."
+    },
+    engrave: {
+      label: "3. Engraving & Relief",
+      title: "Micro-millimetric precision laser engraving",
+      desc: "Integrate your complex logos, individual recipient names, and crests with absolute clarity using our latest generation laser systems."
+    },
+    base: {
+      label: "4. Base & Bespoke Box",
+      title: "Solid bases and custom presentation case",
+      desc: "Ensured stability and prestige with bases in black marble, precious wood, or optical acrylic, presented in a custom luxury gift box."
+    }
+  }
+} as const;
+
 export default function HomeClient() {
   const { lang } = useLanguage();
   const current = copy[lang];
   const [activeIdx, setActiveIdx] = useState(0);
+  const [activeTab, setActiveTab] = useState<"design" | "metal" | "engrave" | "base">("design");
+  const [activeTooltip, setActiveTooltip] = useState<"metal" | "engrave" | "base" | null>(null);
   const total = ALL_PRODUCTS.length;
 
   const goPrev = () => setActiveIdx((prev) => (prev - 1 + total) % total);
@@ -226,15 +297,103 @@ export default function HomeClient() {
           <FadeIn className="craft-copy">
             <span className="gold-kicker"><Palette size={15} /> {current.craftEyebrow}</span>
             <h2>{current.craftTitle}</h2>
-            <p>{current.craftText}</p>
-            <Link href="/personnalisation" className="outline-button">{current.craftLink} <ArrowLeft size={18} /></Link>
+            <p style={{ marginBottom: "1.5rem" }}>{current.craftText}</p>
+
+            <div className="craft-tabs-list">
+              {(Object.keys(craftTabContent[lang]) as Array<keyof typeof craftTabContent[typeof lang]>).map((key) => {
+                const isActive = activeTab === key;
+                return (
+                  <button
+                    key={key}
+                    className={`craft-tab-btn ${isActive ? "active" : ""}`}
+                    onClick={() => setActiveTab(key)}
+                  >
+                    <span>{craftTabContent[lang][key].label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="craft-tab-panel">
+              <h3>{craftTabContent[lang][activeTab].title}</h3>
+              <p>{craftTabContent[lang][activeTab].desc}</p>
+            </div>
+
+            <Link href="/personnalisation" className="outline-button" style={{ marginTop: "1.5rem" }}>
+              {current.craftLink} <ArrowLeft size={18} />
+            </Link>
           </FadeIn>
-          <ScaleIn className="craft-stats">
-            {current.stats.map((item) => {
-              const Icon = item.icon;
-              return <div key={item.title}><Icon /><strong>{item.title}</strong><span>{item.text}</span></div>;
-            })}
-          </ScaleIn>
+
+          <div className="craft-visual-column">
+            <div className={`configurator-lens configurator-lens--${activeTab}`}>
+              {/* Premium Vector Award Blueprint */}
+              <svg viewBox="0 0 320 420" className="trophy-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FFF2D4" />
+                    <stop offset="30%" stopColor="#E5BD77" />
+                    <stop offset="70%" stopColor="#B38A3E" />
+                    <stop offset="100%" stopColor="#F5DCA3" />
+                  </linearGradient>
+                  <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.18)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.01)" />
+                  </linearGradient>
+                  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="10" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                <ellipse cx="160" cy="390" rx="90" ry="12" fill="rgba(0,0,0,0.6)" filter="url(#glow)" />
+
+                {/* 1. Design & Maquette overall wireframe blueprint */}
+                <g className={`svg-part svg-part--design ${activeTab === "design" ? "active" : ""}`}>
+                  <path d="M 80,60 L 240,60 L 260,240 L 160,310 L 60,240 Z" fill="none" stroke="#e5bd77" strokeWidth="1" strokeDasharray="4,4" opacity="0.4" />
+                  <line x1="80" y1="60" x2="160" y2="310" stroke="#e5bd77" strokeWidth="0.5" opacity="0.2" />
+                  <line x1="240" y1="60" x2="160" y2="310" stroke="#e5bd77" strokeWidth="0.5" opacity="0.2" />
+                </g>
+
+                {/* 2. Metal/Finitions (Plates & main trophy form) */}
+                <g className={`svg-part svg-part--metal ${activeTab === "metal" ? "active" : ""}`}>
+                  <path d="M 80,60 L 240,60 L 260,240 L 160,310 L 60,240 Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+                  <path d="M 110,80 L 210,80 L 225,215 L 160,265 L 95,215 Z" fill="url(#goldGrad)" />
+                  <path d="M 110,80 L 140,80 L 110,215 Z" fill="rgba(255,255,255,0.25)" />
+                </g>
+
+                {/* 3. Gravure/Laser (Engraving details) */}
+                <g className={`svg-part svg-part--engrave ${activeTab === "engrave" ? "active" : ""}`}>
+                  <path d="M 130,120 L 190,120 L 200,200 L 160,230 L 120,200 Z" fill="rgba(7,17,26,0.8)" stroke="#fff" strokeWidth="1" opacity="0.8" />
+                  <path d="M 160,135 L 170,155 L 190,155 L 175,168 L 180,188 L 160,175 L 140,188 L 145,168 L 130,155 L 150,155 Z" fill="none" stroke="#e5bd77" strokeWidth="1.5" />
+                  <line x1="140" y1="205" x2="180" y2="205" stroke="#fff" strokeWidth="1.5" opacity="0.9" />
+                  <line x1="145" y1="215" x2="175" y2="215" stroke="#fff" strokeWidth="1" opacity="0.6" />
+                </g>
+
+                {/* 4. Base & Socle */}
+                <g className={`svg-part svg-part--base ${activeTab === "base" ? "active" : ""}`}>
+                  <path d="M 140,310 L 180,310 L 185,330 L 135,330 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                  <path d="M 80,330 L 240,330 L 255,380 L 65,380 Z" fill="#0e1720" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
+                  <rect x="105" y="348" width="110" height="20" rx="1.5" fill="url(#goldGrad)" />
+                  <line x1="120" y1="358" x2="200" y2="358" stroke="#16120b" strokeWidth="2" opacity="0.8" />
+                </g>
+
+                {/* Hotspots */}
+                <g className="configurator-hotspots">
+                  {/* Top/Metal Hotspot */}
+                  <circle cx="160" cy="140" r="14" className="hotspot-trigger" onClick={() => setActiveTab("metal")} />
+                  <circle cx="160" cy="140" r="5" className="hotspot-dot" />
+
+                  {/* Middle/Engraving Hotspot */}
+                  <circle cx="160" cy="210" r="14" className="hotspot-trigger" onClick={() => setActiveTab("engrave")} />
+                  <circle cx="160" cy="210" r="5" className="hotspot-dot" />
+
+                  {/* Bottom/Base Hotspot */}
+                  <circle cx="160" cy="358" r="14" className="hotspot-trigger" onClick={() => setActiveTab("base")} />
+                  <circle cx="160" cy="358" r="5" className="hotspot-dot" />
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
       </section>
 

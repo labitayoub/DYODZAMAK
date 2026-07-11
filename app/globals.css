@@ -289,13 +289,166 @@ a {
 .collection-content a { display: inline-flex; align-items: center; gap: .5rem; margin-top: 0.75rem; color: #e6be76; font-weight: 700; font-size: .85rem; transition: gap 0.25s ease; }
 .collection-content a:hover { gap: 0.75rem; }
 
-.craft-section { padding: 5.5rem 0; border-block: 1px solid rgba(221, 181, 105, .15); background: radial-gradient(circle at 15% 10%, rgba(199,151,71,.18), transparent 25rem), #0a151e; }
-.craft-grid { display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 4rem; }
+.craft-section { padding: 6.5rem 0; border-block: 1px solid rgba(221, 181, 105, .15); background: radial-gradient(circle at 15% 10%, rgba(199,151,71,.18), transparent 25rem), #0a151e; }
+.craft-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; }
 .outline-button { color: #f5d187; border: 1px solid rgba(232, 194, 120, .48); }
-.craft-stats { display: grid; gap: .85rem; }
-.craft-stats > div { display: grid; grid-template-columns: 45px 1fr; column-gap: .8rem; align-items: center; padding: 1.15rem; border: 1px solid rgba(255,255,255,.09); border-radius: var(--radius-xs); background: rgba(255,255,255,.035); }
-.craft-stats svg { grid-row: span 2; color: #e5b86c; }
-.craft-stats strong { color: #fff; font-size: 1rem; }.craft-stats span { color: rgba(255,255,255,.62); margin-top: .2rem; font-size: .84rem; }
+
+/* ── Interactive Configurator & Tabs ── */
+.craft-tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.8rem;
+}
+
+.craft-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  margin-bottom: -0.7rem;
+}
+
+.craft-tab-btn:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.craft-tab-btn.active {
+  color: #e5bd77;
+  border-bottom-color: #e5bd77;
+}
+
+.craft-tab-panel {
+  min-height: 120px;
+  animation: tabFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.craft-tab-panel h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fffdf8;
+  margin: 0 0 0.5rem;
+}
+
+.craft-tab-panel p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Trophy SVG Configurator blueprint visual */
+.craft-visual-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.configurator-lens {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-medium);
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  justify-content: center;
+}
+
+.trophy-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.svg-part {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease;
+  transform-origin: center;
+}
+
+/* Interactive highlight behaviors depending on active state */
+.svg-part--design {
+  transition: opacity 0.4s ease;
+}
+
+/* Configurator state overrides */
+.configurator-lens--design .svg-part--design {
+  opacity: 0.85;
+}
+
+.configurator-lens--metal .svg-part--metal {
+  transform: translateY(-8px) scale(1.02);
+  filter: drop-shadow(0 0 18px rgba(229, 189, 119, 0.45));
+}
+.configurator-lens--metal .svg-part:not(.svg-part--metal) {
+  opacity: 0.45;
+}
+
+.configurator-lens--engrave .svg-part--engrave {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.35));
+}
+.configurator-lens--engrave .svg-part:not(.svg-part--engrave) {
+  opacity: 0.4;
+}
+
+.configurator-lens--base .svg-part--base {
+  transform: translateY(8px) scale(1.02);
+  filter: drop-shadow(0 0 15px rgba(229, 189, 119, 0.35));
+}
+.configurator-lens--base .svg-part:not(.svg-part--base) {
+  opacity: 0.45;
+}
+
+/* Hotspots */
+.configurator-hotspots {
+  cursor: pointer;
+}
+
+.hotspot-trigger {
+  fill: transparent;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.hotspot-dot {
+  fill: #e5bd77;
+  r: 4;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px #e5bd77);
+}
+
+.hotspot-trigger:hover + .hotspot-dot,
+.configurator-hotspots:hover .hotspot-dot {
+  r: 6;
+  fill: #fffdf8;
+  filter: drop-shadow(0 0 8px #fffdf8);
+}
+
 
 .process-section { padding: 6.5rem 0; }.centered { text-align: center; margin-inline: auto; }
 .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 3rem; gap: 1px; background: rgba(235, 199, 125, .12); border-radius: var(--radius-sm); overflow: hidden; }
@@ -490,6 +643,7 @@ a {
   .coverflow-item--left2, .coverflow-item--right2 { display: none; }
   .coverflow-arrow { width: 40px; height: 40px; }
   .coverflow-title { font-size: 1.2rem; }
+  .configurator-lens { padding: 1.5rem; max-width: 320px; }
 }
 
 
