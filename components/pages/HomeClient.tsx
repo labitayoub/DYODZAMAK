@@ -41,7 +41,7 @@ export default function HomeClient() {
                   </span>
                 </div>
 
-                <h1 className="mt-8 max-w-4xl text-[clamp(3.4rem,8vw,7.1rem)] font-medium leading-[0.88] tracking-[-0.07em] text-[#f7f3ed]">
+                <h1 className="mt-8 max-w-4xl text-[clamp(3.4rem,8vw,7.1rem)] font-medium leading-[1.15] tracking-[-0.03em] text-[#f7f3ed]">
                   Des pieces de distinction pensees comme des objets de collection.
                 </h1>
 
@@ -72,19 +72,19 @@ export default function HomeClient() {
               </FadeIn>
 
               <ScaleIn className="grid gap-5">
-                <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-white/10">
+                <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-8">
                   <Image
                     src={signatureProduct.image}
                     alt={signatureProduct[lang].name}
                     fill
                     priority
                     sizes="(min-width: 1024px) 42vw, 100vw"
-                    className="object-cover"
+                    className="object-contain p-4"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.04),rgba(10,10,10,0.58))]" />
                   <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/56">{signatureProduct.badge}</p>
-                    <h2 className="mt-2 max-w-md text-3xl font-medium leading-[0.95] tracking-[-0.05em] text-white md:text-4xl">
+                    <h2 className="mt-2 max-w-md text-3xl font-medium leading-[1.15] tracking-[-0.02em] text-white md:text-4xl">
                       {signatureProduct[lang].name}
                     </h2>
                     <p className="mt-3 max-w-md text-sm leading-7 text-white/74">{signatureProduct[lang].description}</p>
@@ -94,7 +94,7 @@ export default function HomeClient() {
                 <div className="grid gap-5 md:grid-cols-[0.95fr_1.05fr]">
                   <div className="soft-panel rounded-[30px] p-5 md:p-6">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[rgba(17,17,17,0.42)]">Positionnement</p>
-                    <p className="mt-4 text-2xl font-medium leading-[1.04] tracking-[-0.05em] text-[#111111]">
+                    <p className="mt-4 text-2xl font-medium leading-[1.22] tracking-[-0.02em] text-[#111111]">
                       Un catalogue qui parle comme un atelier premium, pas comme une grille de produits.
                     </p>
                   </div>
@@ -102,13 +102,13 @@ export default function HomeClient() {
                   <div className="soft-panel relative overflow-hidden rounded-[30px] p-4">
                     <div className="grid grid-cols-2 gap-4">
                       {supportGallery.map((item) => (
-                        <div key={item.key} className="relative min-h-[170px] overflow-hidden rounded-[22px]">
+                        <div key={item.key} className="relative min-h-[170px] overflow-hidden rounded-[22px] bg-[#fcfbf9]/60 p-4">
                           <Image
                             src={item.image}
                             alt={item.alt}
                             fill
                             sizes="(min-width: 1024px) 16vw, 50vw"
-                            className="object-cover"
+                            className="object-contain p-2"
                           />
                         </div>
                       ))}
@@ -157,10 +157,10 @@ export default function HomeClient() {
             <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
               <div>
                 <span className="eyebrow">Ils nous font confiance</span>
-                <h2 className="mt-5 max-w-2xl text-4xl font-medium leading-[0.96] tracking-[-0.05em] text-[#111111] md:text-5xl">
+                <h2 className="mt-5 max-w-2xl text-4xl font-medium leading-[1.1] tracking-[-0.03em] text-[#111111] md:text-5xl">
                   Entreprises, ecoles, clubs, associations et institutions nous confient leurs projets de distinction.
                 </h2>
-                <p className="mt-5 max-w-xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">
+                <p className="mt-5 max-w-xl text-lg leading-9 text-[rgba(17,17,17,0.62)]">
                   Nos clients recherchent un rendu propre, une personnalisation serieuse et une fabrication capable de valoriser leur image
                   lors d&apos;une remise, d&apos;un evenement ou d&apos;une operation de communication.
                 </p>
@@ -211,21 +211,21 @@ export default function HomeClient() {
                       </span>
                     </div>
 
-                    <h3 className="mt-12 text-3xl font-medium leading-[1] tracking-[-0.05em] text-[#111111]">
+                    <h3 className="mt-12 text-3xl font-medium leading-[1.18] tracking-[-0.02em] text-[#111111]">
                       {categories[slug][lang].title}
                     </h3>
                     <p className="mt-4 max-w-sm text-sm leading-7 text-[rgba(17,17,17,0.66)]">
                       {categories[slug][lang].summary}
                     </p>
 
-                    <div className="mt-10 overflow-hidden rounded-[24px]">
+                    <div className="mt-10 overflow-hidden rounded-[24px] bg-[#fcfbf9]/60 p-4">
                       <div className="relative min-h-[220px] transition duration-700 group-hover:scale-[1.02]">
                         <Image
                           src={categories[slug].image}
                           alt={categories[slug][lang].title}
                           fill
                           sizes="(min-width: 1280px) 22vw, (min-width: 768px) 40vw, 100vw"
-                          className="object-cover"
+                          className="object-contain p-2"
                         />
                       </div>
                     </div>
@@ -243,7 +243,7 @@ export default function HomeClient() {
             <FadeIn className="soft-panel rounded-[36px] p-6 md:p-8 lg:p-10">
               <div className="relative z-10">
                 <span className="eyebrow">Materiaux & impact</span>
-                <h2 className="mt-6 max-w-2xl text-4xl font-medium leading-[0.94] tracking-[-0.06em] text-[#111111] md:text-6xl">
+                <h2 className="mt-6 max-w-2xl text-4xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-6xl">
                   La valeur percue se construit dans la matiere, la lumiere et la nettete des details.
                 </h2>
                 <p className="mt-5 max-w-xl text-base leading-8 text-[rgba(17,17,17,0.66)] md:text-lg">
@@ -269,7 +269,7 @@ export default function HomeClient() {
             <ScaleIn className="grid gap-5">
               <div className="soft-panel rounded-[34px] p-6 md:p-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[rgba(17,17,17,0.4)]">Usage cible</p>
-                <h3 className="mt-5 text-3xl font-medium leading-[1.02] tracking-[-0.05em] text-[#111111]">
+                <h3 className="mt-5 text-3xl font-medium leading-[1.2] tracking-[-0.02em] text-[#111111]">
                   Clubs, institutions, entreprises et evenements qui veulent offrir plus qu&apos;un objet standard.
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-[rgba(17,17,17,0.62)]">
@@ -278,13 +278,13 @@ export default function HomeClient() {
                 </p>
               </div>
 
-              <div className="relative min-h-[320px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)]">
+              <div className="relative min-h-[320px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] bg-[#fcfbf9]/60 p-6">
                 <Image
                   src={secondaryCategory.image}
                   alt={secondaryCategory[lang].title}
                   fill
                   sizes="(min-width: 1024px) 36vw, 100vw"
-                  className="object-cover"
+                  className="object-contain p-4"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.02),rgba(10,10,10,0.46))]" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -339,7 +339,7 @@ export default function HomeClient() {
         <div className="section-frame grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
           <FadeIn className="soft-panel rounded-[36px] p-6 md:p-8 lg:p-10">
             <span className="eyebrow">Passage a l&apos;action</span>
-            <h2 className="mt-6 max-w-3xl text-4xl font-medium leading-[0.94] tracking-[-0.06em] text-[#111111] md:text-6xl">
+            <h2 className="mt-6 max-w-3xl text-4xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-6xl">
               Votre prochain objet de reconnaissance peut deja entrer en maquette aujourd&apos;hui.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">

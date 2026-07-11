@@ -39,7 +39,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
         <div className="grid gap-8 lg:grid-cols-[0.32fr_0.68fr]">
           <aside className="section-surface hidden h-fit rounded-[30px] p-6 lg:block">
             <span className="eyebrow">{t.filters}</span>
-            <h2 className="mt-5 text-3xl font-medium tracking-[-0.05em] text-[#111111]">{filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}</h2>
+            <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-[#111111]">{filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}</h2>
             <p className="mt-3 text-sm leading-7 text-[rgba(17,17,17,0.62)]">
               {visible.length} {t.results}
             </p>
@@ -95,7 +95,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
                 <span className="eyebrow">{t.nav.catalog}</span>
-                <h2 className="mt-5 text-4xl font-medium tracking-[-0.05em] text-[#111111] md:text-5xl">
+                <h2 className="mt-5 text-4xl font-medium tracking-[-0.02em] text-[#111111] md:text-5xl">
                   {filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}
                 </h2>
               </div>

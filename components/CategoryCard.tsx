@@ -15,13 +15,13 @@ export default function CategoryCard({ slug }: { slug: CategorySlug }) {
   return (
     <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }} className="h-full">
       <Link href={category.href} className="product-card block h-full rounded-[28px] p-3">
-        <div className="image-mask relative aspect-[1.08] overflow-hidden rounded-[22px]">
+        <div className="relative aspect-[1.08] overflow-hidden rounded-[22px] bg-stone-50/60 p-4">
           <Image
             src={category.image}
             alt={category[lang].title}
             fill
             sizes="(min-width: 1280px) 18vw, (min-width: 768px) 30vw, 100vw"
-            className="object-cover transition duration-700 ease-out hover:scale-[1.04]"
+            className="object-contain p-2 transition duration-700 ease-out hover:scale-[1.04]"
           />
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4">
             <span className="rounded-full border border-white/18 bg-black/35 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/88 backdrop-blur-sm">

@@ -23,7 +23,7 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
           <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="section-surface rounded-[34px] p-6 md:p-8 lg:p-10">
               <span className="eyebrow">{t.price}</span>
-              <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[0.92] tracking-[-0.06em] text-[#111111] md:text-7xl">
+              <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-7xl">
                 {copy.title}
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">{copy.summary}</p>
@@ -44,8 +44,8 @@ export default function CategoryPageClient({ slug }: { slug: CategorySlug }) {
               </div>
             </div>
 
-            <div className="relative min-h-[420px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[620px]">
-              <Image src={category.image} alt={copy.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <div className="relative min-h-[420px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[620px] bg-[#fcfbf9]/60 p-8">
+              <Image src={category.image} alt={copy.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain p-4" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-black/5 to-transparent" />
             </div>
           </div>

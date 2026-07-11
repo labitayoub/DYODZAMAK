@@ -46,7 +46,7 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
     <form onSubmit={submit} className={`section-surface rounded-[32px] p-5 md:p-8 ${compact ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}`}>
       <div className={compact ? "" : "md:col-span-2"}>
         <span className="eyebrow">{t.price}</span>
-        <h2 className="mt-5 text-3xl font-medium tracking-[-0.05em] text-[#111111] md:text-4xl">{t.pages.quote[0]}</h2>
+        <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-[#111111] md:text-4xl">{t.pages.quote[0]}</h2>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[rgba(17,17,17,0.62)]">{t.pages.quote[1]}</p>
       </div>
 

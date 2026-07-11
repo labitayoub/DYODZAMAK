@@ -20,14 +20,14 @@ function PageIntro({ title, text }: { title: string; text: string }) {
         <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="section-surface rounded-[34px] p-6 md:p-8 lg:p-10">
             <span className="eyebrow">DYODZAMAK</span>
-            <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[0.92] tracking-[-0.06em] text-[#111111] md:text-7xl">
+            <h1 className="mt-6 max-w-3xl text-5xl font-medium leading-[1.15] tracking-[-0.03em] text-[#111111] md:text-7xl">
               {title}
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(17,17,17,0.62)] md:text-lg">{text}</p>
           </div>
 
-          <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[520px]">
-            <Image src={heroProduct.image} alt={heroProduct[lang].name} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <div className="relative min-h-[360px] overflow-hidden rounded-[34px] border border-[rgba(17,17,17,0.08)] shadow-[0_30px_80px_rgba(17,17,17,0.12)] md:min-h-[520px] bg-[#fcfbf9]/60 p-8">
+            <Image src={heroProduct.image} alt={heroProduct[lang].name} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain p-4" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-black/6 to-transparent" />
           </div>
         </div>
@@ -61,7 +61,16 @@ export function CustomizationPageClient() {
           "Serie numerotee ou edition limitee",
           "Maquette avant production"
         ]
-      : ["Ø´Ø¹Ø§Ø± Ø¨Ø§Ø±Ø² Ø£Ùˆ Ù…Ù†Ù‚ÙˆØ´", "Ù†Øµ ÙˆØªØ§Ø±ÙŠØ® ÙˆØ§Ø³Ù… Ø§Ù„Ù…Ù†Ø§Ø³Ø¨Ø©", "Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„ØªØ´Ø·ÙŠØ¨Ø§Øª Ø§Ù„Ù…Ø¹Ø¯Ù†ÙŠØ©", "Ø´ÙƒÙ„ Ø®Ø§Øµ Ø£Ùˆ Ù‚Øµ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨", "Ø´Ø±ÙŠØ· Ø£Ùˆ ØªØ«Ø¨ÙŠØª Ø£Ùˆ Ø­Ø§Ù…Ù„ Ù…Ù†Ø§Ø³Ø¨", "Ø¹Ù„Ø¨Ø© Ù‡Ø¯ÙŠØ© ÙˆØ¹Ø±Ø¶ Ø±Ø§Ù‚", "Ø³Ù„Ø³Ù„Ø© Ù…Ø±Ù‚Ù…Ø© Ø£Ùˆ Ø¥ØµØ¯Ø§Ø± Ù…Ø­Ø¯ÙˆØ¯", "Ù…Ø¹Ø§ÙŠÙ†Ø© Ø§Ù„ØªØµÙ…ÙŠÙ… Ù‚Ø¨Ù„ Ø§Ù„Ø¥Ù†ØªØ§Ø¬"];
+      : [
+          "شعار بارز أو منقوش",
+          "نص وتاريخ واسم المناسبة",
+          "اختيار التشطيبات المعدنية",
+          "شكل خاص أو قص حسب الطلب",
+          "شريط أو تثبيت أو حامل مناسب",
+          "علبة هدية وعرض راق",
+          "سلسلة مرقمة أو إصدار محدود",
+          "معاينة التصميم قبل الإنتاج"
+        ];
 
   return (
     <>
@@ -157,7 +166,12 @@ export function AboutPageClient() {
   const statements =
     lang === "fr"
       ? ["Catalogue multi-categories", "Production sur devis", "Accompagnement maquette", "Livraison partout au Maroc"]
-      : ["ÙƒØªØ§Ù„ÙˆØ¬ Ù…ØªØ¹Ø¯Ø¯ Ø§Ù„ÙØ¦Ø§Øª", "Ø¥Ù†ØªØ§Ø¬ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨", "Ù…ÙˆØ§ÙƒØ¨Ø© Ø§Ù„ØªØµÙ…ÙŠÙ…", "ØªÙˆØµÙŠÙ„ ÙÙŠ Ø¬Ù…ÙŠØ¹ Ø£Ù†Ø­Ø§Ø¡ Ø§Ù„Ù…ØºØ±Ø¨"];
+      : [
+          "كتالوج متعدد الفئات",
+          "إنتاج حسب الطلب",
+          "مواكبة التصميم",
+          "توصيل في جميع أنحاء المغرب"
+        ];
 
   return (
     <>

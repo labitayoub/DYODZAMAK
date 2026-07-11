@@ -15,13 +15,13 @@ export default function ProductCard({ product, compact = false }: { product: Pro
   return (
     <>
       <article className="product-card group flex h-full flex-col rounded-[30px] p-3">
-        <button type="button" onClick={() => setOpen(true)} className="image-mask relative aspect-[0.96] overflow-hidden rounded-[24px] text-left">
+        <button type="button" onClick={() => setOpen(true)} className="relative aspect-[0.96] overflow-hidden rounded-[24px] text-left bg-[#fcfbf9]/60 p-4">
           <Image
             src={product.image}
             alt={copy.name}
             fill
             sizes="(min-width: 1280px) 25vw, (min-width: 768px) 34vw, 100vw"
-            className="object-cover transition duration-700 ease-out group-hover:scale-[1.05]"
+            className="object-contain p-2 transition duration-700 ease-out group-hover:scale-[1.05]"
           />
           <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/30 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur-sm">
             {product.badge}
@@ -82,8 +82,8 @@ export default function ProductCard({ product, compact = false }: { product: Pro
             </div>
 
             <div className="grid gap-6 md:grid-cols-[1.08fr_0.92fr]">
-              <div className="relative min-h-[360px] overflow-hidden rounded-[28px] md:min-h-[620px]">
-                <Image src={product.image} alt={copy.name} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+              <div className="relative min-h-[360px] overflow-hidden rounded-[28px] md:min-h-[620px] bg-stone-50/60 p-6">
+                <Image src={product.image} alt={copy.name} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain p-4" />
               </div>
 
               <div className="flex flex-col justify-center py-2">
