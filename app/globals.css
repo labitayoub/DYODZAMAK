@@ -307,9 +307,191 @@ a {
 .final-cta { display: flex; justify-content: space-between; align-items: center; gap: 2.5rem; margin-bottom: 6rem; padding: clamp(2rem, 5vw, 4.4rem); border: 1px solid rgba(233, 195, 120, .27); border-radius: var(--radius-lg); background: radial-gradient(circle at 80% 0%, rgba(218,177,104,.22), transparent 28rem), #101c25; }.final-cta h2 { max-width: 760px; }.final-cta p { max-width: 680px; }.final-cta .gold-button { flex: 0 0 auto; }
 @keyframes reveal-copy { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 800px) {
-  .awards-hero { min-height: 625px; align-items: end; }.awards-hero-image { object-position: 67% center; }.awards-hero-shade { background: linear-gradient(0deg, rgba(6,14,21,.98) 9%, rgba(6,14,21,.7) 58%, rgba(6,14,21,.26)), linear-gradient(90deg, rgba(6,14,21,.5), transparent); }.awards-hero-content { padding: 5rem 0 5.4rem; }.hero-copy { max-width: 100%; }.hero-copy h1 { font-size: clamp(2.2rem, 10vw, 3.4rem); }.hero-copy p { font-size: 1rem; line-height: 1.85; }.collection-section, .process-section { padding: 4rem 0; }  .collection-grid, .craft-grid { grid-template-columns: 1fr; }.collection-card { min-height: 330px; }.craft-grid { gap: 2rem; }.process-grid { grid-template-columns: 1fr; margin-top: 1.5rem; gap: 0; border-radius: 0; background: transparent; }.process-item, .process-item:last-child { min-height: auto; padding: 1.5rem 0; border-top: 1px solid rgba(235, 199, 125, .2); background: transparent; }.process-item h3 { margin: 1.25rem 0 .5rem; }.final-cta { display: block; margin-bottom: 3rem; }.final-cta .gold-button { width: 100%; }.final-cta h2 { font-size: 2rem; }
+/* ── 3D Coverflow Product Carousel ── */
+.products-carousel-section {
+  padding: 6.5rem 0 4rem;
+  overflow: hidden;
 }
+
+.carousel-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.carousel-header .section-heading {
+  margin-inline: auto;
+}
+
+.coverflow-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 420px;
+  perspective: 1200px;
+}
+
+.coverflow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(229, 189, 119, 0.3);
+  background: rgba(7, 17, 26, 0.85);
+  color: #e5bd77;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.coverflow-arrow:hover {
+  background: rgba(229, 189, 119, 0.15);
+  border-color: rgba(229, 189, 119, 0.6);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 24px rgba(229, 189, 119, 0.2);
+}
+
+.coverflow-arrow--left { left: max(2vw, 1rem); }
+.coverflow-arrow--right { right: max(2vw, 1rem); }
+
+.coverflow-stage {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coverflow-item {
+  position: absolute;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.coverflow-item--center {
+  width: 340px;
+  height: 400px;
+  z-index: 5;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  border: 2px solid rgba(229, 189, 119, 0.4);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 40px rgba(229, 189, 119, 0.08);
+}
+
+.coverflow-item--left1 {
+  width: 260px;
+  height: 320px;
+  z-index: 4;
+  transform: translateX(-300px) rotateY(25deg) scale(0.85);
+  opacity: 0.7;
+  filter: brightness(0.6);
+}
+
+.coverflow-item--right1 {
+  width: 260px;
+  height: 320px;
+  z-index: 4;
+  transform: translateX(300px) rotateY(-25deg) scale(0.85);
+  opacity: 0.7;
+  filter: brightness(0.6);
+}
+
+.coverflow-item--left2 {
+  width: 200px;
+  height: 260px;
+  z-index: 3;
+  transform: translateX(-520px) rotateY(35deg) scale(0.7);
+  opacity: 0.35;
+  filter: brightness(0.4);
+}
+
+.coverflow-item--right2 {
+  width: 200px;
+  height: 260px;
+  z-index: 3;
+  transform: translateX(520px) rotateY(-35deg) scale(0.7);
+  opacity: 0.35;
+  filter: brightness(0.4);
+}
+
+.coverflow-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.coverflow-img {
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.coverflow-item--center:hover .coverflow-img {
+  transform: scale(1.06);
+}
+
+.coverflow-info {
+  text-align: center;
+  padding: 2rem 1rem 0;
+}
+
+.coverflow-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fffdf8;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.coverflow-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 auto;
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+@media (max-width: 800px) {
+  .awards-hero { min-height: 625px; align-items: end; }
+  .awards-hero-image { object-position: 67% center; }
+  .awards-hero-shade { background: linear-gradient(0deg, rgba(6,14,21,.98) 9%, rgba(6,14,21,.7) 58%, rgba(6,14,21,.26)), linear-gradient(90deg, rgba(6,14,21,.5), transparent); }
+  .awards-hero-content { padding: 5rem 0 5.4rem; }
+  .hero-copy { max-width: 100%; }
+  .hero-copy h1 { font-size: clamp(2.2rem, 10vw, 3.4rem); }
+  .hero-copy p { font-size: 1rem; line-height: 1.85; }
+  .collection-section, .process-section { padding: 4rem 0; }
+  .craft-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .process-grid { grid-template-columns: 1fr; margin-top: 1.5rem; gap: 0; border-radius: 0; background: transparent; }
+  .process-item, .process-item:last-child { min-height: auto; padding: 1.5rem 0; border-top: 1px solid rgba(235, 199, 125, .2); background: transparent; }
+  .process-item h3 { margin: 1.25rem 0 .5rem; }
+  .final-cta { display: block; margin-bottom: 3rem; }
+  .final-cta .gold-button { width: 100%; }
+  .final-cta h2 { font-size: 2rem; }
+  .products-carousel-section { padding: 4rem 0 3rem; }
+  .coverflow-wrapper { min-height: 300px; }
+  .coverflow-item--center { width: 240px; height: 300px; }
+  .coverflow-item--left1 { width: 160px; height: 220px; transform: translateX(-180px) rotateY(25deg) scale(0.8); }
+  .coverflow-item--right1 { width: 160px; height: 220px; transform: translateX(180px) rotateY(-25deg) scale(0.8); }
+  .coverflow-item--left2, .coverflow-item--right2 { display: none; }
+  .coverflow-arrow { width: 40px; height: 40px; }
+  .coverflow-title { font-size: 1.2rem; }
+}
+
 
 .button-primary {
   background: linear-gradient(180deg, #201d1a, #141210);

@@ -2,9 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight } from "lucide-react";
 import { FadeIn, ScaleIn } from "@/components/Motion";
 import { useLanguage } from "@/components/LanguageProvider";
+
+const ALL_PRODUCTS = [
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg",  label: { fr: "Trophée sportif",        ar: "كأس رياضي",        en: "Sports trophy" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10.jpeg",  label: { fr: "Récompense corporate",   ar: "جائزة مؤسسية",     en: "Corporate award" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10 (1).jpeg", label: { fr: "Plaque commémorative", ar: "درع تذكاري",       en: "Commemorative plaque" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10 (2).jpeg", label: { fr: "Médaille premium",     ar: "ميدالية فاخرة",    en: "Premium medal" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12.jpeg",   label: { fr: "Médaille événement",    ar: "ميدالية حدث",      en: "Event medal" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12 (1).jpeg", label: { fr: "Trophée édition spéciale", ar: "كأس إصدار خاص", en: "Special edition trophy" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12 (2).jpeg", label: { fr: "Trophée corporate",   ar: "كأس مؤسسي",       en: "Corporate trophy" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13.jpeg",   label: { fr: "Pin personnalisé",      ar: "دبوس مخصص",        en: "Custom pin" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (1).jpeg", label: { fr: "Badge professionnel", ar: "شارة احترافية",    en: "Professional badge" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (2).jpeg", label: { fr: "Porte-clés gravé",    ar: "سلسلة مفاتيح",     en: "Engraved keychain" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (3).jpeg", label: { fr: "Macaron prestige",    ar: "شارة بريستيج",     en: "Prestige badge" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (4).jpeg", label: { fr: "Bouton personnalisé", ar: "زر مخصص",          en: "Custom button" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14.jpeg",   label: { fr: "Plaque entreprise",     ar: "لوحة شركة",        en: "Company plaque" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14 (1).jpeg", label: { fr: "Résine décorative",  ar: "ريزن ديكوري",      en: "Decorative resin" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14 (2).jpeg", label: { fr: "T-shirt brodé",       ar: "تيشيرت مطرز",      en: "Embroidered T-shirt" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.38.31.jpeg",   label: { fr: "Médaille sportive",     ar: "ميدالية رياضية",   en: "Sports medal" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.38.49.jpeg",   label: { fr: "Médaille institutionnelle", ar: "ميدالية مؤسسية", en: "Institutional medal" } },
+  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.05.jpeg",   label: { fr: "Trophée excellence",   ar: "كأس التميز",       en: "Excellence trophy" } },
+];
 
 const copy = {
   fr: {
@@ -117,6 +139,19 @@ const copy = {
 export default function HomeClient() {
   const { lang } = useLanguage();
   const current = copy[lang];
+  const [activeIdx, setActiveIdx] = useState(0);
+  const total = ALL_PRODUCTS.length;
+
+  const goPrev = () => setActiveIdx((prev) => (prev - 1 + total) % total);
+  const goNext = () => setActiveIdx((prev) => (prev + 1) % total);
+
+  // Show 5 items: center + 2 on each side
+  const getOffset = (index: number) => {
+    let diff = index - activeIdx;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
+  };
 
   return (
     <div dir={current.heroDir} className="awards-home">
@@ -131,23 +166,60 @@ export default function HomeClient() {
         />
       </section>
 
-      <section className="awards-container collection-section">
-        <div className="section-heading">
-          <span>{current.sectionLabel}</span>
-          <h2>{lang === "fr" ? "Nous concevons chaque récompense pour refléter son rôle." : lang === "ar" ? "نصمم كل جائزة لتعبّر عن دورها." : "We design every award to reflect its purpose."}</h2>
-          <p>{current.sectionText}</p>
+      <section className="products-carousel-section">
+        <div className="awards-container">
+          <div className="carousel-header">
+            <div className="section-heading" style={{ marginBottom: 0 }}>
+              <span>{current.sectionLabel}</span>
+              <h2>{lang === "fr" ? "Tous nos produits" : lang === "ar" ? "جميع منتجاتنا" : "All our products"}</h2>
+            </div>
+          </div>
         </div>
-        <div className="collection-grid">
-          {current.collections.map((item, index) => {
-            const Icon = item.icon;
-            return <ScaleIn key={item.title} className="collection-card">
-              <Image src={item.image} alt={item.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="collection-image" />
-              <div className="collection-overlay" />
-              <div className="collection-content"><Icon size={22} /><h3>{item.title}</h3><p>{item.text}</p><Link href={item.href}>{item.cta} <ArrowLeft size={15} /></Link></div>
-            </ScaleIn>;
-          })}
+
+        <div className="coverflow-wrapper">
+          <button className="coverflow-arrow coverflow-arrow--left" onClick={goPrev} aria-label="Précédent">
+            <ChevronLeft size={28} />
+          </button>
+
+          <div className="coverflow-stage">
+            {ALL_PRODUCTS.map((product, i) => {
+              const offset = getOffset(i);
+              if (offset < -2 || offset > 2) return null;
+
+              let className = "coverflow-item";
+              if (offset === 0) className += " coverflow-item--center";
+              else if (offset === -1) className += " coverflow-item--left1";
+              else if (offset === 1) className += " coverflow-item--right1";
+              else if (offset === -2) className += " coverflow-item--left2";
+              else if (offset === 2) className += " coverflow-item--right2";
+
+              return (
+                <div key={i} className={className} onClick={() => setActiveIdx(i)}>
+                  <div className="coverflow-img-wrap">
+                    <Image
+                      src={product.image}
+                      alt={product.label[lang]}
+                      fill
+                      sizes="(max-width: 768px) 260px, 420px"
+                      className="coverflow-img"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <button className="coverflow-arrow coverflow-arrow--right" onClick={goNext} aria-label="Suivant">
+            <ChevronRight size={28} />
+          </button>
+        </div>
+
+        <div className="coverflow-info">
+          <h3 className="coverflow-title">{ALL_PRODUCTS[activeIdx].label[lang]}</h3>
+          <p className="coverflow-desc">{current.sectionText}</p>
         </div>
       </section>
+
 
       <section className="craft-section">
         <div className="awards-container craft-grid">
