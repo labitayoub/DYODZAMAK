@@ -926,3 +926,18 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Product Detail Modal ── */
+.product-modal {
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.product-modal::-webkit-scrollbar { width: 5px; }
+.product-modal::-webkit-scrollbar-track { background: transparent; }
+.product-modal::-webkit-scrollbar-thumb { background: rgba(229, 189, 119, 0.2); border-radius: 99px; }
+

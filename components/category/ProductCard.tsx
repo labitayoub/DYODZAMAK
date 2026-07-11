@@ -1,48 +1,51 @@
+"use client";
+
 import Image from "next/image";
 import { ProductCategory } from "@/data/product-categories";
 
 export default function ProductCard({
   item,
   lang,
-  categoryName
+  categoryName,
+  onViewProduct
 }: {
   item: ProductCategory["placeholders"][number];
   lang: "fr" | "ar" | "en";
   categoryName: string;
+  onViewProduct: (item: ProductCategory["placeholders"][number]) => void;
 }) {
-  const label = lang === "fr" ? "Produit" : lang === "ar" ? "المنتج" : "Product";
+  const viewLabel = lang === "fr" ? "Voir le produit" : lang === "ar" ? "عرض المنتج" : "View product";
+
   return (
-    <article className="product-card flex h-full flex-col rounded-[30px] p-3">
-      <div className="relative overflow-hidden rounded-[24px]">
-        <div className="relative aspect-[1.02] bg-white/5 p-4">
+    <article className="product-card group flex h-full flex-col rounded-[24px] overflow-hidden border border-white/8 bg-[#0d1820] transition-all duration-300 hover:border-[#e5bd77]/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+      <div className="relative overflow-hidden">
+        <div className="relative aspect-square bg-white/5 p-3">
           <Image
             src={item.image}
             alt={item.title[lang]}
             fill
-            sizes="(min-width: 1280px) 24vw, (min-width: 768px) 42vw, 100vw"
-            className="object-contain p-2"
+            sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 768px) 42vw, 100vw"
+            className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.02),rgba(10,10,10,0.4))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_50%,rgba(10,10,10,0.5))]" />
         </div>
-        <div className="absolute inset-0 flex flex-col justify-between p-5">
-          <span className="w-fit rounded-full border border-white/20 bg-black/30 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/88 backdrop-blur-sm">
-            {label}
+        <div className="absolute top-3 left-3">
+          <span className="rounded-full border border-white/15 bg-black/40 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
+            {categoryName}
           </span>
-          <div className="rounded-[20px] border border-white/10 bg-black/40 p-4 backdrop-blur-md">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/70">{categoryName}</p>
-            <p className="mt-2 text-xl font-medium tracking-[-0.04em] text-white">{item.title[lang]}</p>
-          </div>
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col px-2 pb-3 pt-5">
-        <p className="text-sm leading-7 text-white/70">{item.description[lang]}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {item.details.map((detail) => (
-            <span key={detail.fr} className="rounded-full border border-white/10 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-white/60 bg-white/5">
-              {detail[lang]}
-            </span>
-          ))}
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="text-base font-semibold tracking-[-0.02em] text-white line-clamp-2">{item.title[lang]}</h3>
+        <p className="mt-2 text-xs leading-6 text-white/55 line-clamp-2">{item.description[lang]}</p>
+        <div className="mt-auto pt-4">
+          <button
+            onClick={() => onViewProduct(item)}
+            className="w-full rounded-[12px] border border-[#e5bd77]/30 bg-[#e5bd77]/8 py-2.5 text-xs font-semibold uppercase tracking-[0.1em] text-[#e5bd77] transition-all duration-200 hover:bg-[#e5bd77]/18 hover:border-[#e5bd77]/50"
+          >
+            {viewLabel}
+          </button>
         </div>
       </div>
     </article>
