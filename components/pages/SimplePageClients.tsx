@@ -122,14 +122,7 @@ function PageIntro({ title, text, videoSrc }: { title: string; text: string; vid
 }
 
 export function CatalogPageClient() {
-  const { t } = useLanguage();
-
-  return (
-    <>
-      <PageIntro title={t.pages.catalog[0]} text={t.pages.catalog[1]} videoSrc="/images/categorie.mp4" />
-      <CatalogClient />
-    </>
-  );
+  return <CatalogClient />;
 }
 
 export function CustomizationPageClient() {

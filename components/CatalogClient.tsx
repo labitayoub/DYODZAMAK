@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
 import { CategorySlug, Finish, Usage, categories, categoryRoutes, products } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -17,16 +16,15 @@ const finishes: Finish[] = ["bronze", "gold", "silver", "black"];
 const usages: Usage[] = ["sport", "corporate", "event", "school", "association"];
 
 const catalogCopy = {
-  fr: { finish: "Finition", usage: "Usage", type: "Type", ok: "OK" },
-  ar: { finish: "التشطيب", usage: "الاستعمال", type: "النوع", ok: "حسنا" },
-  en: { finish: "Finish", usage: "Usage", type: "Type", ok: "OK" }
+  fr: { finish: "Finition", usage: "Usage", type: "Type", ok: "OK", filterLabel: "Filtres de Catalogue" },
+  ar: { finish: "التشطيب", usage: "الاستعمال", type: "النوع", ok: "حسنا", filterLabel: "مرشحات الكتالوج" },
+  en: { finish: "Finish", usage: "Usage", type: "Type", ok: "OK", filterLabel: "Catalog Filters" }
 } as const;
 
 export default function CatalogClient({ initialCategory = "all" }: { initialCategory?: "all" | CategorySlug }) {
   const { lang, t } = useLanguage();
   const copy = catalogCopy[lang];
   const [filters, setFilters] = useState<FilterState>({ category: initialCategory, finish: "all", usage: "all", type: "all" });
-  const [drawer, setDrawer] = useState(false);
 
   const visible = useMemo(() => {
     return products.filter((product) => {
@@ -41,157 +39,101 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
   }, [filters]);
 
   return (
-    <section className="px-4 py-14 md:px-6 md:py-20">
+    <section className="px-4 py-12 md:px-6 md:py-20">
       <div className="section-frame">
-        <div className="grid gap-8 lg:grid-cols-[0.32fr_0.68fr]">
-          <aside className="section-surface hidden h-fit rounded-[30px] p-6 lg:block">
-            <span className="eyebrow">{t.filters}</span>
-            <h2 className="mt-5 text-3xl font-medium tracking-[-0.02em] text-white">{filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}</h2>
-            <p className="mt-3 text-sm leading-7 text-white/60">
-              {visible.length} {t.results}
-            </p>
-
-            <div className="mt-8 grid gap-7">
-              <FilterGroup title={t.nav.catalog}>
-                <FilterChip active={filters.category === "all"} onClick={() => setFilters({ ...filters, category: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {categoryRoutes.map((slug) => (
-                  <FilterChip key={slug} active={filters.category === slug} onClick={() => setFilters({ ...filters, category: slug })}>
-                    {categories[slug][lang].title}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup title={copy.finish}>
-                <FilterChip active={filters.finish === "all"} onClick={() => setFilters({ ...filters, finish: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {finishes.map((finish) => (
-                  <FilterChip key={finish} active={filters.finish === finish} onClick={() => setFilters({ ...filters, finish })}>
-                    {t.finishes[finish]}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup title={copy.usage}>
-                <FilterChip active={filters.usage === "all"} onClick={() => setFilters({ ...filters, usage: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {usages.map((usage) => (
-                  <FilterChip key={usage} active={filters.usage === usage} onClick={() => setFilters({ ...filters, usage })}>
-                    {t.usages[usage]}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup title={copy.type}>
-                <FilterChip active={filters.type === "all"} onClick={() => setFilters({ ...filters, type: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {(["custom", "3d", "classic"] as const).map((type) => (
-                  <FilterChip key={type} active={filters.type === type} onClick={() => setFilters({ ...filters, type })}>
-                    {type === "custom" ? t.custom : type === "3d" ? t.model3d : t.classic}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-            </div>
-          </aside>
-
+        {/* Catalog title & Results count */}
+        <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <div className="mb-8 flex items-end justify-between gap-4">
-              <div>
-                <span className="eyebrow">{t.nav.catalog}</span>
-                <h2 className="mt-5 text-4xl font-medium tracking-[-0.02em] text-white md:text-5xl">
-                  {filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}
-                </h2>
-              </div>
-              <button type="button" className="button-secondary lg:hidden" onClick={() => setDrawer(true)}>
-                <SlidersHorizontal size={16} />
-                {t.filters}
-              </button>
-            </div>
+            <span className="eyebrow">{t.nav.catalog}</span>
+            <h1 className="mt-4 text-4xl font-medium tracking-[-0.03em] text-[#fffdf8] md:text-6xl">
+              {filters.category === "all" ? t.nav.catalog : categories[filters.category][lang].title}
+            </h1>
+          </div>
+          <p className="text-sm font-semibold tracking-wider text-[#e5bd77]/70 uppercase">
+            {visible.length} {t.results}
+          </p>
+        </div>
 
-            <ProductGrid products={visible} />
+        {/* Horizontal Filters in a single row/line */}
+        <div className="section-surface rounded-[24px] border border-white/8 bg-[#0b1621]/45 backdrop-blur-md p-5 mb-10 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Category Selector */}
+          <div>
+            <label htmlFor="filter-category" className="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#e5bd77]/60 mb-2">
+              {lang === "fr" ? "1. Catégorie" : lang === "ar" ? "1. الفئة" : "1. Category"}
+            </label>
+            <select
+              id="filter-category"
+              value={filters.category}
+              onChange={(e) => setFilters({ ...filters, category: e.target.value as any })}
+              className="w-full h-[46px] px-3.5 rounded-[12px] bg-[#07111a]/85 border border-white/10 text-xs font-semibold text-white/80 focus:border-[#e5bd77]/50 focus:bg-[#07111a] outline-none transition-colors"
+            >
+              <option value="all">{t.all} ({t.nav.catalog})</option>
+              {categoryRoutes.map((slug) => (
+                <option key={slug} value={slug}>{categories[slug][lang].title}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Finish Selector */}
+          <div>
+            <label htmlFor="filter-finish" className="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#e5bd77]/60 mb-2">
+              {lang === "fr" ? "2. Finition" : lang === "ar" ? "2. التشطيب" : "2. Finish"}
+            </label>
+            <select
+              id="filter-finish"
+              value={filters.finish}
+              onChange={(e) => setFilters({ ...filters, finish: e.target.value as any })}
+              className="w-full h-[46px] px-3.5 rounded-[12px] bg-[#07111a]/85 border border-white/10 text-xs font-semibold text-white/80 focus:border-[#e5bd77]/50 focus:bg-[#07111a] outline-none transition-colors"
+            >
+              <option value="all">{t.all} ({copy.finish})</option>
+              {finishes.map((finish) => (
+                <option key={finish} value={finish}>{t.finishes[finish]}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Usage Selector */}
+          <div>
+            <label htmlFor="filter-usage" className="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#e5bd77]/60 mb-2">
+              {lang === "fr" ? "3. Usage" : lang === "ar" ? "3. الاستعمال" : "3. Usage"}
+            </label>
+            <select
+              id="filter-usage"
+              value={filters.usage}
+              onChange={(e) => setFilters({ ...filters, usage: e.target.value as any })}
+              className="w-full h-[46px] px-3.5 rounded-[12px] bg-[#07111a]/85 border border-white/10 text-xs font-semibold text-white/80 focus:border-[#e5bd77]/50 focus:bg-[#07111a] outline-none transition-colors"
+            >
+              <option value="all">{t.all} ({copy.usage})</option>
+              {usages.map((usage) => (
+                <option key={usage} value={usage}>{t.usages[usage]}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Type Selector */}
+          <div>
+            <label htmlFor="filter-type" className="block text-[10px] font-bold uppercase tracking-[0.14em] text-[#e5bd77]/60 mb-2">
+              {lang === "fr" ? "4. Type de produit" : lang === "ar" ? "4. نوع المنتج" : "4. Product Type"}
+            </label>
+            <select
+              id="filter-type"
+              value={filters.type}
+              onChange={(e) => setFilters({ ...filters, type: e.target.value as any })}
+              className="w-full h-[46px] px-3.5 rounded-[12px] bg-[#07111a]/85 border border-white/10 text-xs font-semibold text-white/80 focus:border-[#e5bd77]/50 focus:bg-[#07111a] outline-none transition-colors"
+            >
+              <option value="all">{t.all} ({copy.type})</option>
+              {(["custom", "3d", "classic"] as const).map((type) => (
+                <option key={type} value={type}>
+                  {type === "custom" ? t.custom : type === "3d" ? t.model3d : t.classic}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
+
+        {/* Product Collection Grid */}
+        <ProductGrid products={visible} />
       </div>
-
-      {drawer ? (
-        <div className="fixed inset-0 z-[65] bg-black/35 p-4 backdrop-blur-sm lg:hidden" onClick={() => setDrawer(false)}>
-          <div className="section-surface h-full overflow-auto rounded-[28px] p-6" onClick={(event) => event.stopPropagation()}>
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <span className="eyebrow">{t.filters}</span>
-                <h3 className="mt-4 text-3xl font-medium tracking-[-0.05em] text-[#111111]">{t.nav.catalog}</h3>
-              </div>
-              <button type="button" className="button-secondary" onClick={() => setDrawer(false)}>
-                {copy.ok}
-              </button>
-            </div>
-
-            <div className="mt-8 grid gap-7">
-              <FilterGroup title={t.nav.catalog}>
-                <FilterChip active={filters.category === "all"} onClick={() => setFilters({ ...filters, category: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {categoryRoutes.map((slug) => (
-                  <FilterChip key={slug} active={filters.category === slug} onClick={() => setFilters({ ...filters, category: slug })}>
-                    {categories[slug][lang].title}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup title={copy.finish}>
-                <FilterChip active={filters.finish === "all"} onClick={() => setFilters({ ...filters, finish: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {finishes.map((finish) => (
-                  <FilterChip key={finish} active={filters.finish === finish} onClick={() => setFilters({ ...filters, finish })}>
-                    {t.finishes[finish]}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-
-              <FilterGroup title={copy.usage}>
-                <FilterChip active={filters.usage === "all"} onClick={() => setFilters({ ...filters, usage: "all" })}>
-                  {t.all}
-                </FilterChip>
-                {usages.map((usage) => (
-                  <FilterChip key={usage} active={filters.usage === usage} onClick={() => setFilters({ ...filters, usage })}>
-                    {t.usages[usage]}
-                  </FilterChip>
-                ))}
-              </FilterGroup>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </section>
-  );
-}
-
-function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">{title}</p>
-      <div className="mt-3 flex flex-wrap gap-2">{children}</div>
-    </div>
-  );
-}
-
-function FilterChip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-        active
-          ? "border-[#e5bd77] bg-[#e5bd77] text-[#07111a]"
-          : "border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:bg-white/10"
-      }`}
-    >
-      {children}
-    </button>
   );
 }
