@@ -3,6 +3,11 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
 
+// The shared chrome reads runtime-backed content and navigation state. Rendering
+// it dynamically avoids attempting to statically pre-render pages that depend
+// on request-scoped APIs.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://dyodzamak.ma"),
   title: {

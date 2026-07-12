@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { showToast } from "@/lib/notifications";
 
 export default function AdminMediaPage() {
   const [media, setMedia] = useState<Record<string, unknown>[]>([]);
@@ -25,12 +26,16 @@ export default function AdminMediaPage() {
     if (res.ok) {
       const item = await res.json();
       setMedia([item, ...media]);
-    }
+      showToast("File uploaded successfully.");
+    } else showToast("Unable to upload file.", "error");
     setUploading(false);
   }
 
   function copyPath(path: string) {
-    navigator.clipboard.writeText(path);
+    navigator.clipboard.writeText(path).then(
+      () => showToast("Path copied to clipboard."),
+      () => showToast("Unable to copy the path.", "error"),
+    );
   }
 
   return (

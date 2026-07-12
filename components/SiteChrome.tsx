@@ -9,6 +9,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const { isRtl } = useLanguage();
   const pathname = usePathname();
   const isLanding = pathname === "/";
+  const isAdminArea = pathname.startsWith("/admin");
+
+  if (isAdminArea) return <>{children}</>;
 
   return (
     <div dir={isRtl ? "rtl" : "ltr"} className={`page-shell text-[#111111]${isLanding ? " landing-shell" : ""}`}>

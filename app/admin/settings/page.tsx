@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { showToast } from "@/lib/notifications";
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<Record<string, unknown>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetch("/api/settings").then(r => r.json()).then(d => {
@@ -28,7 +28,6 @@ export default function AdminSettingsPage() {
 
   async function handleSave() {
     setSaving(true);
-    setMessage("");
     const settingsArray: Array<{ key: string; value: string; group: string }> = [];
     for (const [group, values] of Object.entries(settings)) {
       if (typeof values === "object" && values !== null) {
@@ -42,7 +41,8 @@ export default function AdminSettingsPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ settings: settingsArray }),
     });
-    if (res.ok) setMessage("Settings saved successfully!");
+    if (res.ok) showToast("Settings saved successfully.");
+    else showToast("Unable to save settings.", "error");
     setSaving(false);
   }
 
@@ -52,8 +52,6 @@ export default function AdminSettingsPage() {
     <AdminLayout>
       <div className="max-w-2xl">
         <h1 className="text-2xl font-bold mb-6">Site Settings</h1>
-        {message && <div className="bg-green-100 text-green-700 p-3 rounded mb-4 text-sm">{message}</div>}
-
         {/* Contact Settings */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h2 className="text-lg font-semibold mb-4">Contact Information</h2>

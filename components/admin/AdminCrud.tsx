@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, ReactNode } from "react";
+import { confirmAction, showToast } from "@/lib/notifications";
 
 interface Column<T> {
   key: string;
@@ -37,14 +38,19 @@ export default function AdminCrud<T extends { id: string }>({
   const [editing, setEditing] = useState<T | null>(null);
   const [formData, setFormData] = useState<Record<string, unknown>>({});
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch(apiBase);
       if (res.ok) {
         const data = await res.json();
         setItems(Array.isArray(data) ? data : []);
+      } else {
+        const data = await res.json().catch(() => null);
+        setError(data?.error || "Unable to load data.");
       }
     } catch (e) {
       console.error(e);
@@ -79,6 +85,7 @@ export default function AdminCrud<T extends { id: string }>({
 
   async function handleSave(data: Record<string, unknown>) {
     setSaving(true);
+    setError(null);
     try {
       // Process JSON fields
       const processed: Record<string, unknown> = {};
@@ -100,21 +107,37 @@ export default function AdminCrud<T extends { id: string }>({
       });
       if (res.ok) {
         setShowForm(false);
-        fetchItems();
+        await fetchItems();
+        showToast(editing ? `${title} updated successfully.` : `${title} created successfully.`);
+      } else {
+        const result = await res.json().catch(() => null);
+        const message = result?.error || "Unable to save changes.";
+        setError(message);
+        showToast(message, "error");
       }
     } catch (e) {
       console.error(e);
+      setError("Network error while saving changes.");
+      showToast("Network error while saving changes.", "error");
     }
     setSaving(false);
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Are you sure?")) return;
+    if (!await confirmAction("Delete this item?")) return;
     try {
-      await fetch(`${apiBase}/${id}`, { method: "DELETE" });
-      fetchItems();
+      const res = await fetch(`${apiBase}/${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const result = await res.json().catch(() => null);
+        setError(result?.error || "Unable to delete this item.");
+        return;
+      }
+      await fetchItems();
+      showToast(`${title} deleted successfully.`);
     } catch (e) {
       console.error(e);
+      setError("Network error while deleting this item.");
+      showToast("Network error while deleting this item.", "error");
     }
   }
 
@@ -217,6 +240,7 @@ export default function AdminCrud<T extends { id: string }>({
 
   return (
     <div>
+      {error && <div role="alert" className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">{title}</h1>
         <button onClick={openCreate} className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm">

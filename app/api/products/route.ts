@@ -5,7 +5,8 @@ import { apiError, apiSuccess } from "@/lib/api-utils";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const where: Record<string, unknown> = { active: true };
+  const session = await getSession();
+  const where: Record<string, unknown> = session ? {} : { active: true };
 
   const categoryId = searchParams.get("categoryId");
   if (categoryId) where.categoryId = categoryId;

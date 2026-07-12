@@ -7,6 +7,7 @@ import AdminCrud from "@/components/admin/AdminCrud";
 function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> | null; onSave: (data: Record<string, unknown>) => void; onClose: () => void }) {
   const [categories, setCategories] = useState<Array<{ id: string; slug: string; navLabelFr: string }>>([]);
   const [data, setData] = useState<Record<string, unknown>>({});
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/categories").then(r => r.json()).then(d => setCategories(Array.isArray(d) ? d : []));
@@ -23,10 +24,26 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
     }
   }, [item]);
 
+  function submit() {
+    const next: Record<string, unknown> = { ...data, categoryId: data.categoryId || null };
+    for (const key of ["finishes", "usage", "specsFr", "specsAr", "specsEn"]) {
+      if (typeof next[key] !== "string") continue;
+      try {
+        next[key] = JSON.parse(next[key] as string);
+      } catch {
+        setError(`${key} must contain valid JSON.`);
+        return;
+      }
+    }
+    setError(null);
+    onSave(next);
+  }
+
   return (
     <div className="bg-white rounded-lg shadow p-6 max-w-3xl">
       <h2 className="text-xl font-bold mb-4">{item ? "Edit Product" : "Create Product"}</h2>
-      <form onSubmit={(e) => { e.preventDefault(); onSave(data); }} className="space-y-4">
+      <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="space-y-4">
+        {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Slug *</label>
@@ -46,6 +63,10 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
             <input value={String(data.image || "")} onChange={(e) => setData({...data, image: e.target.value})} className="w-full border rounded-lg px-3 py-2" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Sort order</label>
+            <input type="number" value={String(data.sortOrder ?? 0)} onChange={(e) => setData({...data, sortOrder: Number(e.target.value)})} className="w-full border rounded-lg px-3 py-2" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Finishes (JSON)</label>

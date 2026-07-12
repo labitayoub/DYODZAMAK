@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { LockKeyhole, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
 import { useSettings } from "@/lib/hooks";
@@ -114,8 +114,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-5 text-xs font-medium uppercase tracking-[0.18em] text-[rgba(247,243,237,0.42)]">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-5 text-xs font-medium uppercase tracking-[0.18em] text-[rgba(247,243,237,0.42)]">
           © DYODZAMAK. {t.price}.
+          <Link href="/admin/login" className="inline-flex items-center gap-2 transition hover:text-[#e5bd77]" aria-label="Accès à l'administration">
+            <LockKeyhole size={13} />
+            {lang === "fr" ? "Administration" : lang === "ar" ? "الإدارة" : "Administration"}
+          </Link>
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, LogIn, Menu, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { Lang, navItems, whatsappNumber } from "@/data/site";
 import { getProductCategoryLabel, productCategories } from "@/data/product-categories";
@@ -143,6 +143,13 @@ export default function Header() {
             <Link href="/devis" className="button-primary">
               {t.quote}
             </Link>
+            <Link
+              href="/admin/login"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold text-white transition hover:border-[#e5bd77]/60 hover:bg-[#e5bd77]/15 hover:text-[#f3d08b]"
+            >
+              <LogIn size={16} />
+              Login
+            </Link>
           </div>
 
           <button
@@ -240,6 +247,9 @@ export default function Header() {
               <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="button-whatsapp w-full">
                 WhatsApp
               </a>
+              <Link onClick={closeMenu} href="/admin/login" className="button-secondary w-full text-center">
+                Administration
+              </Link>
             </div>
           </div>
         </div>

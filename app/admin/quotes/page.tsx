@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { confirmAction, showToast } from "@/lib/notifications";
 
 export default function AdminQuotesPage() {
   const [quotes, setQuotes] = useState<Record<string, unknown>[]>([]);
@@ -15,27 +16,36 @@ export default function AdminQuotesPage() {
   }, []);
 
   async function updateStatus(id: string, status: string) {
-    await fetch(`/api/quotes/${id}`, {
+    const res = await fetch(`/api/quotes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
-    setQuotes(quotes.map(q => q.id === id ? { ...q, status } : q));
+    if (res.ok) {
+      setQuotes(quotes.map(q => q.id === id ? { ...q, status } : q));
+      showToast("Quote status updated.");
+    } else showToast("Unable to update quote status.", "error");
   }
 
   async function markRead(id: string) {
-    await fetch(`/api/quotes/${id}`, {
+    const res = await fetch(`/api/quotes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ read: true }),
     });
-    setQuotes(quotes.map(q => q.id === id ? { ...q, read: true } : q));
+    if (res.ok) {
+      setQuotes(quotes.map(q => q.id === id ? { ...q, read: true } : q));
+      showToast("Quote marked as read.");
+    } else showToast("Unable to update quote.", "error");
   }
 
   async function deleteQuote(id: string) {
-    if (!confirm("Delete this quote?")) return;
-    await fetch(`/api/quotes/${id}`, { method: "DELETE" });
-    setQuotes(quotes.filter(q => q.id !== id));
+    if (!await confirmAction("Delete this quote?")) return;
+    const res = await fetch(`/api/quotes/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setQuotes(quotes.filter(q => q.id !== id));
+      showToast("Quote deleted successfully.");
+    } else showToast("Unable to delete quote.", "error");
   }
 
   return (

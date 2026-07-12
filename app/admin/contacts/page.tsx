@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { confirmAction, showToast } from "@/lib/notifications";
 
 export default function AdminContactsPage() {
   const [messages, setMessages] = useState<Record<string, unknown>[]>([]);
@@ -15,18 +16,24 @@ export default function AdminContactsPage() {
   }, []);
 
   async function markRead(id: string) {
-    await fetch(`/api/contacts/${id}`, {
+    const res = await fetch(`/api/contacts/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ read: true }),
     });
-    setMessages(messages.map(m => m.id === id ? { ...m, read: true } : m));
+    if (res.ok) {
+      setMessages(messages.map(m => m.id === id ? { ...m, read: true } : m));
+      showToast("Message marked as read.");
+    } else showToast("Unable to update message.", "error");
   }
 
   async function deleteMessage(id: string) {
-    if (!confirm("Delete this message?")) return;
-    await fetch(`/api/contacts/${id}`, { method: "DELETE" });
-    setMessages(messages.filter(m => m.id !== id));
+    if (!await confirmAction("Delete this message?")) return;
+    const res = await fetch(`/api/contacts/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setMessages(messages.filter(m => m.id !== id));
+      showToast("Message deleted successfully.");
+    } else showToast("Unable to delete message.", "error");
   }
 
   return (
