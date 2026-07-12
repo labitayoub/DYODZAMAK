@@ -3,9 +3,22 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("dyodzamak_admin_token")?.value;
 
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const token = request.cookies.get("dyodzamak_admin_token")?.value;
+  if (pathname === "/") {
+    if (token) {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/login") {
+      if (token) {
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
+      return NextResponse.next();
+    }
     if (!token) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
@@ -15,5 +28,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/", "/admin/:path*"],
 };

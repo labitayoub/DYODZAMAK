@@ -15,3 +15,10 @@ yarn-error.log*
 Thumbs.db
 
 /generated/prisma
+
+.vscode/
+.agents/
+.codex/
+tsconfig.tsbuildinfo
+
+public/uploads/

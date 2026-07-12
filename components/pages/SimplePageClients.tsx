@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import CatalogClient from "@/components/CatalogClient";
-import CategoryCard from "@/components/CategoryCard";
 import ProductGrid from "@/components/ProductGrid";
 import QuoteForm from "@/components/QuoteForm";
 import SectionTitle from "@/components/SectionTitle";
 import { PrimaryButton, WhatsAppButton } from "@/components/Buttons";
-import { categoryRoutes, emailDisplay, phoneDisplay, products, whatsappNumber } from "@/data/site";
+import { emailDisplay, phoneDisplay, products, whatsappNumber } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
 
 const simpleCopy = {
@@ -159,35 +158,6 @@ export function CustomizationPageClient() {
       <section className="px-4 py-12 md:px-6 md:py-20">
         <div className="section-frame">
           <QuoteForm />
-        </div>
-      </section>
-    </>
-  );
-}
-
-export function RealisationsPageClient() {
-  const { t } = useLanguage();
-  const { lang } = useLanguage();
-  const copy = simpleCopy[lang];
-
-  return (
-    <>
-      <PageIntro title={t.pages.gallery[0]} text={t.pages.gallery[1]} />
-
-      <section className="px-4 py-12 md:px-6 md:py-20">
-        <div className="section-frame">
-          <SectionTitle eyebrow={copy.collectionsEyebrow} title={copy.collectionsTitle} text={t.pages.gallery[1]} />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {categoryRoutes.slice(0, 4).map((slug) => (
-              <CategoryCard key={slug} slug={slug} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-12 md:px-6 md:py-20">
-        <div className="section-frame">
-          <ProductGrid products={products} />
         </div>
       </section>
     </>

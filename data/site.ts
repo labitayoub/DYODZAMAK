@@ -30,7 +30,6 @@ export const navItems = [
   { href: "/plaques", key: "plaques" },
   { href: "/pins-badges", key: "pins" },
   { href: "/porte-cles", key: "keychains" },
-  { href: "/realisations", key: "work" },
   { href: "/devis", key: "quote" }
 ] as const;
 
@@ -47,7 +46,6 @@ export const ui = {
       plaques: "Plaques",
       pins: "Pins & Badges",
       keychains: "Porte-cles",
-      work: "Realisations",
       quote: "Demande de devis",
       about: "A propos",
       contact: "Contact",
@@ -101,7 +99,6 @@ export const ui = {
     pages: {
       catalog: ["Catalogue DYODZAMAK", "Parcourez les modeles avec une presentation plus claire, des filtres utiles et un acces rapide au devis."],
       customization: ["Personnalisation", "Logos, textes, dates, formes, quantites et finitions: chaque piece est preparee selon votre besoin reel."],
-      gallery: ["Realisations", "Decouvrez une selection de medailles, trophees, plaques, pins et porte-cles metalliques personnalises."],
       quote: ["Demande de devis", "Renseignez les details essentiels pour recevoir une reponse plus rapide et mieux cadree."],
       about: ["A propos de DYODZAMAK", "Un atelier specialise dans les recompenses, plaques et creations metalliques personnalisees au Maroc."],
       contact: ["Contact", "WhatsApp reste le canal le plus rapide pour demander un prix, envoyer un logo ou suivre un projet."]
@@ -132,7 +129,6 @@ export const ui = {
       plaques: "لوحات",
       pins: "دبابيس وشارات",
       keychains: "حاملات مفاتيح",
-      work: "الأعمال",
       quote: "طلب عرض سعر",
       about: "من نحن",
       contact: "اتصال",
@@ -186,7 +182,6 @@ export const ui = {
     pages: {
       catalog: ["كتالوج DYODZAMAK", "تصفح النماذج بتجربة واضحة: فلاتر، تشطيبات، استعمالات وطلب سريع."],
       customization: ["التخصيص", "الشعارات، النصوص، التواريخ، الأشكال، الكميات والتشطيبات حسب حاجتك."],
-      gallery: ["الأعمال", "إلهام للميداليات والكؤوس واللوحات والدبابيس وحاملات المفاتيح."],
       quote: ["طلب عرض سعر", "املأ التفاصيل الأساسية وأرسل طلبا جاهزا عبر واتساب."],
       about: ["من نحن", "كتالوج متخصص في الجوائز والمنتجات المعدنية المخصصة في المغرب."],
       contact: ["اتصل بنا", "واتساب هو الأسرع لطلب السعر أو التصميم أو متابعة الطلب."]
@@ -217,7 +212,6 @@ export const ui = {
       plaques: "Plaques",
       pins: "Pins & Badges",
       keychains: "Keychains",
-      work: "Projects",
       quote: "Quote request",
       about: "About",
       contact: "Contact",
@@ -271,7 +265,6 @@ export const ui = {
     pages: {
       catalog: ["DYODZAMAK Catalog", "Browse the models with clearer presentation, useful filters and fast access to quoting."],
       customization: ["Customization", "Logos, text, dates, shapes, quantities and finishes: every piece is prepared for your real needs."],
-      gallery: ["Projects", "Discover a selection of customized metal medals, trophies, plaques, pins and keychains."],
       quote: ["Quote request", "Enter the essential details to receive a faster and better-scoped response."],
       about: ["About DYODZAMAK", "A workshop specialized in awards, plaques and customized metal creations in Morocco."],
       contact: ["Contact", "WhatsApp remains the fastest channel to request a price, send a logo or follow a project."]

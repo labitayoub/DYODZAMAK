@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, ReactNode } from "react";
+import { useState, useEffect, useCallback, useRef, ReactNode } from "react";
 import { confirmAction, showToast } from "@/lib/notifications";
 
 interface Column<T> {
@@ -40,11 +40,13 @@ export default function AdminCrud<T extends { id: string }>({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchItems = useCallback(async () => {
+  const apiBaseRef = useRef(apiBase);
+
+  async function reload() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(apiBase);
+      const res = await fetch(apiBaseRef.current);
       if (res.ok) {
         const data = await res.json();
         setItems(Array.isArray(data) ? data : []);
@@ -56,14 +58,22 @@ export default function AdminCrud<T extends { id: string }>({
       console.error(e);
     }
     setLoading(false);
-  }, [apiBase]);
+  }
 
-  useEffect(() => { fetchItems(); }, [fetchItems]);
+  useEffect(() => {
+    apiBaseRef.current = apiBase;
+    let cancelled = false;
+    fetch(apiBase)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((d) => { if (!cancelled) { setItems(Array.isArray(d) ? d : []); setLoading(false); } })
+      .catch(() => { if (!cancelled) { setError("Unable to load data."); setLoading(false); } });
+    return () => { cancelled = true; };
+  }, [apiBase]);
 
   function openCreate() {
     setEditing(null);
     const initial: Record<string, unknown> = {};
-    fields.forEach((f) => { initial[f.key] = f.type === "checkbox" ? false : f.type === "json" ? "[]" : ""; });
+    fields.forEach((f) => { initial[f.key] = f.type === "checkbox" ? false : ""; });
     setFormData(initial);
     setShowForm(true);
   }
@@ -74,7 +84,7 @@ export default function AdminCrud<T extends { id: string }>({
     fields.forEach((f) => {
       const val = (item as Record<string, unknown>)[f.key];
       if (f.type === "json") {
-        data[f.key] = typeof val === "string" ? val : JSON.stringify(val ?? []);
+        data[f.key] = Array.isArray(val) ? val.map(String).join("\n") : typeof val === "string" ? val : "";
       } else {
         data[f.key] = val ?? "";
       }
@@ -92,7 +102,7 @@ export default function AdminCrud<T extends { id: string }>({
       for (const [key, value] of Object.entries(data)) {
         const field = fields.find((f) => f.key === key);
         if (field?.type === "json" && typeof value === "string") {
-          try { processed[key] = JSON.parse(value); } catch { processed[key] = []; }
+          processed[key] = value.split("\n").map((entry) => entry.trim()).filter(Boolean);
         } else {
           processed[key] = value;
         }
@@ -107,7 +117,7 @@ export default function AdminCrud<T extends { id: string }>({
       });
       if (res.ok) {
         setShowForm(false);
-        await fetchItems();
+        await reload();
         showToast(editing ? `${title} updated successfully.` : `${title} created successfully.`);
       } else {
         const result = await res.json().catch(() => null);
@@ -132,7 +142,7 @@ export default function AdminCrud<T extends { id: string }>({
         setError(result?.error || "Unable to delete this item.");
         return;
       }
-      await fetchItems();
+      await reload();
       showToast(`${title} deleted successfully.`);
     } catch (e) {
       console.error(e);
@@ -154,6 +164,7 @@ export default function AdminCrud<T extends { id: string }>({
       return (
         <div>
           <button onClick={() => setShowForm(false)} className="mb-4 text-amber-600 hover:underline text-sm">← Back to list</button>
+          {/* eslint-disable-next-line react-hooks/refs */}
           {renderForm(editing, handleSave, () => setShowForm(false))}
         </div>
       );
@@ -190,13 +201,16 @@ export default function AdminCrud<T extends { id: string }>({
                     ))}
                   </select>
                 ) : field.type === "textarea" || field.type === "json" ? (
-                  <textarea
-                    value={String(formData[field.key] || "")}
-                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
-                    rows={field.type === "json" ? 4 : 3}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono text-sm"
-                    required={field.required}
-                  />
+                  <>
+                    <textarea
+                      value={String(formData[field.key] || "")}
+                      onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                      rows={field.type === "json" ? 4 : 3}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                      required={field.required}
+                    />
+                    {field.type === "json" && <p className="mt-1 text-xs text-gray-500">One item per line.</p>}
+                  </>
                 ) : field.type === "number" ? (
                   <input
                     type="number"

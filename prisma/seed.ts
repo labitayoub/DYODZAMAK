@@ -32,9 +32,6 @@ async function main() {
     { key: "location_ar", value: "المغرب", group: "contact" },
     { key: "location_en", value: "Morocco", group: "contact" },
     { key: "site_name", value: "DYODZAMAK", group: "general" },
-    { key: "footer_text_fr", value: "Catalogue marocain de medailles, trophees, plaques, pins, badges, porte-cles et creations metalliques personnalisees.", group: "texts" },
-    { key: "footer_text_ar", value: "كتالوج مغربي للميداليات والكؤوس واللوحات والدبابيس والشارات وحاملات المفاتيح والمنتجات المعدنية المخصصة.", group: "texts" },
-    { key: "footer_text_en", value: "Moroccan catalog of custom medals, trophies, plaques, pins, badges, keychains and metal creations.", group: "texts" },
   ];
   for (const s of settings) {
     await prisma.siteSetting.upsert({
@@ -448,13 +445,6 @@ async function main() {
       subtitleEn: "Logos, text, dates, shapes, quantities and finishes: every piece is prepared for your real needs.",
     },
     {
-      slug: "realisations",
-      titleFr: "Realisations", titleAr: "الأعمال", titleEn: "Projects",
-      subtitleFr: "Decouvrez une selection de medailles, trophees, plaques, pins et porte-cles metalliques personnalises.",
-      subtitleAr: "إلهام للميداليات والكؤوس واللوحات والدبابيس وحاملات المفاتيح.",
-      subtitleEn: "Discover a selection of customized metal medals, trophies, plaques, pins and keychains.",
-    },
-    {
       slug: "devis",
       titleFr: "Demande de devis", titleAr: "طلب عرض سعر", titleEn: "Quote request",
       subtitleFr: "Renseignez les details essentiels pour recevoir une reponse plus rapide et mieux cadree.",
@@ -561,8 +551,7 @@ async function main() {
     { href: "/plaques", labelFr: "Plaques", labelAr: "لوحات", labelEn: "Plaques", sortOrder: 4, group: "main" },
     { href: "/pins-badges", labelFr: "Pins & Badges", labelAr: "دبابيس وشارات", labelEn: "Pins & Badges", sortOrder: 5, group: "main" },
     { href: "/porte-cles", labelFr: "Porte-cles", labelAr: "حاملات مفاتيح", labelEn: "Keychains", sortOrder: 6, group: "main" },
-    { href: "/realisations", labelFr: "Realisations", labelAr: "الأعمال", labelEn: "Projects", sortOrder: 7, group: "main" },
-    { href: "/devis", labelFr: "Demande de devis", labelAr: "طلب عرض سعر", labelEn: "Quote request", sortOrder: 8, group: "main" },
+    { href: "/devis", labelFr: "Demande de devis", labelAr: "طلب عرض سعر", labelEn: "Quote request", sortOrder: 7, group: "main" },
   ];
 
   const existingNav = await prisma.navItem.findFirst();

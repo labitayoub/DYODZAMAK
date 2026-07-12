@@ -114,12 +114,6 @@ export default function Header() {
               </div>
             </div>
 
-            {navItems.slice(6, 7).map((item) => (
-              <Link key={item.href} href={item.href} className="premium-link text-sm font-medium text-white/75">
-                {t.nav[item.key]}
-              </Link>
-            ))}
-
             <Link href="/contact" className="premium-link text-sm font-medium text-white/75">
               {t.nav.contact}
             </Link>

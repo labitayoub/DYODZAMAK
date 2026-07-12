@@ -6,7 +6,6 @@ datasource db {
   provider = "postgresql"
 }
 
-// ─── Admin Users ───
 model AdminUser {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -17,29 +16,25 @@ model AdminUser {
   updatedAt DateTime @updatedAt
 }
 
-// ─── Site Settings ───
 model SiteSetting {
-  id    String @id @default(uuid())
-  key   String @unique
-  value Json
-  group String @default("general")
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  group     String   @default("general")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Product Categories ───
 model Category {
-  id              String   @id @default(uuid())
-  slug            String   @unique
+  id              String    @id @default(uuid())
+  slug            String    @unique
   href            String
   icon            String?
   image           String?
-  sortOrder       Int      @default(0)
-  active          Boolean  @default(true)
+  sortOrder       Int       @default(0)
+  active          Boolean   @default(true)
   metaTitle       String?
   metaDescription String?
-
-  // Localized content
   navLabelFr      String?
   navLabelAr      String?
   navLabelEn      String?
@@ -52,8 +47,6 @@ model Category {
   summaryFr       String?
   summaryAr       String?
   summaryEn       String?
-
-  // JSON fields for complex localized content
   subcategoriesFr Json?
   subcategoriesAr Json?
   subcategoriesEn Json?
@@ -65,66 +58,56 @@ model Category {
   customizationFr String?
   customizationAr String?
   customizationEn String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  products Product[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  products        Product[]
 }
 
-// ─── Products ───
 model Product {
-  id          String   @id @default(uuid())
-  slug        String   @unique
-  badge       String?
-  image       String?
-  finishes    Json     @default("[]")
-  usage       Json     @default("[]")
-  customizable Boolean @default(true)
-  is3d        Boolean  @default(false)
-  featured    Boolean  @default(false)
-  newest      Boolean  @default(false)
-  premium     Boolean  @default(false)
-  active      Boolean  @default(true)
-  sortOrder   Int      @default(0)
-
-  // Localized content
-  nameFr      String?
-  nameAr      String?
-  nameEn      String?
-  descFr      String?
-  descAr      String?
-  descEn      String?
-  specsFr     Json?
-  specsAr     Json?
-  specsEn     Json?
-
-  categoryId  String?
-  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String    @id @default(uuid())
+  slug         String    @unique
+  badge        String?
+  image        String?
+  finishes     Json      @default("[]")
+  usage        Json      @default("[]")
+  customizable Boolean   @default(true)
+  is3d         Boolean   @default(false)
+  featured     Boolean   @default(false)
+  newest       Boolean   @default(false)
+  premium      Boolean   @default(false)
+  active       Boolean   @default(true)
+  sortOrder    Int       @default(0)
+  nameFr       String?
+  nameAr       String?
+  nameEn       String?
+  descFr       String?
+  descAr       String?
+  descEn       String?
+  specsFr      Json?
+  specsAr      Json?
+  specsEn      Json?
+  categoryId   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  category     Category? @relation(fields: [categoryId], references: [id])
 }
 
-// ─── Pages Content (CMS) ───
 model PageContent {
-  id        String   @id @default(uuid())
-  slug      String   @unique
-  titleFr   String?
-  titleAr   String?
-  titleEn   String?
+  id         String   @id @default(uuid())
+  slug       String   @unique
+  titleFr    String?
+  titleAr    String?
+  titleEn    String?
   subtitleFr String?
   subtitleAr String?
   subtitleEn String?
-  bodyFr    Json?
-  bodyAr    Json?
-  bodyEn    Json?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  bodyFr     Json?
+  bodyAr     Json?
+  bodyEn     Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-// ─── Home Page Slides ───
 model HomeSlide {
   id        String   @id @default(uuid())
   titleFr   String?
@@ -136,50 +119,44 @@ model HomeSlide {
   image     String?
   active    Boolean  @default(true)
   sortOrder Int      @default(0)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Gallery / Realisations ───
 model GalleryItem {
-  id         String   @id @default(uuid())
-  titleFr    String?
-  titleAr    String?
-  titleEn    String?
-  descFr     String?
-  descAr     String?
-  descEn     String?
-  image      String?
-  categoryId String?
+  id           String   @id @default(uuid())
+  titleFr      String?
+  titleAr      String?
+  titleEn      String?
+  descFr       String?
+  descAr       String?
+  descEn       String?
+  image        String?
+  categoryId   String?
   categorySlug String?
-  active     Boolean  @default(true)
-  sortOrder  Int      @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  active       Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// ─── Quote Requests ───
 model QuoteRequest {
-  id          String   @id @default(uuid())
-  name        String
-  phone       String
-  city        String?
-  product     String?
-  quantity    String?
-  finish      String?
-  engraving   String?
-  message     String?
+  id           String   @id @default(uuid())
+  name         String
+  phone        String
+  city         String?
+  product      String?
+  quantity     String?
+  finish       String?
+  engraving    String?
+  message      String?
   whatsappLink String?
-  status      String   @default("pending")
-  read        Boolean  @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status       String   @default("pending")
+  read         Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// ─── Contact Messages ───
 model ContactMessage {
   id        String   @id @default(uuid())
   name      String
@@ -188,12 +165,10 @@ model ContactMessage {
   subject   String?
   message   String
   read      Boolean  @default(false)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Navigation Items ───
 model NavItem {
   id        String   @id @default(uuid())
   href      String
@@ -203,47 +178,41 @@ model NavItem {
   sortOrder Int      @default(0)
   active    Boolean  @default(true)
   group     String   @default("main")
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Hero Sections (for category pages etc.) ───
 model HeroSection {
-  id         String   @id @default(uuid())
-  slug       String   @unique
-  titleFr    String?
-  titleAr    String?
-  titleEn    String?
-  textFr     String?
-  textAr     String?
-  textEn     String?
-  image      String?
-  video      String?
-  active     Boolean  @default(true)
-
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  titleFr   String?
+  titleAr   String?
+  titleEn   String?
+  textFr    String?
+  textAr    String?
+  textEn    String?
+  image     String?
+  video     String?
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Process Steps ───
 model ProcessStep {
-  id         String   @id @default(uuid())
-  titleFr    String?
-  titleAr    String?
-  titleEn    String?
-  descFr     String?
-  descAr     String?
-  descEn     String?
-  icon       String?
-  sortOrder  Int      @default(0)
-  active     Boolean  @default(true)
-
+  id        String   @id @default(uuid())
+  titleFr   String?
+  titleAr   String?
+  titleEn   String?
+  descFr    String?
+  descAr    String?
+  descEn    String?
+  icon      String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Trust Points ───
 model TrustPoint {
   id        String   @id @default(uuid())
   textFr    String?
@@ -252,12 +221,10 @@ model TrustPoint {
   icon      String?
   sortOrder Int      @default(0)
   active    Boolean  @default(true)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Stats ───
 model Stat {
   id        String   @id @default(uuid())
   value     String?
@@ -266,19 +233,17 @@ model Stat {
   labelEn   String?
   sortOrder Int      @default(0)
   active    Boolean  @default(true)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ─── Media Uploads ───
 model Media {
-  id        String   @id @default(uuid())
-  filename  String
+  id           String   @id @default(uuid())
+  filename     String
   originalName String?
-  mimeType  String?
-  size      Int?
-  path      String
-  alt       String?
-  createdAt DateTime @default(now())
+  mimeType     String?
+  size         Int?
+  path         String
+  alt          String?
+  createdAt    DateTime @default(now())
 }

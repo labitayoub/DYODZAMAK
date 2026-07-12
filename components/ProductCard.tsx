@@ -11,7 +11,6 @@ import { useLanguage } from "@/components/LanguageProvider";
 export default function ProductCard({ product, compact = false }: { product: Product; compact?: boolean }) {
   const { lang, t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const copy = product[lang];
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeLabel = lang === "fr" ? "Fermer" : lang === "ar" ? "إغلاق" : "Close";
@@ -19,11 +18,6 @@ export default function ProductCard({ product, compact = false }: { product: Pro
   const closeModal = useCallback(() => {
     setOpen(false);
     triggerRef.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
   }, []);
 
   useEffect(() => {
@@ -59,13 +53,17 @@ export default function ProductCard({ product, compact = false }: { product: Pro
           onClick={() => setOpen(true)}
           className="relative aspect-square overflow-hidden text-left bg-white/5 p-3 w-full"
         >
-          <Image
-            src={product.image}
-            alt={copy.name}
-            fill
-            sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 768px) 42vw, 100vw"
-            className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-          />
+          {product.image ? (
+            <Image
+              src={product.image}
+              alt={copy.name}
+              fill
+              sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 768px) 42vw, 100vw"
+              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>
+          )}
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_50%,rgba(10,10,10,0.5))]" />
           <div className="absolute top-3 left-3">
             <span className="rounded-full border border-white/15 bg-black/40 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
@@ -107,7 +105,7 @@ export default function ProductCard({ product, compact = false }: { product: Pro
       </article>
 
       {/* Product Detail Modal Portal */}
-      {mounted && open && createPortal(
+      {open && createPortal(
         <div
           className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
           onClick={closeModal}
@@ -128,14 +126,18 @@ export default function ProductCard({ product, compact = false }: { product: Pro
             {/* Product image (Left/Top) */}
             <div className="w-full md:w-[42%] bg-white/3 flex items-center justify-center p-6 relative border-b md:border-b-0 md:border-r border-white/5 min-h-[240px] md:min-h-[360px] shrink-0">
               <div className="relative w-full h-[180px] md:h-[260px]">
-                <Image
-                  src={product.image}
-                  alt={copy.name}
-                  fill
-                  sizes="(min-width: 768px) 320px, 100vw"
-                  className="object-contain"
-                  priority
-                />
+                {product.image ? (
+                  <Image
+                    src={product.image}
+                    alt={copy.name}
+                    fill
+                    sizes="(min-width: 768px) 320px, 100vw"
+                    className="object-contain"
+                    priority
+                  />
+                ) : (
+                  <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>
+                )}
               </div>
               <div className="absolute bottom-4 left-5">
                 <span className="rounded-full border border-[#e5bd77]/30 bg-[#07111a]/80 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#e5bd77]/80 backdrop-blur-sm">

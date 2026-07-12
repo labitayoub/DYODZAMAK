@@ -81,9 +81,6 @@ export default function Footer() {
               <Link href="/personnalisation" className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
                 {t.nav.customization}
               </Link>
-              <Link href="/realisations" className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
-                {t.nav.work}
-              </Link>
               <Link href="/contact" className="premium-link w-fit text-sm font-medium text-[rgba(247,243,237,0.78)]">
                 {t.nav.contact}
               </Link>

@@ -11,9 +11,9 @@ const fields = [
   { key: "subtitleFr", label: "Subtitle (FR)", type: "textarea" as const },
   { key: "subtitleAr", label: "Subtitle (AR)", type: "textarea" as const },
   { key: "subtitleEn", label: "Subtitle (EN)", type: "textarea" as const },
-  { key: "bodyFr", label: "Body (FR)", type: "json" as const },
-  { key: "bodyAr", label: "Body (AR)", type: "json" as const },
-  { key: "bodyEn", label: "Body (EN)", type: "json" as const },
+  { key: "bodyFr", label: "Content (FR)", type: "json" as const },
+  { key: "bodyAr", label: "Content (AR)", type: "json" as const },
+  { key: "bodyEn", label: "Content (EN)", type: "json" as const },
 ];
 
 export default function AdminPagesPage() {

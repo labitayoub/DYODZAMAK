@@ -7,7 +7,6 @@ import AdminLayout from "@/components/admin/AdminLayout";
 const shortcuts = [
   { label: "Categories", detail: "Organiser le catalogue", href: "/admin/categories", icon: FolderTree, color: "from-blue-600 to-cyan-500" },
   { label: "Products", detail: "Créer et modifier les produits", href: "/admin/products", icon: Package, color: "from-emerald-600 to-teal-500" },
-  { label: "Quote requests", detail: "Consulter les demandes", href: "/admin/quotes", icon: Mail, color: "from-amber-500 to-orange-500" },
   { label: "Gallery", detail: "Gérer les réalisations", href: "/admin/gallery", icon: Image, color: "from-violet-600 to-fuchsia-500" },
   { label: "Contact messages", detail: "Lire les messages reçus", href: "/admin/contacts", icon: Mail, color: "from-rose-600 to-pink-500" },
   { label: "Settings", detail: "Informations du site", href: "/admin/settings", icon: Settings, color: "from-slate-600 to-slate-500" },

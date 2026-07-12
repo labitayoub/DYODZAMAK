@@ -10,8 +10,13 @@ const nextConfig = {
     root: __dirname
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "**" },
+    ],
+    localPatterns: [
+      { pathname: "/uploads/**" },
+      { pathname: "/images/**" },
     ],
   },
 };

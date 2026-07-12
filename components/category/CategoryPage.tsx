@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,8 +9,16 @@ import ProductCard from "@/components/category/ProductCard";
 import { useLanguage } from "@/components/LanguageProvider";
 import { ProductCategory, getProductCategoryLabel } from "@/data/product-categories";
 import { whatsappNumber } from "@/data/site";
+import { usePublicProducts } from "@/lib/hooks";
 
 const ITEMS_PER_PAGE = 16;
+
+type PlaceholderItem = {
+  image: string;
+  title: { fr: string; ar: string; en: string };
+  description: { fr: string; ar: string; en: string };
+  details: { fr: string; ar: string; en: string }[];
+};
 
 export default function CategoryPage({
   category
@@ -18,16 +26,35 @@ export default function CategoryPage({
   category: ProductCategory;
 }) {
   const { lang } = useLanguage();
-  const placeholders = category.placeholders ?? [];
   const categoryName = getProductCategoryLabel(category.slug, lang);
-  const [page, setPage] = useState(1);
-  const [activeItem, setActiveItem] = useState<ProductCategory["placeholders"][number] | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const { products: apiProducts } = usePublicProducts(category.slug);
 
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
+  const placeholders = useMemo(() => {
+    if (!Array.isArray(apiProducts) || apiProducts.length === 0) {
+      return category.placeholders ?? [];
+    }
+    return apiProducts.map((p: Record<string, unknown>) => ({
+      image: String(p.image ?? ""),
+      title: {
+        fr: String(p.nameFr ?? ""),
+        ar: String(p.nameAr ?? ""),
+        en: String(p.nameEn ?? ""),
+      },
+      description: {
+        fr: String(p.descFr ?? ""),
+        ar: String(p.descAr ?? ""),
+        en: String(p.descEn ?? ""),
+      },
+      details: (() => {
+        const specs = p.specsFr;
+        return Array.isArray(specs)
+          ? specs.map((s: string) => ({ fr: s, ar: s, en: s }))
+          : [];
+      })(),
+    }));
+  }, [apiProducts, category]);
+  const [page, setPage] = useState(1);
+  const [activeItem, setActiveItem] = useState<PlaceholderItem | null>(null);
 
   useEffect(() => {
     if (activeItem) {
@@ -158,7 +185,7 @@ export default function CategoryPage({
       </div>
 
       {/* Central Product Modal Portal */}
-      {mounted && activeItem && createPortal(
+      {activeItem && createPortal(
         <div
           className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
           onClick={() => setActiveItem(null)}

@@ -1,20 +1,25 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function useApi<T>(url: string, fallback: T) {
-  const [data, setData] = useState<T>(fallback);
-  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState<{ data: T; loading: boolean }>({ data: fallback, loading: true });
+  const fallbackRef = useRef(fallback);
 
   useEffect(() => {
-    setLoading(true);
+    fallbackRef.current = fallback;
+  }, [fallback]);
+
+  useEffect(() => {
+    let cancelled = false;
     fetch(url)
-      .then((r) => (r.ok ? r.json() : fallback))
-      .then((d) => { setData(d ?? fallback); setLoading(false); })
-      .catch(() => { setData(fallback); setLoading(false); });
+      .then((r) => (r.ok ? r.json() : fallbackRef.current))
+      .then((d) => { if (!cancelled) setState({ data: d ?? fallbackRef.current, loading: false }); })
+      .catch(() => { if (!cancelled) setState({ data: fallbackRef.current, loading: false }); });
+    return () => { cancelled = true; };
   }, [url, fallback]);
 
-  return { data, loading };
+  return state;
 }
 
 export function useSettings() {
@@ -29,6 +34,12 @@ export function useCategories() {
 
 export function useProducts(categorySlug?: string) {
   const url = categorySlug ? `/api/products?category=${categorySlug}` : "/api/products";
+  const { data, loading } = useApi<Array<Record<string, unknown>>>(url, []);
+  return { products: data, loading };
+}
+
+export function usePublicProducts(categorySlug?: string) {
+  const url = categorySlug ? `/api/public/products?category=${categorySlug}` : "/api/public/products";
   const { data, loading } = useApi<Array<Record<string, unknown>>>(url, []);
   return { products: data, loading };
 }

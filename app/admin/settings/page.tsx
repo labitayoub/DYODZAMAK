@@ -86,24 +86,6 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
-        {/* Text Settings */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-lg font-semibold mb-4">Footer & Texts</h2>
-          <div className="space-y-4">
-            {["footer_text_fr", "footer_text_ar", "footer_text_en"].map(key => (
-              <div key={key}>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}</label>
-                <textarea
-                  value={String((settings.texts as Record<string, unknown>)?.[key] || "")}
-                  onChange={(e) => updateSetting("texts", key, e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
-                  rows={2}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
         <button
           onClick={handleSave}
           disabled={saving}

@@ -2,31 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { FadeIn, ScaleIn } from "@/components/Motion";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { FadeIn } from "@/components/Motion";
 import { useLanguage } from "@/components/LanguageProvider";
+import { usePublicProducts } from "@/lib/hooks";
 
-const ALL_PRODUCTS = [
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg",  label: { fr: "Trophée sportif",        ar: "كأس رياضي",        en: "Sports trophy" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10.jpeg",  label: { fr: "Récompense corporate",   ar: "جائزة مؤسسية",     en: "Corporate award" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10 (1).jpeg", label: { fr: "Plaque commémorative", ar: "درع تذكاري",       en: "Commemorative plaque" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.10 (2).jpeg", label: { fr: "Médaille premium",     ar: "ميدالية فاخرة",    en: "Premium medal" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12.jpeg",   label: { fr: "Médaille événement",    ar: "ميدالية حدث",      en: "Event medal" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12 (1).jpeg", label: { fr: "Trophée édition spéciale", ar: "كأس إصدار خاص", en: "Special edition trophy" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.12 (2).jpeg", label: { fr: "Trophée corporate",   ar: "كأس مؤسسي",       en: "Corporate trophy" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13.jpeg",   label: { fr: "Pin personnalisé",      ar: "دبوس مخصص",        en: "Custom pin" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (1).jpeg", label: { fr: "Badge professionnel", ar: "شارة احترافية",    en: "Professional badge" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (2).jpeg", label: { fr: "Porte-clés gravé",    ar: "سلسلة مفاتيح",     en: "Engraved keychain" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (3).jpeg", label: { fr: "Macaron prestige",    ar: "شارة بريستيج",     en: "Prestige badge" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.13 (4).jpeg", label: { fr: "Bouton personnalisé", ar: "زر مخصص",          en: "Custom button" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14.jpeg",   label: { fr: "Plaque entreprise",     ar: "لوحة شركة",        en: "Company plaque" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14 (1).jpeg", label: { fr: "Résine décorative",  ar: "ريزن ديكوري",      en: "Decorative resin" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.14 (2).jpeg", label: { fr: "T-shirt brodé",       ar: "تيشيرت مطرز",      en: "Embroidered T-shirt" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.38.31.jpeg",   label: { fr: "Médaille sportive",     ar: "ميدالية رياضية",   en: "Sports medal" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.38.49.jpeg",   label: { fr: "Médaille institutionnelle", ar: "ميدالية مؤسسية", en: "Institutional medal" } },
-  { image: "/images/WhatsApp Image 2026-06-03 at 13.39.05.jpeg",   label: { fr: "Trophée excellence",   ar: "كأس التميز",       en: "Excellence trophy" } },
-];
+type CarouselProduct = { image: string; label: { fr: string; ar: string; en: string } };
+
+function mapToCarousel(raw: Record<string, unknown>): CarouselProduct {
+  return {
+    image: String(raw.image ?? ""),
+    label: {
+      fr: String(raw.nameFr ?? ""),
+      ar: String(raw.nameAr ?? ""),
+      en: String(raw.nameEn ?? ""),
+    },
+  };
+}
 
 const copy = {
   fr: {
@@ -34,7 +27,7 @@ const copy = {
     slides: [
       { eyebrow: "Des details qui font la difference", text: "De la premiere idee a la piece finale, nous concevons des recompenses a la hauteur de l'exploit.", cta: "Commencer votre design", href: "/devis" },
       { eyebrow: "Une identite qui merite d'apparaitre", text: "Nous fabriquons des coupes, medailles et plaques avec des finitions metalliques adaptees a votre marque ou votre evenement.", cta: "Explorer la personnalisation", href: "/personnalisation" },
-      { eyebrow: "Pour les grands moments",text: "Des creations precises pour les ecoles, clubs, entreprises, associations et evenements dans tout le Maroc.", cta: "Voir nos realisations", href: "/realisations" }
+      { eyebrow: "Pour les grands moments",text: "Des creations precises pour les ecoles, clubs, entreprises, associations et evenements dans tout le Maroc.", cta: "Demander un devis", href: "/devis" }
     ],
     collections: [
       { title: "Trophees sportifs", text: "Coupes et medailles pour championnats et tournois", href: "/trophees", image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg", icon: Trophy, cta: "Decouvrir la collection" },
@@ -69,7 +62,7 @@ const copy = {
     slides: [
       { eyebrow: "تفاصيل تصنع الفرق", title: "جوائز استثنائية لأبطال مميزين.", text: "من الفكرة الأولى إلى القطعة النهائية، نصمم جوائز تليق بقيمة الإنجاز.", cta: "ابدأ تصميمك الآن", href: "/devis" },
       { eyebrow: "هوية تستحق أن تظهر", title: "حوّل شعارك إلى قطعة تترك انطباعاً.", text: "نصنع كؤوساً، ميداليات ودروعاً بتشطيبات معدنية تليق بعلامتك أو مناسبتك.", cta: "استكشف التخصيص", href: "/personnalisation" },
-      { eyebrow: "للمناسبات الكبيرة", title: "كل تكريم يبدأ بقطعة لا تُنسى.", text: "تصاميم دقيقة للمدارس، الأندية، الشركات، الجمعيات والفعاليات في كل المغرب.", cta: "شاهد أعمالنا", href: "/realisations" }
+      { eyebrow: "للمناسبات الكبيرة", title: "كل تكريم يبدأ بقطعة لا تُنسى.", text: "تصاميم دقيقة للمدارس، الأندية، الشركات، الجمعيات والفعاليات في كل المغرب.", cta: "اطلب عرض سعر", href: "/devis" }
     ],
     collections: [
       { title: "كؤوس رياضية", text: "كؤوس وميداليات للبطولات والدوريات", href: "/trophees", image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg", icon: Trophy, cta: "اكتشف المجموعة" },
@@ -104,7 +97,7 @@ const copy = {
     slides: [
       { eyebrow: "Details that make the difference", title: "Exceptional awards for unique champions.", text: "From the first idea to the final piece, we design awards that match the value of the achievement.", cta: "Start your design", href: "/devis" },
       { eyebrow: "An identity worth showing", title: "Turn your logo into a piece that leaves an impression.", text: "We make trophies, medals and plaques with metal finishes that suit your brand or event.", cta: "Explore customization", href: "/personnalisation" },
-      { eyebrow: "For big occasions", title: "Every tribute starts with an unforgettable piece.", text: "Precise designs for schools, clubs, companies, associations and events across Morocco.", cta: "See our work", href: "/realisations" }
+      { eyebrow: "For big occasions", title: "Every tribute starts with an unforgettable piece.", text: "Precise designs for schools, clubs, companies, associations and events across Morocco.", cta: "Request a quote", href: "/devis" }
     ],
     collections: [
       { title: "Sports trophies", text: "Trophies and medals for championships and tournaments", href: "/trophees", image: "/images/WhatsApp Image 2026-06-03 at 13.39.11.jpeg", icon: Trophy, cta: "Explore the collection" },
@@ -209,20 +202,27 @@ export default function HomeClient() {
   const { lang } = useLanguage();
   const current = copy[lang];
   const [activeIdx, setActiveIdx] = useState(0);
-  const [activeTab, setActiveTab] = useState<"design" | "metal" | "engrave" | "base">("design");
   const [activeTooltip, setActiveTooltip] = useState<"metal" | "engrave" | "base" | null>(null);
-  const total = ALL_PRODUCTS.length;
+  const { products: apiProducts } = usePublicProducts();
+
+  const allProducts: CarouselProduct[] = apiProducts.length
+    ? apiProducts.map(mapToCarousel)
+    : [];
+
+  const total = allProducts.length;
 
   const goPrev = () => setActiveIdx((prev) => (prev - 1 + total) % total);
   const goNext = () => setActiveIdx((prev) => (prev + 1) % total);
 
-  // Show 5 items: center + 2 on each side
   const getOffset = (index: number) => {
+    if (total === 0) return index;
     let diff = index - activeIdx;
     if (diff > total / 2) diff -= total;
     if (diff < -total / 2) diff += total;
     return diff;
   };
+
+  const safeActiveIdx = total > 0 ? activeIdx : 0;
 
   return (
     <div dir={current.heroDir} className="awards-home">
@@ -253,7 +253,7 @@ export default function HomeClient() {
           </button>
 
           <div className="coverflow-stage">
-            {ALL_PRODUCTS.map((product, i) => {
+            {allProducts.map((product, i) => {
               const offset = getOffset(i);
               if (offset < -2 || offset > 2) return null;
 
@@ -267,6 +267,7 @@ export default function HomeClient() {
               return (
                 <div key={i} className={className} onClick={() => setActiveIdx(i)}>
                   <div className="coverflow-img-wrap">
+                    {product.image ? (
                     <Image
                       src={product.image}
                       alt={product.label[lang]}
@@ -274,6 +275,9 @@ export default function HomeClient() {
                       sizes="(max-width: 768px) 260px, 420px"
                       className="coverflow-img"
                     />
+                    ) : (
+                    <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>
+                    )}
                   </div>
                 </div>
               );
@@ -286,7 +290,7 @@ export default function HomeClient() {
         </div>
 
         <div className="coverflow-info">
-          <h3 className="coverflow-title">{ALL_PRODUCTS[activeIdx].label[lang]}</h3>
+          <h3 className="coverflow-title">{total > 0 ? allProducts[safeActiveIdx].label[lang] : ""}</h3>
           <p className="coverflow-desc">{current.sectionText}</p>
         </div>
       </section>

@@ -25,9 +25,9 @@ const fields = [
   { key: "subcategoriesFr", label: "Subcategories (FR)", type: "json" as const },
   { key: "subcategoriesAr", label: "Subcategories (AR)", type: "json" as const },
   { key: "subcategoriesEn", label: "Subcategories (EN)", type: "json" as const },
-  { key: "useCasesFr", label: "Use Cases (FR)", type: "json" as const },
-  { key: "useCasesAr", label: "Use Cases (AR)", type: "json" as const },
-  { key: "useCasesEn", label: "Use Cases (EN)", type: "json" as const },
+  { key: "useCasesFr", label: "Use cases (FR)", type: "json" as const },
+  { key: "useCasesAr", label: "Use cases (AR)", type: "json" as const },
+  { key: "useCasesEn", label: "Use cases (EN)", type: "json" as const },
   { key: "metaTitle", label: "Meta Title" },
   { key: "metaDescription", label: "Meta Description", type: "textarea" as const },
 ];

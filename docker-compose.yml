@@ -4,7 +4,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: dyodzamak
-      POSTGRES_PASSWORD: dyodzamak_secret_2026
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dyodzamak}
       POSTGRES_DB: dyodzamak
     ports:
       - "5432:5432"
@@ -23,25 +23,21 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      DATABASE_URL: "postgresql://dyodzamak:dyodzamak_secret_2026@db:5432/dyodzamak"
-      JWT_SECRET: "dyodzamak-jwt-secret-ultra-secure-2026"
-      NEXTAUTH_URL: "http://localhost:3000"
-      ADMIN_EMAIL: "admin@dyodzamak.ma"
-      ADMIN_PASSWORD: "admin123"
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - ./public/uploads/products:/app/public/uploads/products
 
   seed:
     build:
       context: .
       dockerfile: Dockerfile
     command: ["npx", "tsx", "prisma/seed.ts"]
-    environment:
-      DATABASE_URL: "postgresql://dyodzamak:dyodzamak_secret_2026@db:5432/dyodzamak"
-      ADMIN_EMAIL: "admin@dyodzamak.ma"
-      ADMIN_PASSWORD: "admin123"
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy

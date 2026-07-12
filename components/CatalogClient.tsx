@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import ProductGrid from "@/components/ProductGrid";
-import { CategorySlug, Finish, Usage, categories, categoryRoutes, products } from "@/data/site";
+import { CategorySlug, Finish, Usage, Product, categories, categoryRoutes } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
+import { usePublicProducts } from "@/lib/hooks";
 
 type FilterState = {
   category: "all" | CategorySlug;
@@ -21,13 +22,50 @@ const catalogCopy = {
   en: { finish: "Finish", usage: "Usage", type: "Type", ok: "OK", filterLabel: "Catalog Filters" }
 } as const;
 
+function mapApiProduct(raw: Record<string, unknown>): Product {
+  const cat = raw.category as Record<string, unknown> | undefined;
+  return {
+    id: String(raw.id),
+    category: (cat?.slug as CategorySlug) ?? "medailles",
+    badge: String(raw.badge ?? ""),
+    image: String(raw.image ?? ""),
+    finishes: (raw.finishes as Finish[]) ?? [],
+    usage: (raw.usage as Usage[]) ?? [],
+    customizable: Boolean(raw.customizable),
+    is3d: Boolean(raw.is3d),
+    featured: Boolean(raw.featured),
+    newest: Boolean(raw.newest),
+    premium: Boolean(raw.premium),
+    fr: {
+      name: String(raw.nameFr ?? ""),
+      specs: Array.isArray(raw.specsFr) ? (raw.specsFr as string[]) : [],
+      description: String(raw.descFr ?? ""),
+    },
+    ar: {
+      name: String(raw.nameAr ?? ""),
+      specs: Array.isArray(raw.specsAr) ? (raw.specsAr as string[]) : [],
+      description: String(raw.descAr ?? ""),
+    },
+    en: {
+      name: String(raw.nameEn ?? ""),
+      specs: Array.isArray(raw.specsEn) ? (raw.specsEn as string[]) : [],
+      description: String(raw.descEn ?? ""),
+    },
+  };
+}
+
 export default function CatalogClient({ initialCategory = "all" }: { initialCategory?: "all" | CategorySlug }) {
   const { lang, t } = useLanguage();
   const copy = catalogCopy[lang];
   const [filters, setFilters] = useState<FilterState>({ category: initialCategory, finish: "all", usage: "all", type: "all" });
+  const { products: apiProducts } = usePublicProducts();
+
+  const allProducts = useMemo(() => {
+    return Array.isArray(apiProducts) ? apiProducts.map(mapApiProduct) : [];
+  }, [apiProducts]);
 
   const visible = useMemo(() => {
-    return products.filter((product) => {
+    return allProducts.filter((product) => {
       if (filters.category !== "all" && product.category !== filters.category) return false;
       if (filters.finish !== "all" && !product.finishes.includes(filters.finish)) return false;
       if (filters.usage !== "all" && !product.usage.includes(filters.usage)) return false;
@@ -36,7 +74,7 @@ export default function CatalogClient({ initialCategory = "all" }: { initialCate
       if (filters.type === "classic" && product.is3d) return false;
       return true;
     });
-  }, [filters]);
+  }, [filters, allProducts]);
 
   return (
     <section className="px-4 py-12 md:px-6 md:py-20">

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart3, ChevronLeft, ChevronRight, FileText, FolderKanban, Image,
-  LayoutDashboard, Mail, MessageSquareText, Package, Settings, Tags, Users,
+  LayoutDashboard, Mail, Package, Settings, Tags, Users,
 } from "lucide-react";
 import { useAdminAuth } from "./AdminAuthProvider";
 
@@ -19,11 +19,8 @@ const sidebarLinks = [
   { href: "/admin/trust-points", label: "Trust Points", icon: Users },
   { href: "/admin/stats", label: "Stats", icon: BarChart3 },
   { href: "/admin/nav-items", label: "Navigation", icon: FolderKanban },
-  { href: "/admin/hero-sections", label: "Hero Sections", icon: Image },
   { href: "/admin/gallery", label: "Gallery", icon: Image },
-  { href: "/admin/quotes", label: "Quote Requests", icon: MessageSquareText },
   { href: "/admin/contacts", label: "Contact Messages", icon: Mail },
-  { href: "/admin/media", label: "Media Library", icon: FolderKanban },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

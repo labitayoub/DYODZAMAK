@@ -52,6 +52,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
+    window.location.href = "/";
   }
 
   return (
