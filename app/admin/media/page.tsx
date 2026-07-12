@@ -49,18 +49,18 @@ export default function AdminMediaPage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {media.map((m) => (
-              <div key={m.id as string} className="bg-white rounded-lg shadow overflow-hidden">
+              <div key={String(m.id)} className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                  {(m.mimeType as string)?.startsWith("image") ? (
-                    <img src={m.path as string} alt={(m.alt as string) || ""} className="w-full h-full object-cover" />
+                  {String(m.mimeType).startsWith("image") ? (
+                    <img src={String(m.path)} alt={String(m.alt || "")} className="w-full h-full object-cover" />
                   ) : (
                     <span className="text-gray-400 text-3xl">📄</span>
                   )}
                 </div>
                 <div className="p-2">
-                  <p className="text-xs text-gray-500 truncate">{m.originalName as string}</p>
-                  <button onClick={() => copyPath(m.path as string)} className="text-xs text-amber-600 hover:underline mt-1">
-                    Copy path: {m.path as string}
+                  <p className="text-xs text-gray-500 truncate">{String(m.originalName)}</p>
+                  <button onClick={() => copyPath(String(m.path))} className="text-xs text-amber-600 hover:underline mt-1">
+                    Copy path: {String(m.path)}
                   </button>
                 </div>
               </div>

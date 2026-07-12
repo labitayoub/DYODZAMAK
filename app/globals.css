@@ -219,6 +219,63 @@ a {
   box-shadow: 0 0 0 4px rgba(229, 189, 119, 0.09);
 }
 
+.field option {
+  background: #16222e;
+  color: #fffdf8;
+}
+
+/* Quote page: a focused, distraction-free request form. */
+.quote-page {
+  position: relative;
+  min-height: calc(100vh - 11rem);
+  padding: clamp(2.5rem, 6vw, 5.5rem) 1rem;
+  overflow: hidden;
+}
+
+.quote-page::before {
+  content: "";
+  position: absolute;
+  top: -22rem;
+  left: 50%;
+  width: min(80vw, 64rem);
+  height: 42rem;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 189, 119, 0.14), transparent 68%);
+  pointer-events: none;
+}
+
+.quote-page__content {
+  position: relative;
+  width: min(100%, 62rem);
+  margin-inline: auto;
+}
+
+.quote-page .quote-form {
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-color: rgba(229, 189, 119, 0.22);
+  background:
+    linear-gradient(145deg, rgba(31, 44, 57, 0.97), rgba(12, 23, 33, 0.98));
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.quote-page .quote-form > :first-child {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.quote-page .quote-form h2 {
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.05;
+}
+
+.quote-page .quote-form .button-whatsapp {
+  min-height: 3.75rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
 .button-primary,
 .button-secondary,
 .button-whatsapp {

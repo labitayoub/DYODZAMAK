@@ -101,9 +101,5 @@ function AdminShell({ children }: { children: ReactNode }) {
 }
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  return (
-    <AdminAuthProvider>
-      <AdminShell>{children}</AdminShell>
-    </AdminAuthProvider>
-  );
+  return <AdminShell>{children}</AdminShell>;
 }

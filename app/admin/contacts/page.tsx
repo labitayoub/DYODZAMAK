@@ -40,21 +40,21 @@ export default function AdminContactsPage() {
         ) : (
           <div className="space-y-4">
             {messages.map((m) => (
-              <div key={m.id as string} className={`bg-white rounded-lg shadow p-4 border-l-4 ${(m.read as boolean) ? "border-gray-300" : "border-blue-500"}`}>
+              <div key={String(m.id)} className={`bg-white rounded-lg shadow p-4 border-l-4 ${m.read ? "border-gray-300" : "border-blue-500"}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="font-semibold">{m.name as string}</span>
-                      {m.email && <span className="text-sm text-gray-500">{m.email as string}</span>}
-                      {m.phone && <span className="text-sm text-gray-400">{m.phone as string}</span>}
+                      <span className="font-semibold">{String(m.name)}</span>
+                      {Boolean(m.email) && <span className="text-sm text-gray-500">{String(m.email)}</span>}
+                      {Boolean(m.phone) && <span className="text-sm text-gray-400">{String(m.phone)}</span>}
                     </div>
-                    {m.subject && <p className="text-sm font-medium text-gray-700">{m.subject as string}</p>}
-                    <p className="text-sm text-gray-600 mt-1">{m.message as string}</p>
-                    <p className="text-xs text-gray-400 mt-2">{new Date(m.createdAt as string).toLocaleString()}</p>
+                    {Boolean(m.subject) && <p className="text-sm font-medium text-gray-700">{String(m.subject)}</p>}
+                    <p className="text-sm text-gray-600 mt-1">{String(m.message)}</p>
+                    <p className="text-xs text-gray-400 mt-2">{new Date(String(m.createdAt)).toLocaleString()}</p>
                   </div>
                   <div className="flex gap-2 ml-4">
-                    {!m.read && <button onClick={() => markRead(m.id as string)} className="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">Mark Read</button>}
-                    <button onClick={() => deleteMessage(m.id as string)} className="text-xs text-red-600 hover:underline">Delete</button>
+                    {!m.read && <button onClick={() => markRead(String(m.id))} className="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">Mark Read</button>}
+                    <button onClick={() => deleteMessage(String(m.id))} className="text-xs text-red-600 hover:underline">Delete</button>
                   </div>
                 </div>
               </div>

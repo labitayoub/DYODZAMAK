@@ -196,29 +196,13 @@ export function RealisationsPageClient() {
 
 export function QuotePageClient() {
   const { t } = useLanguage();
-  const { lang } = useLanguage();
-  const copy = simpleCopy[lang];
 
   return (
-    <>
-      <PageIntro title={t.pages.quote[0]} text={t.pages.quote[1]} />
-
-      <section className="px-4 py-12 md:px-6 md:py-20">
-        <div className="section-frame grid gap-8 lg:grid-cols-[0.74fr_1.26fr]">
-          <div className="section-surface rounded-[32px] p-6 md:p-8">
-            <SectionTitle eyebrow={copy.quoteEyebrow} title={copy.quoteTitle} text={t.pages.quote[1]} />
-            <div className="mt-8 grid gap-3">
-              {t.trust.map((item) => (
-                <div key={item} className="rounded-[20px] border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/70">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <QuoteForm />
-        </div>
+    <main className="quote-page">
+      <section className="quote-page__content" aria-label={t.pages.quote[0]}>
+        <QuoteForm />
       </section>
-    </>
+    </main>
   );
 }
 

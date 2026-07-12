@@ -5,6 +5,7 @@ import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { whatsappNumber } from "@/data/site";
 import { useLanguage } from "@/components/LanguageProvider";
 import { getProductCategoryLabel, productCategories } from "@/data/product-categories";
+import { submitQuote } from "@/lib/hooks";
 
 export default function QuoteForm({ compact = false, transparent = false }: { compact?: boolean; transparent?: boolean }) {
   const { lang, t } = useLanguage();
@@ -40,7 +41,21 @@ export default function QuoteForm({ compact = false, transparent = false }: { co
       t.price
     ].join("\n");
 
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    submitQuote({
+      name: form.name,
+      phone: form.phone,
+      city: form.city,
+      product: form.product,
+      quantity: form.quantity,
+      finish: form.finish,
+      engraving: form.engraving,
+      message: form.description,
+      whatsappLink: waUrl,
+    }).catch(() => {});
+
+    window.open(waUrl, "_blank", "noopener,noreferrer");
   }
 
   const inputClass = `field ${
@@ -52,7 +67,7 @@ export default function QuoteForm({ compact = false, transparent = false }: { co
   return (
     <form
       onSubmit={submit}
-      className={`${
+      className={`quote-form ${
         transparent
           ? "border border-white/10 bg-[#07111a]/75 backdrop-blur-md p-5 md:p-8 rounded-[32px]"
           : "section-surface rounded-[32px] p-5 md:p-8"

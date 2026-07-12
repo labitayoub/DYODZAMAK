@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
+import { useSettings } from "@/lib/hooks";
 
 const footerCopy = {
   fr: {
@@ -32,6 +33,13 @@ export default function Footer() {
   const copy = footerCopy[lang];
   const pathname = usePathname();
   const isContactPage = pathname === "/contact";
+  const { settings } = useSettings();
+
+  const contactSettings = (settings.contact || {}) as Record<string, string>;
+  const wa = contactSettings.whatsapp_number || whatsappNumber;
+  const ph = contactSettings.phone_display || phoneDisplay;
+  const em = contactSettings.email || emailDisplay;
+  const loc = contactSettings[`location_${lang}`] || copy.location;
 
   const mainProductGroups = [
     { label: lang === "fr" ? "Medailles & Trophees" : lang === "ar" ? "ميداليات وكؤوس" : "Medals & Trophies", href: "/catalogue" },
@@ -86,21 +94,21 @@ export default function Footer() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[rgba(247,243,237,0.48)]">{t.nav.contact}</p>
             <div className="mt-5 grid gap-4 text-sm font-medium text-[rgba(247,243,237,0.78)]">
-              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 transition hover:text-white">
+              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 transition hover:text-white">
                 <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><MessageCircle size={16} /></span>
                 WhatsApp
               </a>
-              <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="flex items-center gap-3 transition hover:text-white">
+              <a href={`tel:${ph.replace(/\s/g, "")}`} className="flex items-center gap-3 transition hover:text-white">
                 <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><Phone size={16} /></span>
-                {phoneDisplay}
+                {ph}
               </a>
-              <a href={`mailto:${emailDisplay}`} className="flex items-center gap-3 transition hover:text-white">
+              <a href={`mailto:${em}`} className="flex items-center gap-3 transition hover:text-white">
                 <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><Mail size={16} /></span>
-                {emailDisplay}
+                {em}
               </a>
               <span className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-full border border-white/10"><MapPin size={16} /></span>
-                {copy.location}
+                {loc}
               </span>
             </div>
           </div>
