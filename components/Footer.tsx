@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { emailDisplay, phoneDisplay, whatsappNumber } from "@/data/site";
@@ -29,6 +30,8 @@ const footerCopy = {
 export default function Footer() {
   const { lang, t } = useLanguage();
   const copy = footerCopy[lang];
+  const pathname = usePathname();
+  const isContactPage = pathname === "/contact";
 
   const mainProductGroups = [
     { label: lang === "fr" ? "Medailles & Trophees" : lang === "ar" ? "ميداليات وكؤوس" : "Medals & Trophies", href: "/catalogue" },
@@ -39,7 +42,11 @@ export default function Footer() {
 
   return (
     <footer className="px-4 pb-6 pt-16 md:px-6 md:pb-8 md:pt-20">
-      <div className="section-dark section-frame overflow-hidden rounded-[var(--radius-xl)] border border-white/10 px-6 py-10 md:px-10 md:py-12">
+      <div className={`section-frame overflow-hidden rounded-[var(--radius-xl)] border border-white/10 px-6 py-10 md:px-10 md:py-12 ${
+        isContactPage
+          ? "bg-[#0b1621]/30 backdrop-blur-md text-[#fffdf8]"
+          : "section-dark"
+      }`}>
         <div className="grid gap-10 grid-cols-1 md:grid-cols-3">
           {/* Produits column */}
           <div>

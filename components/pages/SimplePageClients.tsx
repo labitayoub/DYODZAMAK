@@ -274,33 +274,56 @@ export function ContactPageClient() {
   const { lang, t } = useLanguage();
   const copy = simpleCopy[lang];
   return (
-    <>
-      <PageIntro title={copy.contactTitle} text={copy.contactText} />
+    <div className="relative min-h-screen -mt-[104px] md:-mt-[116px] pt-[104px] md:pt-[116px] flex flex-col justify-center">
+      {/* Fixed background image covering entire page shell */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <Image
+          src="/images/contact.jpg"
+          alt="Contact background"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#07111a]/25 via-transparent to-[#07111a]/60" />
+      </div>
 
-      <section className="px-4 py-12 md:px-6 md:py-20">
-        <div className="section-frame grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="grid gap-3">
-            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactWhatsApp}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactWhatsApp}</p>
-            </a>
-            <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactPhone}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{phoneDisplay}</p>
-            </a>
-            <a href={`mailto:${emailDisplay}`} className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactEmail}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{emailDisplay}</p>
-            </a>
-            <div className="section-surface rounded-[24px] px-5 py-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{copy.contactLocation}</p>
-              <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactCity}</p>
-            </div>
+      {/* Content overlay */}
+      <div className="relative z-10 px-4 py-16 md:px-6 md:py-20 flex-1 flex flex-col justify-center">
+        <div className="section-frame">
+          {/* Contact title */}
+          <div className="mb-12 text-center">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e5bd77]/70 mb-4">DYODZAMAK</span>
+            <h1 className="text-5xl font-medium leading-[1.1] tracking-[-0.04em] text-white md:text-7xl lg:text-8xl">
+              {copy.contactTitle}
+            </h1>
+            <p className="mt-5 mx-auto max-w-xl text-base leading-8 text-white/60 md:text-lg">{copy.contactText}</p>
           </div>
 
-          <QuoteForm />
+          {/* Contact grid */}
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-3">
+              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="group rounded-[24px] border border-white/20 bg-[#07111a]/85 backdrop-blur-md px-5 py-6 transition hover:border-[#e5bd77]/25 hover:bg-[#07111a]/95">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/50">{copy.contactWhatsApp}</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactWhatsApp}</p>
+              </a>
+              <a href={`tel:${phoneDisplay.replace(/\s/g, "")}`} className="group rounded-[24px] border border-white/20 bg-[#07111a]/85 backdrop-blur-md px-5 py-6 transition hover:border-[#e5bd77]/25 hover:bg-[#07111a]/95">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/50">{copy.contactPhone}</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{phoneDisplay}</p>
+              </a>
+              <a href={`mailto:${emailDisplay}`} className="group rounded-[24px] border border-white/20 bg-[#07111a]/85 backdrop-blur-md px-5 py-6 transition hover:border-[#e5bd77]/25 hover:bg-[#07111a]/95">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/50">{copy.contactEmail}</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{emailDisplay}</p>
+              </a>
+              <div className="rounded-[24px] border border-white/20 bg-[#07111a]/85 backdrop-blur-md px-5 py-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e5bd77]/50">{copy.contactLocation}</p>
+                <p className="mt-3 text-2xl font-medium tracking-[-0.04em] text-white">{copy.contactCity}</p>
+              </div>
+            </div>
+
+            <QuoteForm transparent={true} />
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }
