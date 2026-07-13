@@ -22,7 +22,7 @@ export default function SectionTitle({
   return (
     <FadeIn className={`max-w-4xl ${alignment}`}>
       {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
-      <h2 className={`mt-5 text-4xl font-medium leading-[0.94] tracking-[-0.05em] md:text-6xl ${tone}`}>{title}</h2>
+      <h2 className={`mt-5 text-4xl font-medium leading-[1.15] tracking-[-0.02em] md:text-6xl ${tone}`}>{title}</h2>
       {text ? <p className={`mt-5 max-w-2xl text-base leading-8 md:text-lg ${copyTone}`}>{text}</p> : null}
     </FadeIn>
   );

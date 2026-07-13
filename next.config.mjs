@@ -5,13 +5,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
   turbopack: {
     root: __dirname
   },
   images: {
-    unoptimized: true
-  }
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+    ],
+    localPatterns: [
+      { pathname: "/uploads/**" },
+      { pathname: "/images/**" },
+    ],
+  },
 };
 
 export default nextConfig;

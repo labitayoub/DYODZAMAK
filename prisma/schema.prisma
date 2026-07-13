@@ -1,0 +1,249 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  group     String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id              String    @id @default(uuid())
+  slug            String    @unique
+  href            String
+  icon            String?
+  image           String?
+  sortOrder       Int       @default(0)
+  active          Boolean   @default(true)
+  metaTitle       String?
+  metaDescription String?
+  navLabelFr      String?
+  navLabelAr      String?
+  navLabelEn      String?
+  heroTitleFr     String?
+  heroTitleAr     String?
+  heroTitleEn     String?
+  heroDescFr      String?
+  heroDescAr      String?
+  heroDescEn      String?
+  summaryFr       String?
+  summaryAr       String?
+  summaryEn       String?
+  subcategoriesFr Json?
+  subcategoriesAr Json?
+  subcategoriesEn Json?
+  useCasesFr      Json?
+  useCasesAr      Json?
+  useCasesEn      Json?
+  benefits        Json?
+  applications    Json?
+  customizationFr String?
+  customizationAr String?
+  customizationEn String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  products        Product[]
+}
+
+model Product {
+  id           String    @id @default(uuid())
+  slug         String    @unique
+  badge        String?
+  image        String?
+  finishes     Json      @default("[]")
+  usage        Json      @default("[]")
+  customizable Boolean   @default(true)
+  is3d         Boolean   @default(false)
+  featured     Boolean   @default(false)
+  newest       Boolean   @default(false)
+  premium      Boolean   @default(false)
+  active       Boolean   @default(true)
+  sortOrder    Int       @default(0)
+  nameFr       String?
+  nameAr       String?
+  nameEn       String?
+  descFr       String?
+  descAr       String?
+  descEn       String?
+  specsFr      Json?
+  specsAr      Json?
+  specsEn      Json?
+  categoryId   String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  category     Category? @relation(fields: [categoryId], references: [id])
+}
+
+model PageContent {
+  id         String   @id @default(uuid())
+  slug       String   @unique
+  titleFr    String?
+  titleAr    String?
+  titleEn    String?
+  subtitleFr String?
+  subtitleAr String?
+  subtitleEn String?
+  bodyFr     Json?
+  bodyAr     Json?
+  bodyEn     Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model HomeSlide {
+  id        String   @id @default(uuid())
+  titleFr   String?
+  titleAr   String?
+  titleEn   String?
+  textFr    String?
+  textAr    String?
+  textEn    String?
+  image     String?
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryItem {
+  id           String   @id @default(uuid())
+  titleFr      String?
+  titleAr      String?
+  titleEn      String?
+  descFr       String?
+  descAr       String?
+  descEn       String?
+  image        String?
+  categoryId   String?
+  categorySlug String?
+  active       Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model QuoteRequest {
+  id           String   @id @default(uuid())
+  name         String
+  phone        String
+  city         String?
+  product      String?
+  quantity     String?
+  finish       String?
+  engraving    String?
+  message      String?
+  whatsappLink String?
+  status       String   @default("pending")
+  read         Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NavItem {
+  id        String   @id @default(uuid())
+  href      String
+  labelFr   String?
+  labelAr   String?
+  labelEn   String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  group     String   @default("main")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HeroSection {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  titleFr   String?
+  titleAr   String?
+  titleEn   String?
+  textFr    String?
+  textAr    String?
+  textEn    String?
+  image     String?
+  video     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProcessStep {
+  id        String   @id @default(uuid())
+  titleFr   String?
+  titleAr   String?
+  titleEn   String?
+  descFr    String?
+  descAr    String?
+  descEn    String?
+  icon      String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TrustPoint {
+  id        String   @id @default(uuid())
+  textFr    String?
+  textAr    String?
+  textEn    String?
+  icon      String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Stat {
+  id        String   @id @default(uuid())
+  value     String?
+  labelFr   String?
+  labelAr   String?
+  labelEn   String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Media {
+  id           String   @id @default(uuid())
+  filename     String
+  originalName String?
+  mimeType     String?
+  size         Int?
+  path         String
+  alt          String?
+  createdAt    DateTime @default(now())
+}

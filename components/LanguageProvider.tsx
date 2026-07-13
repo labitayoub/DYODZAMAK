@@ -19,7 +19,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       return "fr";
     }
     const saved = window.localStorage.getItem("dyodzamak-lang");
-    return saved === "fr" || saved === "ar" ? saved : "fr";
+    return saved === "fr" || saved === "ar" || saved === "en" ? saved : "fr";
   });
 
   function setLang(nextLang: Lang) {
@@ -34,7 +34,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       isRtl,
       t: ui[lang],
       setLang,
-      toggleLang: () => setLang(isRtl ? "fr" : "ar")
+      toggleLang: () => setLang(lang === "fr" ? "ar" : lang === "ar" ? "en" : "fr")
     };
   }, [lang]);
 
