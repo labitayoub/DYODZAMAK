@@ -20,7 +20,7 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
     if (!item) return { active: true, customizable: true, finishes: [], usage: [], image: "" };
     return {
       ...item,
-      active: true, customizable: true, image: "",
+      active: true, customizable: true, image: (item.image as string) || "",
       finishes: asList(item.finishes),
       usage: asList(item.usage),
       specsFr: asList(item.specsFr),
