@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { apiError, apiSuccess } from "@/lib/api-utils";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   const categories = await prisma.category.findMany({
     orderBy: { sortOrder: "asc" },

@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { apiError, apiSuccess } from "@/lib/api-utils";
 
+export const dynamic = "force-dynamic";
+
 const PRODUCT_FIELDS = [
   "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active", "sortOrder",
   "nameFr", "nameAr", "nameEn", "descFr", "descAr", "descEn", "specsFr", "specsAr", "specsEn",

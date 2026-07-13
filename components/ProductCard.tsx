@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, X, MessageCircle } from "lucide-react";
 import { Product, productWhatsAppMessage } from "@/data/site";
@@ -54,12 +53,10 @@ export default function ProductCard({ product, compact = false }: { product: Pro
           className="relative aspect-square overflow-hidden text-left bg-white/5 p-3 w-full"
         >
           {product.image ? (
-            <Image
+            <img
               src={product.image}
               alt={copy.name}
-              fill
-              sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 768px) 42vw, 100vw"
-              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>
@@ -127,13 +124,10 @@ export default function ProductCard({ product, compact = false }: { product: Pro
             <div className="w-full md:w-[42%] bg-white/3 flex items-center justify-center p-6 relative border-b md:border-b-0 md:border-r border-white/5 min-h-[240px] md:min-h-[360px] shrink-0">
               <div className="relative w-full h-[180px] md:h-[260px]">
                 {product.image ? (
-                  <Image
+                  <img
                     src={product.image}
                     alt={copy.name}
-                    fill
-                    sizes="(min-width: 768px) 320px, 100vw"
-                    className="object-contain"
-                    priority
+                    className="absolute inset-0 h-full w-full object-contain"
                   />
                 ) : (
                   <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>

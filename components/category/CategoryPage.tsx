@@ -34,7 +34,7 @@ export default function CategoryPage({
       return category.placeholders ?? [];
     }
     return apiProducts.map((p: Record<string, unknown>) => ({
-      image: String(p.image ?? ""),
+      image: String(p.image ?? "") + (p.updatedAt ? `?v=${new Date(p.updatedAt as string).getTime()}` : ""),
       title: {
         fr: String(p.nameFr ?? ""),
         ar: String(p.nameAr ?? ""),

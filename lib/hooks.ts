@@ -5,19 +5,16 @@ import { useState, useEffect, useRef } from "react";
 export function useApi<T>(url: string, fallback: T) {
   const [state, setState] = useState<{ data: T; loading: boolean }>({ data: fallback, loading: true });
   const fallbackRef = useRef(fallback);
-
-  useEffect(() => {
-    fallbackRef.current = fallback;
-  }, [fallback]);
+  fallbackRef.current = fallback;
 
   useEffect(() => {
     let cancelled = false;
-    fetch(url)
+    fetch(url, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : fallbackRef.current))
       .then((d) => { if (!cancelled) setState({ data: d ?? fallbackRef.current, loading: false }); })
       .catch(() => { if (!cancelled) setState({ data: fallbackRef.current, loading: false }); });
     return () => { cancelled = true; };
-  }, [url, fallback]);
+  }, [url]);
 
   return state;
 }

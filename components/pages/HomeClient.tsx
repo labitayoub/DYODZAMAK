@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Award, BadgeCheck, Gem, Palette, Sparkles, Trophy, ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -12,7 +11,7 @@ type CarouselProduct = { image: string; label: { fr: string; ar: string; en: str
 
 function mapToCarousel(raw: Record<string, unknown>): CarouselProduct {
   return {
-    image: String(raw.image ?? ""),
+    image: String(raw.image ?? "") + (raw.updatedAt ? `?v=${new Date(raw.updatedAt as string).getTime()}` : ""),
     label: {
       fr: String(raw.nameFr ?? ""),
       ar: String(raw.nameAr ?? ""),
@@ -268,12 +267,10 @@ export default function HomeClient() {
                 <div key={i} className={className} onClick={() => setActiveIdx(i)}>
                   <div className="coverflow-img-wrap">
                     {product.image ? (
-                    <Image
+                    <img
                       src={product.image}
                       alt={product.label[lang]}
-                      fill
-                      sizes="(max-width: 768px) 260px, 420px"
-                      className="coverflow-img"
+                      className="coverflow-img absolute inset-0 h-full w-full"
                     />
                     ) : (
                     <div className="absolute inset-0 grid place-items-center text-white/20 text-xs">Image</div>

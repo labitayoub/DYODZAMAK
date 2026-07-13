@@ -13,7 +13,7 @@ function mapApiProduct(raw: Record<string, unknown>): Product {
     id: String(raw.id),
     category: (cat?.slug as CategorySlug) ?? "medailles",
     badge: String(raw.badge ?? ""),
-    image: String(raw.image ?? ""),
+    image: String(raw.image ?? "") + (raw.updatedAt ? `?v=${new Date(raw.updatedAt as string).getTime()}` : ""),
     finishes: (raw.finishes as Product["finishes"]) ?? [],
     usage: (raw.usage as Product["usage"]) ?? [],
     customizable: Boolean(raw.customizable),

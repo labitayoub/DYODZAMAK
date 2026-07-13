@@ -5,5 +5,7 @@ export function apiError(message: string, status = 400) {
 }
 
 export function apiSuccess(data: unknown, status = 200) {
-  return NextResponse.json(data, { status });
+  const response = NextResponse.json(data, { status });
+  response.headers.set("Cache-Control", "no-store, must-revalidate");
+  return response;
 }
