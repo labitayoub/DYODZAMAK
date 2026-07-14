@@ -13,6 +13,7 @@
     "db:seed": "npx tsx prisma/seed.ts",
     "db:studio": "npx prisma studio",
     "db:reset": "npx prisma migrate reset",
+    "db:migrate-images": "node --env-file=.env --import tsx scripts/migrate-images.ts",
     "docker:db": "docker compose up -d db",
     "docker:down": "docker compose down",
     "docker:prod": "docker compose up --build"
@@ -24,6 +25,7 @@
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
     "framer-motion": "^12.42.0",
     "jose": "^6.2.3",
     "lucide-react": "^0.468.0",
