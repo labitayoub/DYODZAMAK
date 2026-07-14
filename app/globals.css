@@ -998,3 +998,66 @@ a {
 .product-modal::-webkit-scrollbar-track { background: transparent; }
 .product-modal::-webkit-scrollbar-thumb { background: rgba(229, 189, 119, 0.2); border-radius: 99px; }
 
+/* ── Extra Small Screens (≤480px) ── */
+@media (max-width: 480px) {
+  .awards-hero { min-height: 480px; }
+  .hero-copy h1 { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+  .hero-copy p { font-size: 0.9rem; line-height: 1.7; }
+  .awards-hero-content { padding: 3.5rem 0 4rem; }
+  .products-carousel-section { padding: 2.5rem 0 2rem; }
+  .coverflow-wrapper { min-height: 220px; }
+  .coverflow-item--center { width: 180px; height: 240px; }
+  .coverflow-item--left1, .coverflow-item--right1 { display: none; }
+  .coverflow-arrow { width: 32px; height: 32px; }
+  .coverflow-arrow svg { width: 20px; height: 20px; }
+  .coverflow-info { padding: 0 1rem; }
+  .coverflow-title { font-size: 1rem; }
+  .coverflow-desc { font-size: 0.85rem; line-height: 1.6; }
+  .collection-section, .process-section { padding: 2.5rem 0; }
+  .craft-grid { gap: 1.5rem; }
+  .configurator-lens { padding: 1rem; max-width: 280px; }
+  .trophy-svg { max-height: 280px; }
+  .craft-copy h2 { font-size: 1.5rem; }
+  .process-item { padding: 1rem 0; }
+  .process-item h3 { font-size: 1.15rem; }
+  .process-item p { font-size: 0.88rem; }
+  .final-cta h2 { font-size: 1.6rem; }
+  .section-heading h2 { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+  .section-frame { width: min(100% - 1rem, 1344px); }
+  .shell-container { width: min(100% - 1rem, 1344px); }
+  .hotspot-tooltip { max-width: 260px; padding: 1rem; }
+  .hotspot-tooltip h3 { font-size: 0.95rem; }
+  .hotspot-tooltip p { font-size: 0.82rem; line-height: 1.5; }
+}
+
+/* ── Small Screens (≤640px) ── */
+@media (max-width: 640px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .header-panel { min-width: unset; }
+  .header-panel .grid-cols-2 { grid-template-columns: 1fr; }
+}
+
+.detail-modal-content {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .detail-modal-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.carousel-header .section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+  .carousel-header .section-heading {
+    align-items: center;
+    text-align: center;
+  }
+}
+

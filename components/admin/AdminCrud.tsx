@@ -266,33 +266,57 @@ export default function AdminCrud<T extends { id: string }>({
       ) : items.length === 0 ? (
         <div className="text-center py-12 text-gray-400">No items found</div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50 border-b">
-                <tr>
-                  {columns.map((col) => (
-                    <th key={col.key} className="px-4 py-3 text-left font-medium text-gray-600">{col.label}</th>
-                  ))}
-                  <th className="px-4 py-3 text-right font-medium text-gray-600">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50">
+        <>
+          {/* Desktop table */}
+          <div className="hidden sm:block bg-white rounded-lg shadow overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 border-b">
+                  <tr>
                     {columns.map((col) => (
-                      <td key={col.key} className="px-4 py-3 max-w-xs truncate">{renderCellValue(item, col)}</td>
+                      <th key={col.key} className="px-4 py-3 text-left font-medium text-gray-600">{col.label}</th>
                     ))}
-                    <td className="px-4 py-3 text-right whitespace-nowrap">
-                      <button onClick={() => openEdit(item)} className="text-amber-600 hover:underline mr-3">Edit</button>
-                      <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Delete</button>
-                    </td>
+                    <th className="px-4 py-3 text-right font-medium text-gray-600">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y">
+                  {items.map((item) => (
+                    <tr key={item.id} className="hover:bg-gray-50">
+                      {columns.map((col) => (
+                        <td key={col.key} className="px-4 py-3 max-w-xs truncate">{renderCellValue(item, col)}</td>
+                      ))}
+                      <td className="px-4 py-3 text-right whitespace-nowrap">
+                        <button onClick={() => openEdit(item)} className="text-amber-600 hover:underline mr-3">Edit</button>
+                        <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+          {/* Mobile cards */}
+          <div className="sm:hidden grid gap-3">
+            {items.map((item) => (
+              <div key={item.id} className="bg-white rounded-lg shadow p-4">
+                {columns.map((col) => {
+                  const val = renderCellValue(item, col);
+                  if (!val) return null;
+                  return (
+                    <div key={col.key} className="mb-2 last:mb-0">
+                      <span className="text-xs font-semibold uppercase text-gray-500 block">{col.label}</span>
+                      <span className="text-sm text-gray-900 break-words">{val}</span>
+                    </div>
+                  );
+                })}
+                <div className="mt-3 flex gap-3 pt-3 border-t border-gray-100">
+                  <button onClick={() => openEdit(item)} className="flex-1 rounded-lg bg-amber-600 text-white px-3 py-2 text-sm font-medium text-center">Edit</button>
+                  <button onClick={() => handleDelete(item.id)} className="flex-1 rounded-lg bg-red-600 text-white px-3 py-2 text-sm font-medium text-center">Delete</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
