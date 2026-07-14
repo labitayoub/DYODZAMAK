@@ -853,9 +853,9 @@ a {
 }
 
 .loading-screen {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 100;
+  z-index: 5;
   display: grid;
   place-items: center;
   overflow: hidden;
