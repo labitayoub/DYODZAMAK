@@ -70,13 +70,13 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6">
       <div className="glass-nav shell-container rounded-[30px] px-4 py-3 md:px-6 md:py-4">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="flex shrink-0 items-center gap-3">
-            <div className="relative h-12 w-12 overflow-hidden rounded-[16px] border border-white/15 bg-white/95 shadow-[0_10px_24px_rgba(0,0,0,0.2)]">
-              <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="48px" className="object-contain p-2" />
+          <Link href="/" className="flex shrink-0 items-center gap-2 md:gap-3 min-w-0">
+            <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-[12px] border border-white/15 bg-white/95 shadow-[0_10px_24px_rgba(0,0,0,0.2)] md:h-12 md:w-12 md:rounded-[16px]">
+              <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="48px" className="object-contain p-1.5 md:p-2" />
             </div>
-            <div>
-              <span className="block text-[1.02rem] font-semibold tracking-[-0.05em] text-white md:text-[1.2rem]">DYODZAMAK</span>
-              <span className="mt-1 block text-[0.62rem] uppercase tracking-[0.28em] text-white/50">{copy.atelier}</span>
+            <div className="min-w-0">
+              <span className="block truncate text-[0.9rem] font-semibold tracking-[-0.05em] text-white md:text-[1.2rem]">DYODZAMAK</span>
+              <span className="mt-0.5 hidden text-[0.58rem] uppercase tracking-[0.28em] text-white/50 sm:block md:text-[0.62rem]">{copy.atelier}</span>
             </div>
           </Link>
 
@@ -149,13 +149,13 @@ export default function Header() {
           <button
             ref={hamburgerRef}
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white lg:hidden"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/15 bg-white/10 text-white md:h-11 md:w-11 lg:hidden"
             onClick={() => setOpen((value) => !value)}
               aria-label={open ? copy.closeMenu : copy.openMenu}
               aria-expanded={open}
               aria-controls="mobile-menu"
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
