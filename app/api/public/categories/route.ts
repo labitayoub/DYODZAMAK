@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   if (slug) {
     const category = await prisma.category.findUnique({
       where: { slug },
-      include: { products: { where: { active: true }, orderBy: { sortOrder: "asc" } } },
+      include: { products: { where: { active: true }, orderBy: { nameFr: "asc" } } },
     });
     return apiSuccess(category);
   }

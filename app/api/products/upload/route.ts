@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
   const result = await new Promise<{ secure_url: string }>((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: "dyodzamak/products" },
+      { folder: "bestboutons/products" },
       (error, result) => {
         if (error) reject(error);
         else resolve(result as { secure_url: string });

@@ -12,12 +12,12 @@ async function main() {
   // Admin user
   const adminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || "admin123", 10);
   await prisma.adminUser.upsert({
-    where: { email: process.env.ADMIN_EMAIL || "admin@dyodzamak.ma" },
+    where: { email: process.env.ADMIN_EMAIL || "admin@bestboutons.ma" },
     update: {},
     create: {
-      email: process.env.ADMIN_EMAIL || "admin@dyodzamak.ma",
+      email: process.env.ADMIN_EMAIL || "admin@bestboutons.ma",
       password: adminPassword,
-      name: "Admin DYODZAMAK",
+      name: "Admin Best Boutons",
       role: "admin",
     },
   });
@@ -27,11 +27,11 @@ async function main() {
   const settings = [
     { key: "whatsapp_number", value: "212XXXXXXXXX", group: "contact" },
     { key: "phone_display", value: "+212 XX XX XX XX XX", group: "contact" },
-    { key: "email", value: "contact@dyodzamak.ma", group: "contact" },
+    { key: "email", value: "contact@bestboutons.ma", group: "contact" },
     { key: "location_fr", value: "Maroc", group: "contact" },
     { key: "location_ar", value: "المغرب", group: "contact" },
     { key: "location_en", value: "Morocco", group: "contact" },
-    { key: "site_name", value: "DYODZAMAK", group: "general" },
+    { key: "site_name", value: "Best Boutons", group: "general" },
   ];
   for (const s of settings) {
     await prisma.siteSetting.upsert({
@@ -257,7 +257,7 @@ async function main() {
     {
       slug: "medal-rabat-2025", badge: "Institution", image: img.medal,
       finishes: ["gold", "silver", "bronze"], usage: ["corporate", "event", "association"],
-      customizable: true, is3d: false, featured: true, premium: true, sortOrder: 1,
+      customizable: true, is3d: false, featured: true, premium: true,
       categoryId: catMap["medailles"],
       nameFr: "Medaille institutionnelle Rabat 2025", nameAr: "ميدالية مؤسساتية الرباط 2025", nameEn: "Rabat 2025 institutional medal",
       descFr: "Medaille ceremonielle premium pour institutions, federations et evenements officiels.",
@@ -270,7 +270,7 @@ async function main() {
     {
       slug: "medal-heritage-box", badge: "Premium", image: img.plaqueBox,
       finishes: ["bronze", "gold", "black"], usage: ["corporate", "association", "event"],
-      customizable: true, is3d: false, premium: true, sortOrder: 2,
+      customizable: true, is3d: false, premium: true,
       categoryId: catMap["medailles"],
       nameFr: "Medaille Heritage avec coffret", nameAr: "ميدالية Heritage مع علبة", nameEn: "Heritage medal with box",
       descFr: "Rendu prestigieux pour associations, federations et remises de prix.",
@@ -283,7 +283,7 @@ async function main() {
     {
       slug: "trophy-corporate", badge: "Entreprise", image: img.trophy,
       finishes: ["gold", "black", "silver"], usage: ["corporate", "event"],
-      customizable: true, is3d: false, featured: true, sortOrder: 3,
+      customizable: true, is3d: false, featured: true,
       categoryId: catMap["trophees"],
       nameFr: "Trophee corporate metal et socle", nameAr: "كأس شركات معدن وقاعدة", nameEn: "Corporate metal trophy with base",
       descFr: "Trophee metallique professionnel pour remises de prix, challenges internes et partenaires.",
@@ -296,7 +296,7 @@ async function main() {
     {
       slug: "trophy-sport-cup", badge: "Sport", image: img.trophy2,
       finishes: ["gold", "silver"], usage: ["sport", "association", "school"],
-      customizable: true, is3d: false, sortOrder: 4,
+      customizable: true, is3d: false,
       categoryId: catMap["trophees"],
       nameFr: "Coupe sportive classique", nameAr: "كأس رياضي كلاسيكي", nameEn: "Classic sports cup",
       descFr: "Reference fiable pour clubs, championnats, tournois et ceremonies sportives.",
@@ -309,7 +309,7 @@ async function main() {
     {
       slug: "3d-logo-award", badge: "Sur mesure", image: img.plaque,
       finishes: ["gold", "black", "bronze"], usage: ["corporate", "event"],
-      customizable: true, is3d: true, newest: true, premium: true, sortOrder: 5,
+      customizable: true, is3d: true, newest: true, premium: true,
       categoryId: catMap["trophees-3d"],
       nameFr: "Trophee logo 3D signature", nameAr: "كأس شعار 3D", nameEn: "Signature 3D logo trophy",
       descFr: "Piece distinctive pour marques, galas et lancements de projets.",
@@ -322,7 +322,7 @@ async function main() {
     {
       slug: "3d-event-tower", badge: "Nouveau", image: img.pinBadge,
       finishes: ["silver", "black", "gold"], usage: ["corporate", "event", "association"],
-      customizable: true, is3d: true, newest: true, sortOrder: 6,
+      customizable: true, is3d: true, newest: true,
       categoryId: catMap["trophees-3d"],
       nameFr: "Trophee 3D Event Signature", nameAr: "كأس 3D للمناسبات", nameEn: "3D event signature trophy",
       descFr: "Design moderne pour evenements premium et concours.",
@@ -335,7 +335,7 @@ async function main() {
     {
       slug: "plaque-honneur", badge: "Institution", image: img.plaqueBox,
       finishes: ["gold", "bronze", "silver"], usage: ["corporate", "school", "association"],
-      customizable: true, is3d: false, featured: true, sortOrder: 7,
+      customizable: true, is3d: false, featured: true,
       categoryId: catMap["plaques"],
       nameFr: "Plaque honorifique gravee", nameAr: "لوحة تكريمية منقوشة", nameEn: "Engraved honor plaque",
       descFr: "Plaque professionnelle pour hommage, remerciement et ceremonies.",
@@ -348,7 +348,7 @@ async function main() {
     {
       slug: "plaque-opening", badge: "Evenement", image: img.plaque,
       finishes: ["black", "gold", "silver"], usage: ["event", "corporate"],
-      customizable: true, is3d: false, sortOrder: 8,
+      customizable: true, is3d: false,
       categoryId: catMap["plaques"],
       nameFr: "Plaque inauguration premium", nameAr: "لوحة افتتاح راقية", nameEn: "Premium inauguration plaque",
       descFr: "Pour ouvertures, partenariats et projets institutionnels.",
@@ -361,7 +361,7 @@ async function main() {
     {
       slug: "pin-breast-cancer", badge: "Logo", image: img.pinCancer,
       finishes: ["gold", "silver", "black"], usage: ["corporate", "association", "event"],
-      customizable: true, is3d: false, newest: true, sortOrder: 9,
+      customizable: true, is3d: false, newest: true,
       categoryId: catMap["pins-badges"],
       nameFr: "Pin emaille de sensibilisation", nameAr: "دبوس توعوي بالمينا", nameEn: "Awareness enamel pin",
       descFr: "Pin metallique premium pour campagnes, associations, institutions et evenements.",
@@ -374,7 +374,7 @@ async function main() {
     {
       slug: "pin-maroc-map", badge: "Maroc", image: img.pinMap,
       finishes: ["gold", "bronze", "silver"], usage: ["event", "school", "association"],
-      customizable: true, is3d: false, sortOrder: 10,
+      customizable: true, is3d: false,
       categoryId: catMap["pins-badges"],
       nameFr: "Pin carte du Maroc emaille", nameAr: "دبوس خريطة المغرب", nameEn: "Morocco map enamel pin",
       descFr: "Pin identitaire pour evenements, associations, cadeaux officiels et communication de marque.",
@@ -387,7 +387,7 @@ async function main() {
     {
       slug: "keychain-auto-logo", badge: "Automobile", image: img.keyCar,
       finishes: ["silver", "black", "gold"], usage: ["corporate", "event"],
-      customizable: true, is3d: false, featured: true, newest: true, sortOrder: 11,
+      customizable: true, is3d: false, featured: true, newest: true,
       categoryId: catMap["porte-cles"],
       nameFr: "Porte-cles logo automobile", nameAr: "حامل مفاتيح شعار سيارات", nameEn: "Automotive logo keychain",
       descFr: "Porte-cles metallique elegant pour concessions, marques automobiles et cadeaux clients.",
@@ -400,7 +400,7 @@ async function main() {
     {
       slug: "keychain-metal-custom", badge: "Sur mesure", image: img.keyMetal,
       finishes: ["gold", "silver", "black"], usage: ["corporate", "association", "event"],
-      customizable: true, is3d: false, premium: true, sortOrder: 12,
+      customizable: true, is3d: false, premium: true,
       categoryId: catMap["porte-cles"],
       nameFr: "Porte-cles metal personnalise", nameAr: "حامل مفاتيح معدني مخصص", nameEn: "Custom metal keychain",
       descFr: "Accessoire metallique premium pour cadeaux d'entreprise, clubs et campagnes de marque.",
@@ -425,14 +425,14 @@ async function main() {
   const pagesData = [
     {
       slug: "a-propos",
-      titleFr: "A propos de DYODZAMAK", titleAr: "من نحن", titleEn: "About DYODZAMAK",
+      titleFr: "A propos de Best Boutons", titleAr: "من نحن", titleEn: "About Best Boutons",
       subtitleFr: "Un atelier specialise dans les recompenses, plaques et creations metalliques personnalisees au Maroc.",
       subtitleAr: "كتالوج متخصص في الجوائز والمنتجات المعدنية المخصصة في المغرب.",
       subtitleEn: "A workshop specialized in awards, plaques and customized metal creations in Morocco.",
     },
     {
       slug: "catalogue",
-      titleFr: "Catalogue DYODZAMAK", titleAr: "كتالوج DYODZAMAK", titleEn: "DYODZAMAK Catalog",
+      titleFr: "Catalogue Best Boutons", titleAr: "كتالوج Best Boutons", titleEn: "Best Boutons Catalog",
       subtitleFr: "Parcourez les modeles avec une presentation plus claire, des filtres utiles et un acces rapide au devis.",
       subtitleAr: "تصفح النماذج بتجربة واضحة: فلاتر، تشطيبات، استعمالات وطلب سريع.",
       subtitleEn: "Browse the models with clearer presentation, useful filters and fast access to quoting.",

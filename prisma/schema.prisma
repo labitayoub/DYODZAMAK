@@ -76,7 +76,6 @@ model Product {
   newest       Boolean   @default(false)
   premium      Boolean   @default(false)
   active       Boolean   @default(true)
-  sortOrder    Int       @default(0)
   nameFr       String?
   nameAr       String?
   nameEn       String?

@@ -6,7 +6,7 @@ import { apiError, apiSuccess } from "@/lib/api-utils";
 export const dynamic = "force-dynamic";
 
 const PRODUCT_FIELDS = [
-  "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active", "sortOrder",
+  "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active",
   "nameFr", "nameAr", "nameEn", "descFr", "descAr", "descEn", "specsFr", "specsAr", "specsEn",
   "categoryId",
 ];
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
 
   const products = await prisma.product.findMany({
     where,
-    orderBy: { sortOrder: "asc" },
+    orderBy: { nameFr: "asc" },
     include: { category: true },
   });
   return apiSuccess(products);

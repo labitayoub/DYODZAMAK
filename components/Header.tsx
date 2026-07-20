@@ -71,11 +71,11 @@ export default function Header() {
       <div className="glass-nav shell-container rounded-[30px] px-4 py-3 md:px-6 md:py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex shrink-0 items-center gap-2 md:gap-3 min-w-0">
-            <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-[12px] border border-white/15 bg-white/95 shadow-[0_10px_24px_rgba(0,0,0,0.2)] md:h-12 md:w-12 md:rounded-[16px]">
-              <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="48px" className="object-contain p-1.5 md:p-2" />
+            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[14px] border border-white/15 bg-white/95 shadow-[0_10px_24px_rgba(0,0,0,0.2)] md:h-16 md:w-16 md:rounded-[18px]">
+              <Image src="/images/logo.png" alt="Best Boutons logo" fill sizes="64px" className="object-contain p-1.5 md:p-2" />
             </div>
             <div className="min-w-0">
-              <span className="block truncate text-[0.9rem] font-semibold tracking-[-0.05em] text-white md:text-[1.2rem]">DYODZAMAK</span>
+              <span className="block truncate text-[0.9rem] font-semibold tracking-[-0.05em] text-white md:text-[1.2rem]">Best Boutons</span>
               <span className="mt-0.5 hidden text-[0.58rem] uppercase tracking-[0.28em] text-white/50 sm:block md:text-[0.62rem]">{copy.atelier}</span>
             </div>
           </Link>
@@ -173,11 +173,11 @@ export default function Header() {
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="relative h-14 w-14 overflow-hidden rounded-[18px] border border-white/15 bg-white shadow-[0_10px_24px_rgba(0,0,0,0.2)]">
-                  <Image src="/images/logo.png" alt="DYODZAMAK logo" fill sizes="56px" className="object-contain p-2" />
+                <div className="relative h-20 w-20 overflow-hidden rounded-[20px] border border-white/15 bg-white shadow-[0_10px_24px_rgba(0,0,0,0.2)]">
+                  <Image src="/images/logo.png" alt="Best Boutons logo" fill sizes="80px" className="object-contain p-2" />
                 </div>
                 <div>
-                  <span className="block text-2xl font-semibold tracking-[-0.05em] text-white">DYODZAMAK</span>
+                  <span className="block text-2xl font-semibold tracking-[-0.05em] text-white">Best Boutons</span>
                   <span className="mt-2 block text-[0.65rem] uppercase tracking-[0.24em] text-white/50">{copy.metal}</span>
                 </div>
               </div>

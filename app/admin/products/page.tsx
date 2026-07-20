@@ -120,10 +120,6 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
             <label className="mb-1 block text-sm font-medium text-gray-700">Badge</label>
             <input value={String(data.badge || "")} onChange={(event) => update("badge", event.target.value)} className="w-full rounded-lg border px-3 py-2" />
           </div>
-          <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">Display order</label>
-            <input type="number" value={String(data.sortOrder ?? 0)} onChange={(event) => update("sortOrder", Number(event.target.value))} className="w-full rounded-lg border px-3 py-2" />
-          </div>
         </div>
 
         <div className="rounded-xl border border-gray-200 p-4">
@@ -177,5 +173,5 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
 }
 
 export default function AdminProductsPage() {
-  return <AdminLayout><AdminCrud title="Products" apiBase="/api/products" columns={[{ key: "slug", label: "Slug" }, { key: "nameFr", label: "Name (FR)" }, { key: "badge", label: "Badge" }, { key: "featured", label: "Featured", render: (item: Record<string, unknown>) => item.featured ? "Yes" : "" }, { key: "sortOrder", label: "Order" }]} fields={[]} renderForm={(item, onSave, onClose) => <ProductForm item={item as Record<string, unknown> | null} onSave={onSave} onClose={onClose} />} /></AdminLayout>;
+  return <AdminLayout><AdminCrud title="Products" apiBase="/api/products" columns={[{ key: "slug", label: "Slug" }, { key: "nameFr", label: "Name (FR)" }, { key: "badge", label: "Badge" }, { key: "featured", label: "Featured", render: (item: Record<string, unknown>) => item.featured ? "Yes" : "" },]} fields={[]} renderForm={(item, onSave, onClose) => <ProductForm item={item as Record<string, unknown> | null} onSave={onSave} onClose={onClose} />} /></AdminLayout>;
 }

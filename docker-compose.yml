@@ -3,15 +3,15 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: dyodzamak
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dyodzamak}
-      POSTGRES_DB: dyodzamak
+      POSTGRES_USER: bestboutons
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bestboutons}
+      POSTGRES_DB: bestboutons
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dyodzamak"]
+      test: ["CMD-SHELL", "pg_isready -U bestboutons"]
       interval: 5s
       timeout: 5s
       retries: 5

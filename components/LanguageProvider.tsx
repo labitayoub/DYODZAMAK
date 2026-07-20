@@ -18,13 +18,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     if (typeof window === "undefined") {
       return "fr";
     }
-    const saved = window.localStorage.getItem("dyodzamak-lang");
+    const saved = window.localStorage.getItem("bestboutons-lang");
     return saved === "fr" || saved === "ar" || saved === "en" ? saved : "fr";
   });
 
   function setLang(nextLang: Lang) {
     setLangState(nextLang);
-    window.localStorage.setItem("dyodzamak-lang", nextLang);
+    window.localStorage.setItem("bestboutons-lang", nextLang);
   }
 
   const value = useMemo(() => {

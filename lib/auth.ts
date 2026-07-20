@@ -1,8 +1,8 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "fallback-secret");
-const COOKIE_NAME = "dyodzamak_admin_token";
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "bestboutons-fallback-secret");
+const COOKIE_NAME = "bestboutons_admin_token";
 
 export interface AdminPayload {
   id: string;

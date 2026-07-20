@@ -4,7 +4,7 @@ import { getSession } from "@/lib/auth";
 import { apiError, apiSuccess } from "@/lib/api-utils";
 
 const PRODUCT_FIELDS = [
-  "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active", "sortOrder",
+  "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active",
   "nameFr", "nameAr", "nameEn", "descFr", "descAr", "descEn", "specsFr", "specsAr", "specsEn",
   "categoryId",
 ];

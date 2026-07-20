@@ -9,15 +9,15 @@ import "./globals.css";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dyodzamak.ma"),
+  metadataBase: new URL("https://bestboutons.ma"),
   title: {
-    default: "DYODZAMAK | Medailles, trophees et creations metalliques au Maroc",
-    template: "%s | DYODZAMAK"
+    default: "Best Boutons | Medailles, trophees et creations metalliques au Maroc",
+    template: "%s | Best Boutons"
   },
   description:
-    "DYODZAMAK cree des medailles, trophees, plaques, pins, badges et objets metalliques personnalises au Maroc. Prix sur devis et commande via WhatsApp.",
+    "Best Boutons cree des medailles, trophees, plaques, pins, badges et objets metalliques personnalises au Maroc. Prix sur devis et commande via WhatsApp.",
   keywords: [
-    "DYODZAMAK",
+    "Best Boutons",
     "medailles personnalisees Maroc",
     "trophees Maroc",
     "plaques honorifiques",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "prix sur devis"
   ],
   openGraph: {
-    title: "DYODZAMAK",
+    title: "Best Boutons",
     description: "Medailles, trophees et creations metalliques personnalisees. Prix sur devis.",
     images: ["/images/hero-awards.png"],
     locale: "fr_MA",
