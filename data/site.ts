@@ -1,5 +1,5 @@
 export type Lang = "fr" | "ar" | "en";
-export type CategorySlug = "medailles" | "trophees" | "trophees-3d" | "plaques" | "pins-badges" | "porte-cles";
+export type CategorySlug = "medailles" | "trophees" | "pins" | "badges" | "porte-cles" | "macarons" | "boutons" | "boucles" | "t-shirt" | "resine";
 export type Finish = "bronze" | "gold" | "silver" | "black";
 export type Usage = "sport" | "corporate" | "event" | "school" | "association";
 
@@ -21,15 +21,19 @@ const img = {
   keyBrand: "/images/WhatsApp Image 2026-06-03 at 13.39.12 (2).jpeg"
 };
 
-export const categoryRoutes: CategorySlug[] = ["medailles", "trophees", "trophees-3d", "plaques", "pins-badges", "porte-cles"];
+export const categoryRoutes: CategorySlug[] = ["medailles", "trophees", "pins", "badges", "porte-cles", "macarons", "boutons", "boucles", "t-shirt", "resine"];
 
 export const navItems = [
   { href: "/medailles", key: "medals" },
   { href: "/trophees", key: "trophies" },
-  { href: "/trophees-3d", key: "trophies3d" },
-  { href: "/plaques", key: "plaques" },
-  { href: "/pins-badges", key: "pins" },
-  { href: "/porte-cles", key: "keychains" },
+  { href: "/pins", key: "pins" },
+  { href: "/badges", key: "badges" },
+  { href: "/portes-cles", key: "keychains" },
+  { href: "/macarons", key: "macarons" },
+  { href: "/boutons", key: "boutons" },
+  { href: "/boucles", key: "boucles" },
+  { href: "/t-shirt", key: "tshirt" },
+  { href: "/resine", key: "resine" },
   { href: "/devis", key: "quote" }
 ] as const;
 
@@ -42,10 +46,14 @@ export const ui = {
       products: "Produits",
       medals: "Medailles",
       trophies: "Trophees",
-      trophies3d: "Trophees 3D",
-      plaques: "Plaques",
-      pins: "Pins & Badges",
+      pins: "Pins",
+      badges: "Badges",
       keychains: "Porte-cles",
+      macarons: "Macarons",
+      boutons: "Boutons",
+      boucles: "Boucles",
+      tshirt: "T-shirt",
+      resine: "Resine",
       quote: "Demande de devis",
       about: "A propos",
       contact: "Contact",
@@ -125,10 +133,14 @@ export const ui = {
       products: "المنتجات",
       medals: "ميداليات",
       trophies: "كؤوس",
-      trophies3d: "كؤوس 3D",
-      plaques: "لوحات",
-      pins: "دبابيس وشارات",
+      pins: "دبابيس",
+      badges: "شارات",
       keychains: "حاملات مفاتيح",
+      macarons: "ماكرون",
+      boutons: "أزرار",
+      boucles: "أبازيم",
+      tshirt: "تيشيرت",
+      resine: "ريزن",
       quote: "طلب عرض سعر",
       about: "من نحن",
       contact: "اتصال",
@@ -208,10 +220,14 @@ export const ui = {
       products: "Products",
       medals: "Medals",
       trophies: "Trophies",
-      trophies3d: "3D Trophies",
-      plaques: "Plaques",
-      pins: "Pins & Badges",
+      pins: "Pins",
+      badges: "Badges",
       keychains: "Keychains",
+      macarons: "Car badges",
+      boutons: "Buttons",
+      boucles: "Buckles",
+      tshirt: "T-shirt",
+      resine: "Resin",
       quote: "Quote request",
       about: "About",
       contact: "Contact",
@@ -345,76 +361,172 @@ export const categories: Record<
       useCases: ["Award ceremonies", "Competitions", "Challenges", "Recognition"]
     }
   },
-  "trophees-3d": {
-    slug: "trophees-3d",
-    href: "/trophees-3d",
-    icon: "box",
-    image: img.trophy2,
-    fr: {
-      title: "Trophees 3D personnalises",
-      summary: "Pieces sur mesure avec logo en volume, formes speciales et rendu premium pour marques et evenements.",
-      subcategories: ["Logo 3D", "Forme speciale", "Entreprise", "Evenement"],
-      useCases: ["Lancement", "Gala", "Marque", "Distinction"]
-    },
-    ar: {
-      title: "كؤوس ثلاثية الأبعاد",
-      summary: "قطع حسب الطلب مع شعار بارز وأشكال خاصة ولمسة راقية.",
-      subcategories: ["شعار 3D", "شكل خاص", "شركات", "مناسبة"],
-      useCases: ["إطلاق", "حفل", "علامة", "تميز"]
-    },
-    en: {
-      title: "Custom 3D trophies",
-      summary: "Tailor-made pieces with raised logos, special shapes and a premium look for brands and events.",
-      subcategories: ["3D logo", "Special shape", "Corporate", "Event"],
-      useCases: ["Launch", "Gala", "Brand", "Distinction"]
-    }
-  },
-  plaques: {
-    slug: "plaques",
-    href: "/plaques",
-    icon: "panel",
-    image: img.plaqueBox,
-    fr: {
-      title: "Plaques honorifiques",
-      summary: "Plaques de remerciement, inauguration, hommage et reconnaissance avec gravure nette.",
-      subcategories: ["Gravee", "Institution", "Remerciement", "Inauguration"],
-      useCases: ["Hommage", "Don", "Partenariat", "Ceremonie"]
-    },
-    ar: {
-      title: "لوحات تكريمية",
-      summary: "لوحات شكر وافتتاح وتقدير مع نقش واضح وتشطيب احترافي.",
-      subcategories: ["منقوشة", "مؤسسة", "شكر", "افتتاح"],
-      useCases: ["تكريم", "هبة", "شراكة", "حفل"]
-    },
-    en: {
-      title: "Honor plaques",
-      summary: "Plaques for thanks, inauguration, tribute and recognition with clean engraving.",
-      subcategories: ["Engraved", "Institution", "Thank you", "Inauguration"],
-      useCases: ["Tribute", "Gift", "Partnership", "Ceremony"]
-    }
-  },
-  "pins-badges": {
-    slug: "pins-badges",
-    href: "/pins-badges",
-    icon: "badge",
+  pins: {
+    slug: "pins",
+    href: "/pins",
+    icon: "pin",
     image: img.pinCancer,
     fr: {
-      title: "Pins & badges metalliques",
+      title: "Pins metalliques personnalises",
       summary: "Pins metalliques et badges personnalises pour marques, associations, administrations et evenements.",
-      subcategories: ["Pins", "Badges", "Logo metal", "Evenement"],
+      subcategories: ["Pins", "Logo metal", "Evenement", "Collection"],
       useCases: ["Marque", "Association", "Uniforme", "Salon"]
     },
     ar: {
-      title: "دبابيس وشارات",
+      title: "دبابيس معدنية مخصصة",
       summary: "دبابيس وشارات معدنية وشعارات قابلة للتخصيص.",
-      subcategories: ["دبابيس", "شارات", "شعار معدني", "مناسبة"],
+      subcategories: ["دبابيس", "شعار معدني", "مناسبة", "مجموعة"],
       useCases: ["هوية", "جمعية", "زي رسمي", "معرض"]
     },
     en: {
-      title: "Pins & metal badges",
+      title: "Custom metal pins",
       summary: "Custom metal pins and badges for brands, associations, organizations and events.",
-      subcategories: ["Pins", "Badges", "Metal logo", "Event"],
+      subcategories: ["Pins", "Metal logo", "Event", "Collection"],
       useCases: ["Brand", "Association", "Uniform", "Trade fair"]
+    }
+  },
+  badges: {
+    slug: "badges",
+    href: "/badges",
+    icon: "badge",
+    image: img.pinMap,
+    fr: {
+      title: "Badges personnalises",
+      summary: "Badges metalliques sur mesure pour evenements, administrations et associations.",
+      subcategories: ["Badges", "Logo", "Evenement", "Administration"],
+      useCases: ["Identification", "Evenement", "Uniforme", "Acces"]
+    },
+    ar: {
+      title: "شارات مخصصة",
+      summary: "شارات معدنية حسب الطلب للمناسبات والإدارات والجمعيات.",
+      subcategories: ["شارات", "شعار", "مناسبة", "إدارة"],
+      useCases: ["تعريف", "مناسبة", "زي رسمي", "دخول"]
+    },
+    en: {
+      title: "Custom badges",
+      summary: "Tailor-made metal badges for events, administrations and associations.",
+      subcategories: ["Badges", "Logo", "Event", "Administration"],
+      useCases: ["Identification", "Event", "Uniform", "Access"]
+    }
+  },
+  macarons: {
+    slug: "macarons",
+    href: "/macarons",
+    icon: "circle",
+    image: img.keyMetal,
+    fr: {
+      title: "Macarons de voiture personnalises",
+      summary: "Macarons publicitaires et personnalises pour vehicules, entreprises et evenements.",
+      subcategories: ["Voiture", "Publicite", "Evenement", "Collection"],
+      useCases: ["Flotte", "Promotion", "Salon", "Club"]
+    },
+    ar: {
+      title: "ماكرون سيارات مخصص",
+      summary: "ماكرون إعلاني ومخصص للمركبات والشركات والمناسبات.",
+      subcategories: ["سيارة", "إعلان", "مناسبة", "مجموعة"],
+      useCases: ["أسطول", "ترويج", "معرض", "نادي"]
+    },
+    en: {
+      title: "Custom car badges",
+      summary: "Custom and promotional car badges for vehicles, businesses and events.",
+      subcategories: ["Car", "Advertising", "Event", "Collection"],
+      useCases: ["Fleet", "Promotion", "Trade fair", "Club"]
+    }
+  },
+  boutons: {
+    slug: "boutons",
+    href: "/boutons",
+    icon: "circle",
+    image: img.pinBadge,
+    fr: {
+      title: "Boutons metalliques personnalises",
+      summary: "Boutons metalliques sur mesure pour vetements, uniformes et accessoires.",
+      subcategories: ["Mode", "Uniforme", "Evenement", "Accessoire"],
+      useCases: ["Pret-a-porter", "Tenue pro", "Collection", "Marque"]
+    },
+    ar: {
+      title: "أزرار معدنية مخصصة",
+      summary: "أزرار معدنية حسب الطلب للملابس والزي الرسمي والإكسسوارات.",
+      subcategories: ["موضة", "زي رسمي", "مناسبة", "إكسسوار"],
+      useCases: ["ملابس جاهزة", "لباس مهني", "مجموعة", "علامة"]
+    },
+    en: {
+      title: "Custom metal buttons",
+      summary: "Custom metal buttons for clothing, uniforms and accessories.",
+      subcategories: ["Fashion", "Uniform", "Event", "Accessory"],
+      useCases: ["Ready-to-wear", "Workwear", "Collection", "Brand"]
+    }
+  },
+  boucles: {
+    slug: "boucles",
+    href: "/boucles",
+    icon: "circle",
+    image: img.keyBrand,
+    fr: {
+      title: "Boucles de ceinture personnalisees",
+      summary: "Boucles metalliques personnalisees pour ceintures, accessoires mode et vetements.",
+      subcategories: ["Ceinture", "Mode", "Evenement", "Accessoire"],
+      useCases: ["Pret-a-porter", "Tenue pro", "Uniforme", "Marque"]
+    },
+    ar: {
+      title: "أبازيم أحزمة مخصصة",
+      summary: "أبازيم معدنية مخصصة للأحزمة وإكسسوارات الموضة والملابس.",
+      subcategories: ["حزام", "موضة", "مناسبة", "إكسسوار"],
+      useCases: ["ملابس جاهزة", "لباس مهني", "زي رسمي", "علامة"]
+    },
+    en: {
+      title: "Custom belt buckles",
+      summary: "Custom metal buckles for belts, fashion accessories and clothing.",
+      subcategories: ["Belt", "Fashion", "Event", "Accessory"],
+      useCases: ["Ready-to-wear", "Workwear", "Uniform", "Brand"]
+    }
+  },
+  "t-shirt": {
+    slug: "t-shirt",
+    href: "/t-shirt",
+    icon: "circle",
+    image: img.plaque,
+    fr: {
+      title: "T-shirts personnalises",
+      summary: "T-shirts sur mesure avec impression logo, texte et motifs pour entreprises et evenements.",
+      subcategories: ["Impression", "Logo", "Evenement", "Sport"],
+      useCases: ["Equipe", "Promotion", "Evenement", "Uniforme"]
+    },
+    ar: {
+      title: "تيشيرتات مخصصة",
+      summary: "تيشيرتات حسب الطلب مع طباعة الشعار والنص والتصاميم للشركات والمناسبات.",
+      subcategories: ["طباعة", "شعار", "مناسبة", "رياضة"],
+      useCases: ["فريق", "ترويج", "مناسبة", "زي رسمي"]
+    },
+    en: {
+      title: "Custom T-shirts",
+      summary: "Custom T-shirts with logo, text and design printing for businesses and events.",
+      subcategories: ["Printing", "Logo", "Event", "Sports"],
+      useCases: ["Team", "Promotion", "Event", "Uniform"]
+    }
+  },
+  resine: {
+    slug: "resine",
+    href: "/resine",
+    icon: "circle",
+    image: img.plaqueBox,
+    fr: {
+      title: "Creations en resine personnalisees",
+      summary: "Objets en resine sur mesure avec inclusion de logos et motifs pour cadeaux et distinctions.",
+      subcategories: ["Resine", "Logo 3D", "Cadeau", "Distinction"],
+      useCases: ["Souvenir", "Cadeau pro", "Evenement", "Deco"]
+    },
+    ar: {
+      title: "إبداعات ريزن مخصصة",
+      summary: "قطع ريزن حسب الطلب مع إدراج الشعارات والتصاميم للهدايا والتكريم.",
+      subcategories: ["ريزن", "شعار 3D", "هدية", "تكريم"],
+      useCases: ["تذكار", "هدية مهنية", "مناسبة", "ديكور"]
+    },
+    en: {
+      title: "Custom resin creations",
+      summary: "Custom resin items with embedded logos and designs for gifts and awards.",
+      subcategories: ["Resin", "3D logo", "Gift", "Award"],
+      useCases: ["Souvenir", "Corporate gift", "Event", "Decor"]
     }
   },
   "porte-cles": {
@@ -519,7 +631,7 @@ export const products: Product[] = [
   },
   {
     id: "3d-logo-award",
-    category: "trophees-3d",
+    category: "trophees",
     badge: "Sur mesure",
     image: img.plaque,
     finishes: ["gold", "black", "bronze"],
@@ -534,7 +646,7 @@ export const products: Product[] = [
   },
   {
     id: "3d-event-tower",
-    category: "trophees-3d",
+    category: "trophees",
     badge: "Nouveau",
     image: img.pinBadge,
     finishes: ["silver", "black", "gold"],
@@ -548,7 +660,7 @@ export const products: Product[] = [
   },
   {
     id: "plaque-honneur",
-    category: "plaques",
+    category: "medailles",
     badge: "Institution",
     image: img.plaqueBox,
     finishes: ["gold", "bronze", "silver"],
@@ -562,7 +674,7 @@ export const products: Product[] = [
   },
   {
     id: "plaque-opening",
-    category: "plaques",
+    category: "medailles",
     badge: "Evenement",
     image: img.plaque,
     finishes: ["black", "gold", "silver"],
@@ -575,7 +687,7 @@ export const products: Product[] = [
   },
   {
     id: "pin-breast-cancer",
-    category: "pins-badges",
+    category: "pins",
     badge: "Logo",
     image: img.pinCancer,
     finishes: ["gold", "silver", "black"],
@@ -589,7 +701,7 @@ export const products: Product[] = [
   },
   {
     id: "pin-maroc-map",
-    category: "pins-badges",
+    category: "badges",
     badge: "Maroc",
     image: img.pinMap,
     finishes: ["gold", "bronze", "silver"],
