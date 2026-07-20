@@ -6,7 +6,7 @@ import { apiError, apiSuccess } from "@/lib/api-utils";
 const PRODUCT_FIELDS = [
   "slug", "badge", "image", "finishes", "usage", "customizable", "is3d", "featured", "newest", "premium", "active",
   "nameFr", "nameAr", "nameEn", "descFr", "descAr", "descEn", "specsFr", "specsAr", "specsEn",
-  "categoryId",
+  "categoryId", "categorySlug",
 ];
 
 function pickProductFields(data: Record<string, unknown>) {
@@ -36,6 +36,26 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const data = await req.json();
+    if (data.categorySlug) {
+      let cat = await prisma.category.findUnique({ where: { slug: data.categorySlug } });
+      if (!cat) {
+        cat = await prisma.category.create({
+          data: {
+            slug: data.categorySlug,
+            href: `/${data.categorySlug}`,
+            icon: "circle",
+            image: "",
+            navLabelFr: data.categorySlug,
+            navLabelAr: data.categorySlug,
+            navLabelEn: data.categorySlug,
+            active: true,
+            sortOrder: 0,
+          },
+        });
+      }
+      data.categoryId = cat.id;
+    }
+    delete data.categorySlug;
     const filteredData = pickProductFields(data);
     const product = await prisma.product.update({ where: { id }, data: filteredData as any });
     return apiSuccess(product);

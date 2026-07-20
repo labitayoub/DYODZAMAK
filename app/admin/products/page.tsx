@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import AdminCrud from "@/components/admin/AdminCrud";
+import { productCategories } from "@/data/product-categories";
 import { showToast } from "@/lib/notifications";
 
 const finishOptions = ["gold", "silver", "bronze", "black"];
@@ -15,7 +16,7 @@ function asList(value: unknown): string[] {
 }
 
 function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> | null; onSave: (data: Record<string, unknown>) => void; onClose: () => void }) {
-  const [categories, setCategories] = useState<Array<{ id: string; slug: string; navLabelFr: string }>>([]);
+  const categories = productCategories.map((c) => ({ slug: c.slug, navLabelFr: c.navLabel.fr, href: c.href }));
   const [data, setData] = useState<Record<string, unknown>>(() => {
     if (!item) return { active: true, customizable: true, finishes: [], usage: [], image: "" };
     return {
@@ -30,10 +31,6 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
   });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/categories").then((response) => response.json()).then((result) => setCategories(Array.isArray(result) ? result : []));
-  }, []);
 
   const prevItemRef = useRef(item);
   useEffect(() => {
@@ -87,10 +84,10 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
   }
 
   function submit() {
-    const { id, category, createdAt, updatedAt, ...rest } = data as Record<string, unknown>;
+    const { id, category, createdAt, updatedAt, categoryId, ...rest } = data as Record<string, unknown>;
     const next = {
       ...rest,
-      categoryId: rest.categoryId || null,
+      categorySlug: rest.categorySlug || null,
       finishes: asList(rest.finishes),
       usage: asList(rest.usage),
       specsFr: asList(rest.specsFr),
@@ -111,9 +108,9 @@ function ProductForm({ item, onSave, onClose }: { item: Record<string, unknown> 
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">Category</label>
-            <select value={String(data.categoryId || "")} onChange={(event) => update("categoryId", event.target.value)} className="w-full rounded-lg border px-3 py-2">
+            <select value={String(data.categorySlug || "")} onChange={(event) => update("categorySlug", event.target.value)} className="w-full rounded-lg border px-3 py-2">
               <option value="">Select a category</option>
-              {categories.map((category) => <option key={category.id} value={category.id}>{category.navLabelFr} ({category.slug})</option>)}
+              {categories.map((category) => <option key={category.slug} value={category.slug}>{category.navLabelFr}</option>)}
             </select>
           </div>
           <div>
