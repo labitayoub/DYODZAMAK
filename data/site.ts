@@ -4,7 +4,7 @@ export type Finish = "bronze" | "gold" | "silver" | "black";
 export type Usage = "sport" | "corporate" | "event" | "school" | "association";
 
 export const whatsappNumber = "212XXXXXXXXX";
-export const phoneDisplay = "+212 XX XX XX XX XX";
+export const phoneDisplay = "+212 61679774";
 export const emailDisplay = "contact@bestboutons.ma";
 
 const img = {

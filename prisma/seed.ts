@@ -25,8 +25,8 @@ async function main() {
 
   // Site settings
   const settings = [
-    { key: "whatsapp_number", value: "212XXXXXXXXX", group: "contact" },
-    { key: "phone_display", value: "+212 XX XX XX XX XX", group: "contact" },
+    { key: "whatsapp_number", value: "212 61679774", group: "contact" },
+    { key: "phone_display", value: "+212 61679774", group: "contact" },
     { key: "email", value: "contact@bestboutons.ma", group: "contact" },
     { key: "location_fr", value: "Maroc", group: "contact" },
     { key: "location_ar", value: "المغرب", group: "contact" },
