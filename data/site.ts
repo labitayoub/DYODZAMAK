@@ -28,7 +28,7 @@ export const navItems = [
   { href: "/trophees", key: "trophies" },
   { href: "/pins", key: "pins" },
   { href: "/badges", key: "badges" },
-  { href: "/portes-cles", key: "keychains" },
+  { href: "/porte-cles", key: "keychains" },
   { href: "/macarons", key: "macarons" },
   { href: "/boutons", key: "boutons" },
   { href: "/boucles", key: "boucles" },

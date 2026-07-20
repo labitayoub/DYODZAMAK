@@ -3,7 +3,7 @@ export type ProductCategorySlug =
   | "trophees"
   | "pins"
   | "badges"
-  | "portes-cles"
+  | "porte-cles"
   | "macarons"
   | "boutons"
   | "boucles"
@@ -56,7 +56,7 @@ const categoryLabels: Record<ProductCategorySlug, LocalizedText> = {
   trophees: { fr: "Trophees", ar: "كؤوس", en: "Trophies" },
   pins: { fr: "Pins", ar: "دبابيس", en: "Pins" },
   badges: { fr: "Badges", ar: "شارات", en: "Badges" },
-  "portes-cles": { fr: "Portes cles", ar: "حاملات مفاتيح", en: "Keychains" },
+  "porte-cles": { fr: "Portes cles", ar: "حاملات مفاتيح", en: "Keychains" },
   macarons: { fr: "Macarons", ar: "ماكرون", en: "Car badges" },
   boutons: { fr: "Boutons", ar: "أزرار", en: "Buttons" },
   boucles: { fr: "Boucles", ar: "أقراط", en: "Loops" },
@@ -311,7 +311,7 @@ const categorySeeds: CategorySeed[] = [
     metaDescription: "Badges metalliques personnalises pour entreprises, ecoles, administrations, associations et evenements.",
   },
   {
-    slug: "portes-cles",
+    slug: "porte-cles",
     navLabel: "Portes cles",
     heroTitle: "Porte-cles metalliques personnalises",
     heroDescription:
@@ -681,7 +681,7 @@ const placeholderImageMap: Record<ProductCategorySlug, string[]> = {
     "/images/WhatsApp Image 2026-06-03 at 13.39.13 (4).jpeg",
     "/images/WhatsApp Image 2026-06-03 at 13.39.14.jpeg",
   ],
-  "portes-cles": [
+  "porte-cles": [
     "/images/WhatsApp Image 2026-06-03 at 13.39.12.jpeg",
     "/images/WhatsApp Image 2026-06-03 at 13.39.12 (1).jpeg",
     "/images/WhatsApp Image 2026-06-03 at 13.39.12 (2).jpeg",
